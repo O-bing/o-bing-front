@@ -1,0 +1,30 @@
+.footer-main {
+    padding: 2%;
+    padding-left: 5%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+
+    .footer-table {
+        text-align: left;
+        width: 100%;
+
+        .footer-link {
+            font-size: large;
+            margin-right: 2%;
+            text-decoration: none;
+            color: rgb(28, 28, 98);
+        }
+
+        .footer-end {
+            text-align: right;
+            align-self: flex-start;
+        }
+    }
+
+    .creatorLink {
+        font-size: large;
+        margin-right: 2%;
+        text-decoration: none;
+        color: rgb(28, 28, 98);
+    }
+}
