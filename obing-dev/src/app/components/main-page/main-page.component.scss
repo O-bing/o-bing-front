@@ -1,7 +1,11 @@
 .main-content{
-    margin-top: 5%;
     text-align: center;
-    padding: 3%;
     height: 100%;
     font-size: 25px;
+
+    .main-selector{
+        background-color: rgb(9, 101, 129);
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }

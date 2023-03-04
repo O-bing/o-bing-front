@@ -1,8 +1,8 @@
 .navbar {
     background-color: rgb(9, 101, 129);
     font-size: 25px;
-    padding: 1%;
-    padding-top: 1%;
+    padding: 10px;
+    padding-top: 10px;
 
     #navbarBasicExample {
         background-color: transparent;
@@ -12,7 +12,7 @@
         text-decoration: none;
         color: rgb(121, 128, 234);
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        margin-right: 2%;
+        margin-right: 15px;
         font-size: large;
         font-weight: bolder;
     }
@@ -26,7 +26,12 @@
         width: 200px;
 
         .navbar-item {
-            margin-left: 5%;
+            margin-left: 20px;
         }
+    }
+
+    .burgerSpan{
+        background-color: white;
+        height: 2px;
     }
 }
