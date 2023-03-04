@@ -1,37 +1,14 @@
-.navbar {
+.header-main {
     background-color: rgb(9, 101, 129);
-    font-size: 25px;
     padding: 10px;
-    padding-top: 10px;
-
-    #navbarBasicExample {
-        background-color: transparent;
-    }
-
-    .navbar-item {
+    padding-top: 20px;
+    text-align: center;
+    .header-link {
         text-decoration: none;
-        color: rgb(121, 128, 234);
+        color:rgba(0,0,0,.7);
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         margin-right: 15px;
-        font-size: large;
+        font-size: 30px;
         font-weight: bolder;
-    }
-
-    .navbar-menu {
-        box-shadow: none;
-    }
-
-    .end {
-        float: right;
-        width: 200px;
-
-        .navbar-item {
-            margin-left: 20px;
-        }
-    }
-
-    .burgerSpan{
-        background-color: white;
-        height: 2px;
     }
 }

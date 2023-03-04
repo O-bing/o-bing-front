@@ -1,16 +1,29 @@
-.main-content{
+.main-content {
     text-align: center;
     height: 100%;
-    font-size: 25px;
-
+    background-color: rgb(9, 101, 129);
     .main-selector{
-        margin-left: 25%;
-        margin-right: 25%;
-        margin-top: 20px;
-        border-radius: 30px;
-        background-color: rgb(9, 101, 129);
-        padding-top: 20px;
-        padding-bottom: 20px;
-        width: 50%;
+        padding-top: 10px;
+        text-align: center;
+        padding-bottom: 50px;
     }
+
+    .element{
+        display: inline-block;
+    }
+
+    .button {
+        font-size: 25px;
+        font-weight: bold;
+        margin: 7px;
+        margin-top: 40px;
+        width: 270px;
+    }
+
+    .small{
+        font-size: 25px;
+        font-weight: bold;
+        width: 128px;
+    }
+
 }
