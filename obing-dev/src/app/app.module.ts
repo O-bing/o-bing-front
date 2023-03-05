@@ -14,6 +14,8 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CreateBingoComponent } from './components/create-bingo/create-bingo.component';
+import { LoadBingoComponent } from './components/load-bingo/load-bingo.component';
+import { RandomBingoComponent } from './components/random-bingo/random-bingo.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CreateBingoComponent } from './components/create-bingo/create-bingo.com
     MainPageComponent,
     HeaderComponent,
     FooterComponent,
-    CreateBingoComponent
+    CreateBingoComponent,
+    LoadBingoComponent,
+    RandomBingoComponent
   ],
   imports: [
     BrowserModule,
