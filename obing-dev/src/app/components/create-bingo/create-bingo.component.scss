@@ -1,0 +1,25 @@
+.main-content {
+    text-align: center;
+    height: 100%;
+    background-color: rgb(9, 101, 129);
+
+    .creation-panel {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgb(13, 125, 159);
+        border-radius: 10px;
+        padding: 15px;
+        .reminder{
+            font-size: medium;
+            font-weight: 100;
+            text-align: end;
+            color:rgb(29, 28, 28);
+        }
+        .newBingo{
+            margin-top:10px;
+            padding: 10px;
+        }
+    }
+
+}

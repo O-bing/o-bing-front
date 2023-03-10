@@ -16,6 +16,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CreateBingoComponent } from './components/create-bingo/create-bingo.component';
 import { LoadBingoComponent } from './components/load-bingo/load-bingo.component';
 import { RandomBingoComponent } from './components/random-bingo/random-bingo.component';
+import { BingoLineComponent } from './components/create-bingo/bingo-line/bingo-line.component';
+import { BingoTileComponent } from './components/create-bingo/bingo-line/bingo-tile/bingo-tile.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { RandomBingoComponent } from './components/random-bingo/random-bingo.com
     FooterComponent,
     CreateBingoComponent,
     LoadBingoComponent,
-    RandomBingoComponent
+    RandomBingoComponent,
+    BingoLineComponent,
+    BingoTileComponent
   ],
   imports: [
     BrowserModule,
