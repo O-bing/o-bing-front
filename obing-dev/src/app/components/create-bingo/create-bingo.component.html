@@ -1,13 +1,23 @@
 <div class="main-content">
 
-    
-
     <div class="creation-panel">
-        <div class="reminder">
-            Max Width : 5 tiles
+        <div class="info">
+            <div class="counter">
+                Count : {{this.counter}} tiles.
+            </div>
+            <div class="formater">
+                Format : <input placeholder="5" size ="1" maxlength="1" (input)="checkFormat($event)"/> tiles per line, for <input size ="1" maxlength="1" placeholder="1" (input)="checkLinesFormat($event)"/> lines.
+            </div>
+            <div class="reminder">
+                Max Width : 5 tiles
+            </div>
         </div>
         <div class="newBingo">
-            <app-bingo-line></app-bingo-line>
+            <app-bingo-list (tilesSaveEvent)="setTilesList($event)" (tilesCountEvent)="tilesCount($event)"></app-bingo-list>
+        </div>
+        <div>
+            <button class="autoCompleteButton" *ngIf="!this.saved" (click)="autoCompleteBingo()">Auto complete</button>
+            <button class="saveButton" (click)="saveBingo()">Save</button>
         </div>
     </div>
 

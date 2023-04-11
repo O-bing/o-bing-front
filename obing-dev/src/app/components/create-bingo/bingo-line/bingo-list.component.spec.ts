@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BingoLineComponent } from './bingo-line.component';
+import { BingoListComponent } from './bingo-list.component';
 
-describe('BingoLineComponent', () => {
-  let component: BingoLineComponent;
-  let fixture: ComponentFixture<BingoLineComponent>;
+describe('BingoListComponent', () => {
+  let component: BingoListComponent;
+  let fixture: ComponentFixture<BingoListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BingoLineComponent ]
+      declarations: [ BingoListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BingoLineComponent);
+    fixture = TestBed.createComponent(BingoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

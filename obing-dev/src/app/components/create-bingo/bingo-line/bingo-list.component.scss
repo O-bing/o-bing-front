@@ -1,0 +1,22 @@
+.tileList {
+    
+    text-align: center;
+    padding-top: 10px;
+    text-align: center;
+    padding-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .lineTile {
+        display: inline-block;
+        margin: 5px;
+        width: 150px;
+        height: 55px;
+        border-radius: 3px;
+        font-size: medium;
+        font-weight: 100;
+        color: rgb(29, 28, 28);
+        background-color: rgb(211, 214, 236);
+        position: relative;
+    }
+}

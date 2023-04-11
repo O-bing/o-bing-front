@@ -10,15 +10,49 @@
         background-color: rgb(13, 125, 159);
         border-radius: 10px;
         padding: 15px;
-        .reminder{
+        .info {
             font-size: medium;
             font-weight: 100;
-            text-align: end;
             color:rgb(29, 28, 28);
+            .counter{
+                display: inline;
+                margin: 10px;
+            }
+            .formater{
+                display: inline;
+                margin: 10px;
+            }
+            .reminder{
+                margin: 10px;
+                display: inline;
+            }
         }
+        
         .newBingo{
             margin-top:10px;
             padding: 10px;
+        }
+
+        .autoCompleteButton{
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+            background-color: rgb(204, 226, 233);
+            border-radius: 3px;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .saveButton{
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+            background-color: rgb(204, 226, 233);
+            border-radius: 3px;
+            font-weight: 600;
+            margin: 5px;
         }
     }
 
