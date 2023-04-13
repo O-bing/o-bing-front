@@ -15,7 +15,7 @@ export class CreateBingoComponent implements OnInit {
 
   format: number = 5;
 
-  linesFormat: number = 1;
+  linesFormat: number = 2;
 
   saved: boolean = false;
 
@@ -47,13 +47,29 @@ export class CreateBingoComponent implements OnInit {
   }
 
   autoCompleteBingo(): void {
+
+    // Check if format in intpu respect rules
+
+    if (this.format > 5 || this.format <= 1) {
+      bulmaToast.toast({
+        duration: 3000,
+        position: 'top-right',
+        closeOnClick: true,
+        message: 'Cannot auto complete : tiles per line must be between 2 & 5 included.',
+        type: 'is-danger',
+        dismissible: true
+      })
+
+      return;
+    }
+
     const addTile: Tile | undefined = this.tilesList.pop(); // remove the "Add +" tile which is irrelevant to save, and always at the end
     if (addTile != undefined) {
 
       // check if tiles match the max tile per line format
-      
-      if (this.tilesList.length % this.format != 0 || this.tilesList.length==0) {
-        while (this.tilesList.length % this.format != 0 || this.tilesList.length==0) {
+
+      if (this.tilesList.length % this.format != 0 || this.tilesList.length == 0) {
+        while (this.tilesList.length % this.format != 0 || this.tilesList.length == 0) {
           const placeHolderTile = new Tile(this.tilesList.length - 1, 'Placeholder')
           placeHolderTile.setStateToFilled()
           this.tilesList.push(placeHolderTile)
@@ -71,8 +87,8 @@ export class CreateBingoComponent implements OnInit {
 
       // check if tiles match the max lines format
 
-      if (this.tilesList.length % (this.linesFormat * this.format) != 0  || this.tilesList.length==0) {
-        while (this.tilesList.length % (this.linesFormat * this.format) != 0 || this.tilesList.length==0) {
+      if (this.tilesList.length % (this.linesFormat * this.format) != 0 || this.tilesList.length == 0) {
+        while (this.tilesList.length % (this.linesFormat * this.format) != 0 || this.tilesList.length == 0) {
           const placeHolderTile = new Tile(this.tilesList.length - 1, 'Placeholder')
           placeHolderTile.setStateToFilled()
           this.tilesList.push(placeHolderTile)
@@ -89,10 +105,10 @@ export class CreateBingoComponent implements OnInit {
       if (this.tilesList.length >= 1) {
         if (this.format > 5 || this.format <= 1) {
           bulmaToast.toast({
-            duration: 2000,
+            duration: 3000,
             position: 'top-right',
             closeOnClick: true,
-            message: 'Be careful : format must be between 2 & 5 included.',
+            message: 'Be careful : tiles per line must be between 2 & 5 included.',
             type: 'is-danger',
             dismissible: true
           })
@@ -101,7 +117,7 @@ export class CreateBingoComponent implements OnInit {
           this.autoCompleteBingo()
           this.tilesList.pop()
           this.saved = true
-          this.toJson(this.format, this.tilesList)
+          this.toJson(this.format, this.linesFormat, this.tilesList)
         }
       }
       else {
@@ -115,9 +131,12 @@ export class CreateBingoComponent implements OnInit {
         })
       }
     }
+    else {
+      console.log("Already saved, must redirect")
+    }
   }
 
-  private toJson(format: number, tiles: Tile[]) {
+  private toJson(format: number, linesFormat: number, tiles: Tile[]) {
 
   }
 
