@@ -11,11 +11,11 @@ export class CreateBingoComponent implements OnInit {
 
   counter: number = 0;
 
-  tilesList: Tile[] = [];
+  tilesList: Array<Array<Tile>> = [[]];
 
-  format: number = 5;
+  columnsFormat: number = 5;
 
-  linesFormat: number = 2;
+  rowsFormat: number = 2;
 
   saved: boolean = false;
 
@@ -25,16 +25,16 @@ export class CreateBingoComponent implements OnInit {
   }
 
   checkFormat(event: Event): void {
-    const format: number = Number((event.target as any).value);
-    if (format) {
-      this.format = format
+    const columnsFormat: number = Number((event.target as any).value);
+    if (columnsFormat) {
+      this.columnsFormat = columnsFormat
     }
   }
 
   checkLinesFormat(event: Event): void {
-    const linesFormat: number = Number((event.target as any).value);
-    if (linesFormat >= 1) {
-      this.linesFormat = linesFormat
+    const rowsFormat: number = Number((event.target as any).value);
+    if (rowsFormat >= 1) {
+      this.rowsFormat = rowsFormat
     }
   }
 
@@ -42,15 +42,15 @@ export class CreateBingoComponent implements OnInit {
     this.counter = tilesCount - 1
   }
 
-  setTilesList(tilesList: Tile[]): void {
+  setTilesList(tilesList: Array<Array<Tile>>): void {
     this.tilesList = tilesList
   }
 
   autoCompleteBingo(): void {
 
-    // Check if format in intpu respect rules
+    // Check if columnsFormat in intput respect rules
 
-    if (this.format > 5 || this.format <= 1) {
+    if (this.columnsFormat > 5 || this.columnsFormat <= 1) {
       bulmaToast.toast({
         duration: 3000,
         position: 'top-right',
@@ -63,47 +63,59 @@ export class CreateBingoComponent implements OnInit {
       return;
     }
 
-    const addTile: Tile | undefined = this.tilesList.pop(); // remove the "Add +" tile which is irrelevant to save, and always at the end
+    console.log("Starting auto complete ...")
+
+    const addTile: Tile | undefined = this.tilesList[this.tilesList.length - 1].pop(); // remove the "Add +" tile which is irrelevant to save, and always at the end
     if (addTile != undefined) {
 
-      // check if tiles match the max tile per line format
+      // check if tiles match the rows format
 
-      if (this.tilesList.length % this.format != 0 || this.tilesList.length == 0) {
-        while (this.tilesList.length % this.format != 0 || this.tilesList.length == 0) {
-          const placeHolderTile = new Tile(this.tilesList.length - 1, 'Placeholder')
-          placeHolderTile.setStateToFilled()
-          this.tilesList.push(placeHolderTile)
-          this.counter += 1
-        }
-        bulmaToast.toast({
-          duration: 2000,
-          position: 'top-right',
-          closeOnClick: true,
-          message: 'Completed your bingo to match format.',
-          type: 'is-info',
-          dismissible: true
-        })
-      }
-
-      // check if tiles match the max lines format
-
-      if (this.tilesList.length % (this.linesFormat * this.format) != 0 || this.tilesList.length == 0) {
-        while (this.tilesList.length % (this.linesFormat * this.format) != 0 || this.tilesList.length == 0) {
-          const placeHolderTile = new Tile(this.tilesList.length - 1, 'Placeholder')
-          placeHolderTile.setStateToFilled()
-          this.tilesList.push(placeHolderTile)
-          this.counter += 1
+      while (this.rowsFormat != this.tilesList.length) {
+        if (this.rowsFormat > this.tilesList.length) {
+          for (let i: number = 0; i < this.rowsFormat; i++) {
+            let placeHolderLine: Array<Tile> = []
+            for (let y: number = 1; y < this.columnsFormat + 1; y++) {
+              const placeHolderTile = new Tile(this.counter, 'Placeholder')
+              placeHolderTile.state = "filled"
+              placeHolderLine.push(placeHolderTile)
+              this.counter += 1
+            }
+            this.tilesList[i] = (placeHolderLine)
+          }
+        } else if (this.rowsFormat < this.tilesList.length) {
+          this.tilesList.pop()
         }
       }
 
-      this.tilesList.push(addTile)
+      // check if tiles match the columnsFormat for every line
+
+      for (let i: number = 0; i < this.tilesList.length; i++) {
+        while (this.tilesList[i].length != this.columnsFormat){
+          const placeHolderTile = new Tile(this.counter, 'Placeholder')
+          placeHolderTile.state = "filled"
+          this.tilesList[i].push(placeHolderTile)
+          this.counter += 1
+        }
+      }
+
+      bulmaToast.toast({
+        duration: 2000,
+        position: 'top-right',
+        closeOnClick: true,
+        message: 'Completed your bingo to match format.',
+        type: 'is-info',
+        dismissible: true
+      })
+
+      // re-add the "Add" tile in a new line an took it off from counter
+      this.tilesList.push([addTile])
     }
   }
 
   saveBingo(): void {
     if (!this.saved) {
       if (this.tilesList.length >= 1) {
-        if (this.format > 5 || this.format <= 1) {
+        if (this.columnsFormat > 5 || this.columnsFormat <= 1) {
           bulmaToast.toast({
             duration: 3000,
             position: 'top-right',
@@ -114,10 +126,10 @@ export class CreateBingoComponent implements OnInit {
           })
         }
         else {
-          this.autoCompleteBingo()
-          this.tilesList.pop()
+          //this.autoCompleteBingo()
+          this.tilesList[this.tilesList.length - 1].pop()
           this.saved = true
-          this.toJson(this.format, this.linesFormat, this.tilesList)
+          this.toJson(this.columnsFormat, this.rowsFormat, this.tilesList)
         }
       }
       else {
@@ -136,8 +148,8 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
-  private toJson(format: number, linesFormat: number, tiles: Tile[]) {
-
+  private toJson(columnsFormat: number, rowsFormat: number, tiles: Array<Array<Tile>>) {
+    console.log(tiles)
   }
 
 }
