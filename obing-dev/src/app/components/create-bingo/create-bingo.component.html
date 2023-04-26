@@ -1,7 +1,7 @@
 <div class="main-content">
 
     <div class="creation-panel">
-        <div class="info">
+        <div class="info" *ngIf="!this.saved">
             <div class="counter">
                 Count : {{this.counter}} tiles.
             </div>
@@ -12,12 +12,17 @@
                 Max Width : 5 tiles
             </div>
         </div>
-        <div class="newBingo">
+        <div class="newBingo" *ngIf="!this.saved">
             <app-bingo-list (tilesSaveEvent)="setTilesList($event)" (tilesCountEvent)="tilesCount($event)"></app-bingo-list>
         </div>
-        <div>
-            <button class="autoCompleteButton" *ngIf="!this.saved" (click)="autoCompleteBingo()">Auto complete</button>
+        <div *ngIf="!this.saved">
+            <button class="autoCompleteButton" (click)="autoCompleteBingo()">Auto complete</button>
             <button class="saveButton" (click)="saveBingo()">Save</button>
+        </div>
+        <div *ngIf="this.saved" class="info">
+            Generating json formatted bingo ...
+            <br/>
+            <mat-progress-bar mode="indeterminate" class="progress-bar"></mat-progress-bar>
         </div>
     </div>
 

@@ -19,6 +19,7 @@ import { RandomBingoComponent } from './components/random-bingo/random-bingo.com
 import { BingoListComponent } from './components/create-bingo/bingo-list/bingo-list.component';
 import { BingoTileComponent } from './components/create-bingo/bingo-list/bingo-tile/bingo-tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

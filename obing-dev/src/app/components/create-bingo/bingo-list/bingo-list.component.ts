@@ -65,8 +65,8 @@ export class BingoListComponent implements OnInit {
 
     let tileIdToDelete:number = 0
 
-    for (let line:number = 0; line < this.tileList.length - 1; line++){
-      for (let tile:number = 0; tile < this.tileList[line].length - 1; tile++){
+    for (let line:number = 0; line < this.tileList.length; line++){
+      for (let tile:number = 0; tile < this.tileList[line].length; tile++){
         if (this.tileList[line][tile].id == deleteTile.id){
           lineIdTileToDelete = line
           tileIdToDelete = tile
@@ -82,19 +82,14 @@ export class BingoListComponent implements OnInit {
         }
     }
 
-    console.log(deleteTile.id)
-
     this.tileList.forEach(line => {
       line.forEach(tile => {
         if (tile.id > deleteTile.id) {
-          console.log("tile.id :",tile.id,"deleteedtile.id :",deleteTile.id)
           tile.id = tile.id - 1;
         }
       })
     })
-    console.log(this.tileList)
     this.tilesSaveEvent.emit(this.tileList)
     this.tilesCountEvent.emit(this.getListLength())
   }
-
 }

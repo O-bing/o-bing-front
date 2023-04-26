@@ -63,8 +63,6 @@ export class CreateBingoComponent implements OnInit {
       return;
     }
 
-    console.log("Starting auto complete ...")
-
     const addTile: Tile | undefined = this.tilesList[this.tilesList.length - 1].pop(); // remove the "Add +" tile which is irrelevant to save, and always at the end
     if (addTile != undefined) {
 
@@ -83,6 +81,7 @@ export class CreateBingoComponent implements OnInit {
             this.tilesList[i] = (placeHolderLine)
           }
         } else if (this.rowsFormat < this.tilesList.length) {
+          this.counter -= this.tilesList[this.tilesList.length - 1].length
           this.tilesList.pop()
         }
       }
@@ -91,10 +90,16 @@ export class CreateBingoComponent implements OnInit {
 
       for (let i: number = 0; i < this.tilesList.length; i++) {
         while (this.tilesList[i].length != this.columnsFormat){
-          const placeHolderTile = new Tile(this.counter, 'Placeholder')
-          placeHolderTile.state = "filled"
-          this.tilesList[i].push(placeHolderTile)
-          this.counter += 1
+          if (this.columnsFormat > this.tilesList[i].length){
+            const placeHolderTile = new Tile(this.counter, 'Placeholder')
+            placeHolderTile.state = "filled"
+            this.tilesList[i].push(placeHolderTile)
+            this.counter += 1
+          }
+          else if (this.columnsFormat < this.tilesList[i].length){
+            this.counter -= 1
+            this.tilesList[i].pop()
+          }
         }
       }
 
@@ -108,13 +113,14 @@ export class CreateBingoComponent implements OnInit {
       })
 
       // re-add the "Add" tile in a new line an took it off from counter
+      addTile.id = this.counter
       this.tilesList.push([addTile])
     }
   }
 
   saveBingo(): void {
     if (!this.saved) {
-      if (this.tilesList.length >= 1) {
+      if (this.tilesList.length > 1) {
         if (this.columnsFormat > 5 || this.columnsFormat <= 1) {
           bulmaToast.toast({
             duration: 3000,
@@ -129,7 +135,7 @@ export class CreateBingoComponent implements OnInit {
           //this.autoCompleteBingo()
           this.tilesList[this.tilesList.length - 1].pop()
           this.saved = true
-          this.toJson(this.columnsFormat, this.rowsFormat, this.tilesList)
+          this.toJson(this.tilesList)
         }
       }
       else {
@@ -148,7 +154,7 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
-  private toJson(columnsFormat: number, rowsFormat: number, tiles: Array<Array<Tile>>) {
+  private toJson(tiles: Array<Array<Tile>>) {
     console.log(tiles)
   }
 
