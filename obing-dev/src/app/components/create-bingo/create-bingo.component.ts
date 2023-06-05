@@ -119,6 +119,9 @@ export class CreateBingoComponent implements OnInit {
   }
 
   saveBingo(): void {
+    if (this.tilesList[this.tilesList.length-1].length==0){
+      console.log(this.tilesList)
+    }
     if (!this.saved) {
       if (this.tilesList.length > 1) {
         if (this.columnsFormat > 5 || this.columnsFormat <= 1) {
@@ -132,10 +135,12 @@ export class CreateBingoComponent implements OnInit {
           })
         }
         else {
-          //this.autoCompleteBingo()
           this.tilesList[this.tilesList.length - 1].pop()
-          this.saved = true
+          if (this.tilesList[this.tilesList.length - 1].length==0){
+            this.tilesList.pop()
+          }
           this.toJson(this.tilesList)
+          this.saved = true
         }
       }
       else {
@@ -154,8 +159,19 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
+  private downloadObjectAsJson(exportObj:any, exportName:string){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
   private toJson(tiles: Array<Array<Tile>>) {
     console.log(tiles)
+    //this.downloadObjectAsJson(tiles, "TestName")
   }
 
 }
