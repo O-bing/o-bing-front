@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -20,6 +21,8 @@ import { BingoListComponent } from './components/create-bingo/bingo-list/bingo-l
 import { BingoTileComponent } from './components/create-bingo/bingo-list/bingo-tile/bingo-tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import { BingoTitleDialogComponent } from './components/create-bingo/bingo-title-dialog/bingo-title-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,13 +40,16 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     LoadBingoComponent,
     RandomBingoComponent,
     BingoListComponent,
-    BingoTileComponent
+    BingoTileComponent,
+    BingoTitleDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

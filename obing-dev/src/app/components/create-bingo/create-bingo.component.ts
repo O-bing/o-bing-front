@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
+import { Router } from '@angular/router';
+import { AppRoutingModule } from '../../app-routing.module'
 
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
   styleUrls: ['./create-bingo.component.scss']
 })
+
 export class CreateBingoComponent implements OnInit {
 
   counter: number = 0;
@@ -19,7 +24,7 @@ export class CreateBingoComponent implements OnInit {
 
   saved: boolean = false;
 
-  constructor() { }
+  constructor(private dialog : MatDialog, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -139,7 +144,7 @@ export class CreateBingoComponent implements OnInit {
           if (this.tilesList[this.tilesList.length - 1].length==0){
             this.tilesList.pop()
           }
-          this.toJson(this.tilesList)
+          this.openDialog(this.tilesList)
           this.saved = true
         }
       }
@@ -169,9 +174,21 @@ export class CreateBingoComponent implements OnInit {
     downloadAnchorNode.remove();
   }
 
-  private toJson(tiles: Array<Array<Tile>>) {
-    console.log(tiles)
-    //this.downloadObjectAsJson(tiles, "TestName")
+  private openDialog(tiles: Array<Array<Tile>>){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    this.dialog.open(BingoTitleDialogComponent, dialogConfig);
+    
+    const dialogRef = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe( title => {
+      this.downloadObjectAsJson(tiles, title)
+      this.router.navigate(['/','home']);
+      
+    }
+    );
   }
 
 }
