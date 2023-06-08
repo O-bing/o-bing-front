@@ -23,7 +23,7 @@ npm audit fix
 
 - If there are still vulnerabilities, check your Angular version.
 
-- That also may be due to some dependencies updates that this repository didn't use since it's last deployment (inform me plz)
+- That also may be due to some dependencies updates that this repository didn't use since it's last deployment (inform me about it at [obing.pro@hotmail.com](obing.pro@hotmail.com))
 
 ### Launch local server
 
