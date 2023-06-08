@@ -20,7 +20,6 @@ npm install
 ```
 npm audit fix
 ```
-.
 
 - If there are still vulnerabilities, check your Angular version.
 
