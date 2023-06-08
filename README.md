@@ -60,7 +60,7 @@ firebase init
 ng build
 ```
 
-Find the ```firebase.json``` file and make it look like this :
+Find the ```firebase.json``` file and make the ```hosting``` part look like this :
 ```
 .
 .
