@@ -1,7 +1,7 @@
 .main-content {
     text-align: center;
     height: 100%;
-    background-color: rgb(9, 101, 129);
+    background-color: rgb(16, 155, 197);
     .main-selector{
         padding-top: 10px;
         text-align: center;
@@ -20,6 +20,10 @@
         margin: 7px;
         margin-top: 40px;
         width: 270px;
+    }
+    
+    .is-info {
+        background-color: rgb(77, 189, 223);
     }
 
     .small{
