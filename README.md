@@ -1,6 +1,6 @@
 # o-bing-front
 
-Font of the O-bing project
+Font of the [O-bing](https://o-bing-pld.web.app/) project
 
 # Local dev deployment
 
