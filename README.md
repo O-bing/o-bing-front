@@ -63,15 +63,25 @@ ng build
 Find the ```firebase.json``` file and make it look like this :
 
 .
+
 .
+
 .
+
  "hosting": {
+ 
     "site": "o-bing-pld",
+    
     "public": "dist/obing-dev",
+    
     "ignore": [
+    
 .
+
 .
+
 .
+
 
 Finally, run the following command to deploy your website on firebase hosting :
 
