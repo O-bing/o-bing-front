@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -20,9 +20,17 @@ import { RandomBingoComponent } from './components/random-bingo/random-bingo.com
 import { BingoListComponent } from './components/create-bingo/bingo-list/bingo-list.component';
 import { BingoTileComponent } from './components/create-bingo/bingo-list/bingo-tile/bingo-tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BingoTitleDialogComponent } from './components/create-bingo/bingo-title-dialog/bingo-title-dialog.component';
+import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from '../environments/environment';
+import { AuthService } from './@shared/services/auth/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +49,8 @@ import { BingoTitleDialogComponent } from './components/create-bingo/bingo-title
     RandomBingoComponent,
     BingoListComponent,
     BingoTileComponent,
-    BingoTitleDialogComponent
+    BingoTitleDialogComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +58,16 @@ import { BingoTitleDialogComponent } from './components/create-bingo/bingo-title
     BrowserAnimationsModule,
     MatProgressBarModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

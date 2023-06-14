@@ -11,6 +11,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import { UserComponent } from './components/user/user.component';
 import { RandomBingoComponent } from './components/random-bingo/random-bingo.component';
+import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path:'signUp',
     component:SignUpComponent
+  },
+  {
+    path:'forgotPassword',
+    component:ForgotPasswordComponent
   },
   {
     path:'credits',

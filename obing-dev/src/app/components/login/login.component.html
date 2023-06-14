@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="body">
+  <nav>
+    <h1 class="title">Connection</h1>
+  </nav>
+
+  <form>
+    <div class="fields">
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded has-icons-left">
+              <input type="text" class="input" placeholder="xyz@mail.com" #userName required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded has-icons-left">
+              <input type="password" class="input" placeholder="Mys3cretp@ssword" #userPassword required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="login">
+      <label class="checkbox">
+        <input type="checkbox">
+        Remember me
+      </label>
+      <button class="small button is-primary" value="Connexion" (click)="authService.signIn(userName.value, userPassword.value)">
+        Log in
+      </button>
+    </div>
+
+    <div class="links">
+      <a routerLink="/forgotPassword">Mot de passe oublié</a>
+      <br>
+      Vous n'avez pas de compte ? <a routerLink="/signUp">Inscrivez-vous</a>
+    </div>
+  </form>
+
+</div>
