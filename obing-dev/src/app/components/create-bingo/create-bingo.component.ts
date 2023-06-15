@@ -113,7 +113,7 @@ export class CreateBingoComponent implements OnInit {
         position: 'top-right',
         closeOnClick: true,
         message: 'Completed your bingo to match format.',
-        type: 'is-info',
+        type: 'is-white',
         dismissible: true
       })
 
@@ -186,7 +186,6 @@ export class CreateBingoComponent implements OnInit {
     dialogRef.afterClosed().subscribe( title => {
       this.downloadObjectAsJson(tiles, title)
       this.router.navigate(['/','home']);
-      
     }
     );
   }

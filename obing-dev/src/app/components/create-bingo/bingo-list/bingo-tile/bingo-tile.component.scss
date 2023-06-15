@@ -4,11 +4,9 @@
         font-size:x-small;
         color: black;
         font-weight: bolder;
-        
         position: absolute;
         top: 0;
         right:0;
-
         border: none;
         background: none;
         cursor: pointer;
@@ -31,9 +29,10 @@
         top: 15px;
         right:15px;
         width: 120px;
+        height: 35.2px;
         border: none;
         background: none;
         background-color: rgb(233, 234, 241);
-        cursor: pointer;
+        cursor: text;
     }
 }
