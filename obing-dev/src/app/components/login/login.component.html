@@ -2,10 +2,16 @@
   <nav>
     <h1 class="title">Connection</h1>
   </nav>
+<div class="alreadyCo" *ngIf="this.authService.isLoggedIn==true">
+    <p>You're already connected !</p>
+    <button class="logOut button is-danger" value="Home" (click)="authService.SignOut()">
+      Log out
+    </button>
+  </div>
 
-  <form>
-    <div class="fields">
-      <div class="field is-horizontal">
+  <form *ngIf="!this.authService.isLoggedIn==true">
+    <div>
+      <div class="field">
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded has-icons-left">

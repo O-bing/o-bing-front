@@ -36,8 +36,7 @@ export class AuthService {
 
   // Sign in with email/password Connexion
   signIn(email:string, password:string) {
-    console.log(this.afAuth.signInWithEmailAndPassword(email, password))
-    /*return this.afAuth.signInWithEmailAndPassword(email, password)
+    return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
           //this.router.navigate(['accueil']);
@@ -45,7 +44,7 @@ export class AuthService {
         });
       }).catch((error) => {
         window.alert(error.message)
-      })*/
+      })
   }
 
 /*
@@ -87,13 +86,19 @@ export class AuthService {
   }
 
 
-/*
+
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    const userStorage : string | null = localStorage.getItem('user');
+    if (userStorage){
+      const user = JSON.parse(userStorage);
+      return (user !== null && user.emailVerified !== false) ? true : false;
+    }
+    else{
+      return false
+    }
   }
-*/
+
   // Auth logic to run auth providers
   AuthLogin(provider:any) {
     return this.afAuth.signInWithPopup(provider)
@@ -111,7 +116,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['accueil']);
+      this.router.navigate(['home']);
     })
   }
 

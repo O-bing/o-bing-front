@@ -1,5 +1,5 @@
 export enum Page {
-    Accueil = "accueil",
+    Home = "home",
     CreatePost = "create-post",
     Inscription = "inscription",
     Connection = "connection",

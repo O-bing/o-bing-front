@@ -5,5 +5,4 @@ export enum RoutesServices {
     Replies = "replies",
     FilesFromPosts = "postsFiles",
     PicturesFromPosts = "postsImg"
-
 }
