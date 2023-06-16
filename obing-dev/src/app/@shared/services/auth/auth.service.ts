@@ -3,6 +3,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Router } from "@angular/router";
 import { User } from 'src/app/class/user';
+import { TempUser } from 'src/app/class/tempUser';
 import { RoutesServices } from '../../RouteServices';
 
 @Injectable({
@@ -24,7 +25,10 @@ export class AuthService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         console.log("user found", user)
-        localStorage.setItem('user', JSON.stringify(user));
+        const currentUser:TempUser = {
+          userToken:user.uid
+        };
+        localStorage.setItem('user', JSON.stringify(currentUser));
         //JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', '');
@@ -43,7 +47,7 @@ export class AuthService {
           console.log(result)
         });
       }).catch((error) => {
-        window.alert(error.message)
+        window.alert("Email/Password association does not exist")
       })
   }
 
