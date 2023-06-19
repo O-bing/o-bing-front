@@ -32,6 +32,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { OnlineStateService } from './@shared/services/online-state/online-state.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +75,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    OnlineStateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

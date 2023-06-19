@@ -78,7 +78,7 @@ export class CreateBingoComponent implements OnInit {
           for (let i: number = 0; i < this.rowsFormat; i++) {
             let placeHolderLine: Array<Tile> = []
             for (let y: number = 1; y < this.columnsFormat + 1; y++) {
-              const placeHolderTile = new Tile(this.counter, 'Placeholder')
+              const placeHolderTile = new Tile(this.counter, '')
               placeHolderTile.state = "filled"
               placeHolderLine.push(placeHolderTile)
               this.counter += 1
@@ -96,7 +96,7 @@ export class CreateBingoComponent implements OnInit {
       for (let i: number = 0; i < this.tilesList.length; i++) {
         while (this.tilesList[i].length != this.columnsFormat){
           if (this.columnsFormat > this.tilesList[i].length){
-            const placeHolderTile = new Tile(this.counter, 'Placeholder')
+            const placeHolderTile = new Tile(this.counter, '')
             placeHolderTile.state = "filled"
             this.tilesList[i].push(placeHolderTile)
             this.counter += 1
