@@ -40,13 +40,13 @@ export class AuthService {
 
   // Sign in with email/password Connexion
   signIn(email:string, password:string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
+    return this.afAuth.signInWithEmailAndPassword(email, password).then((result) => {
         this.ngZone.run(() => {
           //this.router.navigate(['accueil']);
           console.log(result)
         });
       }).catch((error) => {
+        console.log(error)
         window.alert("Email/Password association does not exist")
       })
   }
