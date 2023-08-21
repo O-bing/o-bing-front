@@ -1,0 +1,28 @@
+form{
+    margin-top: 8%;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.title{
+    text-align: center;
+    font-weight: 700px;
+    font-size: 50px;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(152, 150, 150);
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgb(152, 150, 150);
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: rgb(152, 150, 150);
+}
