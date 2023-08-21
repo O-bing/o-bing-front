@@ -3,7 +3,6 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Router } from "@angular/router";
 import { User } from 'src/app/class/user';
-import { TempUser } from 'src/app/class/tempUser';
 import { RoutesServices } from '../../RouteServices';
 
 @Injectable({
@@ -23,17 +22,16 @@ export class AuthService {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
+
       if (user) {
-        console.log("user found", user)
-        const currentUser:TempUser = {
-          userToken:user.uid
-        };
-        localStorage.setItem('user', JSON.stringify(currentUser));
-        //JSON.parse(localStorage.getItem('user'));
-      } else {
-        localStorage.setItem('user', '');
-        console.log("user NOT found")
-        //JSON.parse(localStorage.getItem('user'));
+        const userJson:any = user.toJSON()
+        localStorage.setItem('userToken', JSON.stringify(userJson.stsTokenManager.accessToken));
+        localStorage.setItem('userTokenExpiresAt', JSON.stringify(userJson.stsTokenManager.expirationTime));
+      }
+
+      else{
+        localStorage.setItem('userToken', '');
+        localStorage.setItem('userTokenExpiresAt', '');
       }
     })
   }
@@ -43,8 +41,7 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          //this.router.navigate(['accueil']);
-          console.log(result)
+          this.router.navigate(['/']);
         });
       }).catch((error) => {
         window.alert("Email/Password association does not exist")
@@ -72,7 +69,6 @@ export class AuthService {
   */
 
   getCurrentUser() {
-
     return this.afAuth.authState;
   }
 
@@ -80,7 +76,7 @@ export class AuthService {
   ForgotPassword(passwordResetEmail:string) {
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert("Un mail vien d'être envoyé, vérifiez vos mail");
+        window.alert("Un mail vient de vous être envoyé, veuillez vérifier vos mails.");
         this.ngZone.run(() => {
           this.router.navigate(['connexion']);
         });
@@ -93,9 +89,9 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const userStorage : string | null = localStorage.getItem('user');
-    if (userStorage){
-      const user = JSON.parse(userStorage);
+    const userToken : string | null = localStorage.getItem('userToken');
+    if (userToken){
+      const user = JSON.parse(userToken);
       return (user !== null && user.emailVerified !== false) ? true : false;
     }
     else{
@@ -120,7 +116,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['home']);
+      window.location.reload();
     })
   }
 

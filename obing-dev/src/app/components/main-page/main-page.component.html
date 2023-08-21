@@ -27,12 +27,16 @@
             </button>
             
             <div class="element">
-                <button routerLink="/signUp" class="small button is-info">
+                <button *ngIf="!currentUserConnected" routerLink="/signUp" class="small button is-info">
                     Sign up
                 </button>
 
-                <button routerLink="/logIn" class="small button is-primary"> 
+                <button *ngIf="!currentUserConnected" routerLink="/logIn" class="small button is-primary"> 
                     Log in
+                </button>
+
+                <button *ngIf="currentUserConnected" class="logOut button is-danger" value="Home" (click)="logOut()">
+                    Log out
                 </button>
             </div>
         </div>

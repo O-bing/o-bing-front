@@ -14,9 +14,9 @@ export interface User{
     emailVerified?: boolean,
     idImgProfil?:guid,
     listBingo?:Array<string>,
-    fame:number,
-    favouriteBingo:Array<string>,
-    gameList:Array<string>
+    fame?:number,
+    favouriteBingo?:Array<string>,
+    gameList?:Array<string>
 }
 
 export enum UserRank {
