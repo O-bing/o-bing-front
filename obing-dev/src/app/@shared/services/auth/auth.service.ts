@@ -118,7 +118,8 @@ export class AuthService {
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('userTokenExpiresAt');
       window.location.reload();
     })
   }
