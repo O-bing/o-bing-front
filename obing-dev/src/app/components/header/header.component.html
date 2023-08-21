@@ -1,5 +1,18 @@
-<div class="header-main">
-        <a class="header-link" routerLink="/">
-            O-Bing
-        </a>
+<div class="header">
+    <table class="header-compartimenter">
+        <th class="header-start">
+            <!--Placeholder-->
+        </th>
+        <th class="header-main">
+            <a class="title" routerLink="/">
+                O-Bing
+            </a>
+        </th>
+        <th class="header-end">
+            <img class="imgProfile is" src={{this.imgProfileURL}}>
+            <a class="currentUser">
+                {{this.currentUser.pseudo}}
+            </a>
+        </th>
+    </table>
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  currentUserConnected:boolean=false
+
+  constructor(public authService : AuthService, public userService:UserService) { }
 
   ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(user=>{
+      if(user){
+        this.currentUserConnected = true
+      }
+    })
+  }
+
+  logOut(){
+    this.authService.SignOut()
   }
 
 }
