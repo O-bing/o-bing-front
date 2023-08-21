@@ -5,6 +5,8 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module'
+import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
+import { guid } from 'src/app/utils/guid';
 
 @Component({
   selector: 'app-create-bingo',
@@ -24,7 +26,7 @@ export class CreateBingoComponent implements OnInit {
 
   saved: boolean = false;
 
-  constructor(private dialog : MatDialog, private router: Router) { }
+  constructor(private dialog : MatDialog, private router: Router, private bingoFileService:BingoFileService) { }
 
   ngOnInit(): void {
   }
@@ -164,7 +166,7 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
-  private downloadObjectAsJson(exportObj:any, exportName:string){
+  /*private downloadObjectAsJson(exportObj:any, exportName:string){
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
     var downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href",     dataStr);
@@ -172,7 +174,7 @@ export class CreateBingoComponent implements OnInit {
     document.body.appendChild(downloadAnchorNode); // required for firefox
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
-  }
+  }*/
 
   private openDialog(tiles: Array<Array<Tile>>){
     const dialogConfig = new MatDialogConfig();
@@ -184,8 +186,11 @@ export class CreateBingoComponent implements OnInit {
     const dialogRef = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe( title => {
-      this.downloadObjectAsJson(tiles, title)
-      this.router.navigate(['/','home']);
+      const json = JSON.stringify(tiles);
+      const ID = guid.uuidv4();
+      this.bingoFileService.uploadBingoFile(json, ID);
+      //this.downloadObjectAsJson(tiles, title)
+      //this.router.navigate(['/','home']);
       
     }
     );
