@@ -15,7 +15,7 @@
         <div class="newBingo" *ngIf="!this.saved">
             <app-bingo-list (tilesSaveEvent)="setTilesList($event)" (tilesCountEvent)="tilesCount($event)"></app-bingo-list>
         </div>
-        <div *ngIf="!this.saved">
+        <div class="buttonsFrame" *ngIf="!this.saved">
             <button class="autoCompleteButton" (click)="autoCompleteBingo()">Auto complete</button>
             <button class="saveButton" (click)="saveBingo()">Save</button>
         </div>
