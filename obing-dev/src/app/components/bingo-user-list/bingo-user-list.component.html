@@ -1,18 +1,19 @@
 <div class="bingoList">
-    <h1>Your list of Bingo(s)</h1>
+    <h1 class="title">Your list of Bingo(s)</h1>
     <div class="bingo" *ngFor="let bingo of bingoUserList">
-        <h2>{{bingo.title}}</h2>
-        <app-bingo-card [Bingo]="bingo"></app-bingo-card>
+        <button [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
+            {{bingo.title}}
+        </button>
     </div>
     
-    <div *ngIf="bingoUserList.length == 0">
-        <h2>You don't have any create Bingo yet.</h2>
+    <div class="title" *ngIf="bingoUserList.length == 0">
+        <h2>You haven't created any Bingo yet.</h2>
         <button routerLink="/newBingo" class="button is-success">
             Create one !
         </button>
     </div>
 
-    <div *ngIf="!isLoggedIn">
+    <div class="title" *ngIf="!isLoggedIn">
         <h2>You must be logged in to see your bingo collection</h2>
     </div>
 </div>
