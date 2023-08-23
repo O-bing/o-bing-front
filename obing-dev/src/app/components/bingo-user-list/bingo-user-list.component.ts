@@ -7,10 +7,10 @@ import { User } from 'src/app/class/user';
 
 @Component({
   selector: 'app-bingo-user',
-  templateUrl: './bingo-user.component.html',
-  styleUrls: ['./bingo-user.component.scss']
+  templateUrl: './bingo-user-list.component.html',
+  styleUrls: ['./bingo-user-list.component.scss']
 })
-export class BingoUserComponent implements OnInit {
+export class BingoUserListComponent implements OnInit {
 
   currentUser! : User;
 

@@ -33,10 +33,10 @@ import { environment } from '../environments/environment';
 import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
-import { BingoUserComponent } from './components/bingo-user/bingo-user.component';
-import { BingoCardComponent } from './components/bingo-user/bingo-card/bingo-card.component';
+import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
+import { BingoCardComponent } from './components/bingo-user-list/bingo-card/bingo-card.component';
 import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
-import { BingoDisplayComponent } from './components/bingo-user/bingo-card/bingo-display/bingo-display.component';
+import { BingoDisplayComponent } from './components/bingo-user-list/bingo-card/bingo-display/bingo-display.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +57,7 @@ import { BingoDisplayComponent } from './components/bingo-user/bingo-card/bingo-
     BingoTileComponent,
     BingoTitleDialogComponent,
     ForgotPasswordComponent,
-    BingoUserComponent,
+    BingoUserListComponent,
     BingoCardComponent,
     BingoPlayComponent,
     BingoDisplayComponent
