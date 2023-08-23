@@ -1,1 +1,9 @@
-<p>bingo-user works!</p>
+<div class="bingoList">
+    <h1>Your list of Bingo(s)</h1>
+    <div class="bingo" *ngFor="let bingo of bingoUserList">
+        <p>{{bingo.uid}}</p>
+    </div>
+    <div *ngIf="!isLoggedIn">
+        <h2>You must be logged in to see your bingo collection</h2>
+    </div>
+</div>

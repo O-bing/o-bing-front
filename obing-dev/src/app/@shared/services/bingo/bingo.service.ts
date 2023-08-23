@@ -34,4 +34,8 @@ export class BingoService {
 
   }
 
+  getAllBingos(){
+    return this.bingoCollection.valueChanges()
+  }
+
 }

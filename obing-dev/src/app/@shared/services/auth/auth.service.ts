@@ -17,7 +17,7 @@ export class AuthService {
     private afAuth: AngularFireAuth, // Inject Firebase auth service
     private router: Router,
     private ngZone: NgZone, // NgZone service to remove outside scope warning,
-    private usersService: UserService
+    private userService: UserService
 
   ) {
     this.userCollection = this.afs.collection<User>(RoutesServices.Users);
@@ -60,7 +60,7 @@ export class AuthService {
       .then((newUser) => {
 
         if (newUser) {
-          this.usersService.newUser(user, newUser.user!.uid);
+          this.userService.newUser(user, newUser.user!.uid);
           newUser.user!.sendEmailVerification();
           window.alert("Inscription réussie, un mail de vérification vient de vous être envoyé (verifiez vos spams)");
           this.router.navigate(['/logIn'])
