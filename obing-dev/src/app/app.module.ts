@@ -33,6 +33,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
+import { BingoUserComponent } from './components/bingo-user/bingo-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { OnlineStateService } from './@shared/services/online-state/online-state
     BingoListComponent,
     BingoTileComponent,
     BingoTitleDialogComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    BingoUserComponent
   ],
   imports: [
     BrowserModule,

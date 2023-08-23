@@ -12,6 +12,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 import { UserComponent } from './components/user/user.component';
 import { RandomBingoComponent } from './components/random-bingo/random-bingo.component';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
+import { BingoUserComponent } from './components/bingo-user/bingo-user.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path:'randomBingo',
     component:RandomBingoComponent
+  },
+  {
+    path:'bingoUser',
+    component:BingoUserComponent
   },
   {
     path:'user',

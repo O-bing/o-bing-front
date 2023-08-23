@@ -21,8 +21,6 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  logOut(){
-    this.authService.SignOut()
-  }
+  
 
 }

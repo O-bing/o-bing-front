@@ -9,10 +9,13 @@
             </a>
         </th>
         <th class="header-end">
-            <img class="imgProfile is" src={{this.imgProfileURL}}>
-            <a class="currentUser">
-                {{this.CurrentUser.pseudo}}
+            <img *ngIf="this.isLoggedIn" class="imgProfile is" src={{this.imgProfileURL}}>
+            <a *ngIf="this.isLoggedIn" class="currentUser">
+                {{this.currentUser.pseudo}}
             </a>
+            <button *ngIf="this.isLoggedIn" class="button is-danger" value="Home" (click)="logOut()">
+                Log out
+            </button>
         </th>
     </table>
 </div>
