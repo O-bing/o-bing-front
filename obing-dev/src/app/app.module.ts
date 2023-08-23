@@ -34,6 +34,9 @@ import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
 import { BingoUserComponent } from './components/bingo-user/bingo-user.component';
+import { BingoCardComponent } from './components/bingo-user/bingo-card/bingo-card.component';
+import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
+import { BingoDisplayComponent } from './components/bingo-user/bingo-card/bingo-display/bingo-display.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +57,10 @@ import { BingoUserComponent } from './components/bingo-user/bingo-user.component
     BingoTileComponent,
     BingoTitleDialogComponent,
     ForgotPasswordComponent,
-    BingoUserComponent
+    BingoUserComponent,
+    BingoCardComponent,
+    BingoPlayComponent,
+    BingoDisplayComponent
   ],
   imports: [
     BrowserModule,
