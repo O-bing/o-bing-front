@@ -21,7 +21,7 @@ export class BingoTitleDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public save():void{
+  save():void{
     let title = new Date().getTime()
     if (this.form.get('titleForm')!.value != ''){
       title = this.form.get('titleForm')!.value

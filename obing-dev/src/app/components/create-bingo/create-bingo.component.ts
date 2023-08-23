@@ -7,7 +7,10 @@ import { Router } from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module'
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { guid } from 'src/app/utils/guid';
-
+import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
+import { Bingo } from 'src/app/class/bingo';
+import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
@@ -26,7 +29,7 @@ export class CreateBingoComponent implements OnInit {
 
   saved: boolean = false;
 
-  constructor(private dialog : MatDialog, private router: Router, private bingoFileService:BingoFileService) { }
+  constructor(private dialog : MatDialog, private bingoFileService:BingoFileService, private bingoService:BingoService, private authService : AuthService, private userService:UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -166,32 +169,33 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
-  /*private downloadObjectAsJson(exportObj:any, exportName:string){
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-  }*/
-
   private openDialog(tiles: Array<Array<Tile>>){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-
-    this.dialog.open(BingoTitleDialogComponent, dialogConfig);
     
     const dialogRef = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe( title => {
+    dialogRef.afterClosed().subscribe( titleBingo => {
       const json = JSON.stringify(tiles);
       const ID = guid.uuidv4();
       this.bingoFileService.uploadBingoFile(json, ID);
-      //this.downloadObjectAsJson(tiles, title)
-      //this.router.navigate(['/','home']);
-      
+      this.authService.getCurrentUser().subscribe(user=>{
+        if(user){
+          const bingo : Bingo = {
+            uid : ID,
+            title : titleBingo,
+            owner : user.uid,
+            creationDate : Date.now(),
+            numberPlayed : 0
+          }
+          this.bingoService.createBingo(bingo, ID);
+          this.router.navigate(['/']);
+        }
+        else{
+          console.log("Set up actions to indicate user to connect, or allow him to directly download the new Bingo")
+        }
+      })    
     }
     );
   }

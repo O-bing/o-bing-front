@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/class/user';
-import { AuthService } from 'src/app/@shared/services/auth/auth.service';
-import { UserService } from 'src/app/@shared/services/user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,23 +8,13 @@ import { UserService } from 'src/app/@shared/services/user/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  currentUser:User={pseudo:""}
-
-  currentUserConnected:boolean=false
+  @Input() CurrentUser!: User;
 
   imgProfileURL:string="";
 
-  constructor(public authService : AuthService, public userService:UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user=>{
-      if(user){
-        this.currentUserConnected = true
-        this.userService.getUser(user.uid).subscribe(userObject=>{
-          this.currentUser.pseudo=userObject?.pseudo
-        })
-      }
-    })
   }
 
 }

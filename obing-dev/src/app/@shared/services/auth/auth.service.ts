@@ -13,11 +13,11 @@ import { UserService } from '../user/user.service';
 export class AuthService {
   userCollection: AngularFirestoreCollection<User>;
   constructor(
-    public afs: AngularFirestore,   // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
-    public router: Router,
-    public ngZone: NgZone, // NgZone service to remove outside scope warning,
-    public usersService: UserService
+    private afs: AngularFirestore,   // Inject Firestore service
+    private afAuth: AngularFireAuth, // Inject Firebase auth service
+    private router: Router,
+    private ngZone: NgZone, // NgZone service to remove outside scope warning,
+    private usersService: UserService
 
   ) {
     this.userCollection = this.afs.collection<User>(RoutesServices.Users);
