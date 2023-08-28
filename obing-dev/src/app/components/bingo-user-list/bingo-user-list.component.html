@@ -1,10 +1,12 @@
 <div class="bingoList">
     <h1 class="title">Your list of Bingo(s)</h1>
-    <div class="bingo" *ngFor="let bingo of bingoUserList">
-        <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
-            <p class="bingoName">{{bingo.displayName}}</p>
-        </button>
-    </div>
+    <ul class="bingo">
+        <li  *ngFor="let bingo of bingoUserList">
+            <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
+                <p class="bingoName">{{bingo.displayName}}</p>
+            </button>
+        </li>
+    </ul>
     
     <div class="title" *ngIf="bingoUserList.length == 0">
         <h2>You haven't created any Bingo yet.</h2>
