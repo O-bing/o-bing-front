@@ -2,7 +2,7 @@
     <h1 class="title">Your list of Bingo(s)</h1>
     <div class="bingo" *ngFor="let bingo of bingoUserList">
         <button [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
-            {{bingo.title}}
+            <p class="bingoName">{{bingo.title}}</p>
         </button>
     </div>
     
