@@ -1,19 +1,10 @@
-#header{
-    width: 100%;
-}
-
 #container{
-    #content{
         overflow: hidden;
+        height: 85%;
+        min-height: 560px;
         font-size: 1.5rem;
         padding-top:10px;
         padding-bottom: 50px;
         background-color: rgb(16, 155, 197);
-    }
 }
 
-
-
-#footer{
-    width: 100%;
-}

@@ -1,13 +1,11 @@
 <div class="header">
     <table class="header-compartimenter">
         <th class="header-start">
-            <!--Placeholder-->
-        </th>
-        <th class="header-main">
             <a class="title" routerLink="/">
                 O-Bing
             </a>
         </th>
+            
         <th class="header-end">
             <img *ngIf="this.isLoggedIn" class="imgProfile is" src={{this.imgProfileURL}}>
             <a *ngIf="this.isLoggedIn" class="currentUser">
