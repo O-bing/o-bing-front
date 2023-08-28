@@ -33,6 +33,12 @@ export class BingoUserListComponent implements OnInit {
           this.bingoService.getAllBingos().subscribe(bingoArray=>{
             bingoArray.forEach(bingo=>{
               if (bingo.owner==this.currentUser.uid){
+                console.log(bingo)
+                if (bingo.title!.length>15){
+                  bingo.displayName = bingo.title!.slice(0,15)+"..."
+                }else{
+                  bingo.displayName = bingo.title
+                }
                 this.bingoUserList.push(bingo)
               }
             })

@@ -1,8 +1,8 @@
 <div class="bingoList">
     <h1 class="title">Your list of Bingo(s)</h1>
     <div class="bingo" *ngFor="let bingo of bingoUserList">
-        <button [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
-            <p class="bingoName">{{bingo.title}}</p>
+        <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
+            <p class="bingoName">{{bingo.displayName}}</p>
         </button>
     </div>
     
