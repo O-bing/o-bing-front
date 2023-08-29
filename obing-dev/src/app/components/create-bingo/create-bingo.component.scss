@@ -8,16 +8,15 @@
         margin-right: auto;
         background-color: rgb(77, 189, 223);
         border-radius: 10px;
-        padding: 15px;
-
+        min-height: 250px;
         max-height: 500px;
+        max-width: 950px;
         overflow-y: scroll;
 
-        
-        width: 900px;
-        overflow-x: scroll;
-
         .info {
+
+            width: 950px;
+            margin-top: 10px;
             font-size: medium;
             font-weight: 100;
             color: rgb(29, 28, 28);
@@ -30,6 +29,11 @@
             .formater {
                 display: inline;
                 margin: 10px;
+
+                input {
+                    border-radius: 2px;
+                    border: none;
+                }
             }
 
             .reminder {
@@ -41,9 +45,12 @@
         .newBingo {
             margin-top: 10px;
             padding: 10px;
+            width: 100%;
+            min-width: 940px;
         }
 
         .buttonsFrame {
+            padding-top: 10px;
 
             .autoCompleteButton {
                 border: none;
@@ -74,6 +81,7 @@
 /* width */
 ::-webkit-scrollbar {
     width: 7px;
+    height: 7px;
 }
 
 /* Track */

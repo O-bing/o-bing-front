@@ -1,5 +1,5 @@
 <div class="main-content">
-    <div class="creation-panel">
+    <div class="creation-panel" #creationPanel>
         <div class="info" *ngIf="!this.saved">
             <div class="counter">
                 Count : {{this.counter}} tiles.
@@ -13,11 +13,12 @@
         </div>
         <div class="newBingo" *ngIf="!this.saved">
             <app-bingo-list (tilesSaveEvent)="setTilesList($event)" (tilesCountEvent)="tilesCount($event)"></app-bingo-list>
+            <div class="buttonsFrame">
+                <button class="autoCompleteButton" (click)="autoCompleteBingo()">Auto complete</button>
+                <button class="saveButton" (click)="saveBingo()">Save</button>
+            </div>
         </div>
-        <div class="buttonsFrame" *ngIf="!this.saved">
-            <button class="autoCompleteButton" (click)="autoCompleteBingo()">Auto complete</button>
-            <button class="saveButton" (click)="saveBingo()">Save</button>
-        </div>
+        
         <div *ngIf="this.saved" class="info">
             Generating json formatted bingo ...
             <br/>

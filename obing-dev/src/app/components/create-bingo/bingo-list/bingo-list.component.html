@@ -1,7 +1,7 @@
-<ul class="tileList">
-        <li class="line" *ngFor="let line of tileList">
+<ul class="lineList">
+        <li *ngFor="let line of tileList">
                 <ul>
-                        <li><app-bingo-tile class="lineTile" *ngFor="let listedTile of line" (tileClickEvent)="addOrModify($event)" (deleteTileClickEvent)="deleteTile($event)" [tile]="listedTile"></app-bingo-tile></li>
+                        <li class="line"><app-bingo-tile *ngFor="let listedTile of line" (tileClickEvent)="addOrModify($event)" (deleteTileClickEvent)="deleteTile($event)" [tile]="listedTile"></app-bingo-tile></li>
                 </ul>
         </li>
 </ul>

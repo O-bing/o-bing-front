@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
 import { Router } from '@angular/router';
-import { AppRoutingModule } from '../../app-routing.module'
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { guid } from 'src/app/utils/guid';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
@@ -57,7 +56,6 @@ export class CreateBingoComponent implements OnInit {
   }
 
   autoCompleteBingo(): void {
-
     // Check if columnsFormat in intput respect rules
 
     if (this.columnsFormat > 5 || this.columnsFormat <= 1) {
