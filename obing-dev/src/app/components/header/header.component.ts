@@ -16,7 +16,9 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn! : Boolean;
 
-  imgProfileURL : string="";
+  imgProfileURL : string = '';
+
+  displayProfile : Boolean = false;
 
   constructor(private authService : AuthService, private userService:UserService) { }
 
@@ -24,17 +26,22 @@ export class HeaderComponent implements OnInit {
     this.authService.getCurrentUser().subscribe(user=>{
       if(user){
         this.userService.getUser(user.uid).subscribe(userObject=>{
-          this.currentUser = {}
-          this.currentUser.pseudo=userObject?.pseudo
-          this.currentUser.uid=user.uid
+          this.currentUser = userObject!
+          this.currentUser.uid = user.uid
           this.isLoggedIn = true
         })
       }
     })
   }
 
-  logOut(){
-    this.authService.SignOut()
+  displayProfileHeader(){
+    if (!this.displayProfile){
+      this.displayProfile = true
+    }
+    else{
+      this.displayProfile = false
+    }
   }
+
 
 }
