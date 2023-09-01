@@ -42,20 +42,26 @@
 
 
       <div class="login">
-        <label class="checkbox">
-          <input type="checkbox">
-          Remember me
-        </label>
-        <button class="small button is-primary" value="Connexion"
-          (click)="authService.signIn(userName.value, userPassword.value)">
-          Log in
-        </button>
+        <table class="loginTable">
+          <td class="checkboxCol">
+            <label class="checkbox">
+              <input type="checkbox">
+              Remember me
+            </label>
+          </td>
+          <td class="buttonCol">
+            <button class="small button is-primary" value="Connexion"
+              (click)="authService.signIn(userName.value, userPassword.value)">
+              Log in
+            </button>
+          </td>
+        </table>
       </div>
 
       <div class="links">
-        <a routerLink="/forgotPassword">Mot de passe oublié</a>
+        <a class="forgottenPassword" routerLink="/forgotPassword">Mot de passe oublié</a>
         <br>
-        Vous n'avez pas de compte ? <a routerLink="/signUp">Inscrivez-vous</a>
+        <p class="noAccount">Vous n'avez pas de compte ? <a routerLink="/signUp">Inscrivez-vous</a></p>
       </div>
     </form>
 

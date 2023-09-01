@@ -13,6 +13,13 @@
     margin-top: 5%;
 }
 
+.title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 25px;
+    margin-top: 2%;
+}
+
 form {
     margin-top: 8%;
     margin-right: 20%;
@@ -23,35 +30,39 @@ form {
     padding-left: 1.0em;
 }
 
-.title {
-    text-align: center;
-    font-weight: bolder;
-    font-size: 25px;
-    margin-top: 2%;
-}
-
-
-
 .login{
+    width: 100%;
     margin:10px;
     margin-left: 0px;
     display: inline-block;
+    text-align: start;
+}
+
+.loginTable{
+    width: 100%;
+}
+
+.checkboxCol{
+    width: 50%;
+    vertical-align: middle;
 }
 
 .checkbox{
     float: left;
     font-size: 15px;
-    margin: 5px;
-    margin-left: 0px;
+    vertical-align: middle;
+}
+
+.buttonCol{
+    vertical-align: middle;
+    width: 50%;
 }
 
 .button {
     font-size: 25px;
     font-weight: bold;
     width: 270px;
-    float: left;
-    margin: 5px;
-    margin-left: 0px;
+    float: right;
 }
 
 .small{
@@ -70,6 +81,14 @@ form {
     margin-bottom: 60px;
     text-align: center;
     display: grid;
+}
+
+.forgottenPassword{
+    font-size: 20px;
+}
+
+.noAccount{
+    font-size: 20px;
 }
 
 .logOut{
