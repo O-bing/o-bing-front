@@ -48,7 +48,7 @@ const routes: Routes = [
     path:'bingoCard/:bingoId',
     component:BingoCardComponent},
   {
-    path:'user',
+    path:'user/:userId',
     component:UserComponent
   },
   {
