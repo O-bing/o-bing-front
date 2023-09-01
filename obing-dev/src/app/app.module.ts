@@ -33,6 +33,11 @@ import { environment } from '../environments/environment';
 import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
+import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
+import { BingoCardComponent } from './components/bingo-user-list/bingo-card/bingo-card.component';
+import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
+import { BingoDisplayComponent } from './components/bingo-user-list/bingo-card/bingo-display/bingo-display.component';
+import { HeaderProfileComponent } from './components/header/header-profile/header-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +57,12 @@ import { OnlineStateService } from './@shared/services/online-state/online-state
     BingoListComponent,
     BingoTileComponent,
     BingoTitleDialogComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    BingoUserListComponent,
+    BingoCardComponent,
+    BingoPlayComponent,
+    BingoDisplayComponent,
+    HeaderProfileComponent
   ],
   imports: [
     BrowserModule,

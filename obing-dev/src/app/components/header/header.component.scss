@@ -1,37 +1,63 @@
-.header {
-    padding-top: 30px;
-    width: 100%;
-
-    .header-compartimenter {
+    .header-main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        padding-top: 30px;
         width: 100%;
+        margin-bottom: 50px;
+        background-color: rgb(16, 155, 197);
+        padding-bottom: 10px;
 
-        .header-start{
-            width: 33%;
-        }
+        .header-compartimenter {
+            width: 100%;
+            vertical-align: middle;
 
-        .header-main{
-            width:34%;
-            text-align: center;
-            .title {
-                align-self: center;
-                background-color: rgb(16, 155, 197);
-                padding: 10px;
-                padding-top: 20px;
-                text-decoration: none;
-                color: rgba(0, 0, 0, .7);
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                padding-right: 15px;
-                font-size: 30px;
-                font-weight: bolder;
+            .header-start {
+                width: 33%;
+                padding-left: 20px;
+                text-align: start;
+
+                .supportMe {
+                    padding: 10px;
+                    padding-top: 20px;
+                    text-decoration: none;
+                    color: rgba(0, 0, 0, .7);
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    padding-right: 15px;
+                    font-size: 15px;
+                }
+            }
+
+            .header-middle {
+                width: 34%;
+                padding-left: 20px;
+                text-align: center;
+
+                .title {
+                    padding: 10px;
+                    padding-top: 20px;
+                    text-decoration: none;
+                    color: rgba(255, 233, 36, 0.7);
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    padding-right: 15px;
+                    font-size: 30px;
+                    font-weight: bolder;
+                }
+            }
+
+            .header-end {
+                width: 33%;
+                text-align: end;
+                padding-right: 50px;
+
+                .currentUser {
+                    color: rgb(255, 255, 255);
+                }
+
+                .buttonElement {
+                    text-align: end;
+                }
             }
         }
-
-        .header-end{
-            width:33%;
-            text-align: end;
-            padding-right: 50px;
-        }
-
-        
     }
-}

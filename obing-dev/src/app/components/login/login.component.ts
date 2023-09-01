@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public authService : AuthService, public onlineStateSvc: OnlineStateService) {
+  constructor(public authService : AuthService, private onlineStateSvc: OnlineStateService) {
     const state = this.onlineStateSvc.checkNetworkStatus()
     if (state)
     {

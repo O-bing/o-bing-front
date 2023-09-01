@@ -4,7 +4,7 @@ export interface User{
     uid?:string,
     name?:string,
     title?:string,
-    firstName?:string,
+    fullName?:string,
     pseudo?:string,
     description?:string,
     birthDate?:number,
