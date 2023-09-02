@@ -25,5 +25,9 @@ export class HeaderComponent {
     }
   }
 
+  clickEvent(){
+    this.displayProfile = false
+  }
+
 
 }

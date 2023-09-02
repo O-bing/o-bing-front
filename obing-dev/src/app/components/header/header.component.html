@@ -1,7 +1,7 @@
 <div class="header-main">
     <table class="header-compartimenter">
         <th class="header-start">
-            <a class="supportMe" routerLink="/" unactive>
+            <a title="Don't have any support link yet" class="supportMe">
                 Support me
             </a>
         </th>
@@ -21,5 +21,5 @@
             </a>
         </th>
     </table>
-    <app-header-profile [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.displayProfile"></app-header-profile>
+    <app-header-profile (clickEvent)="clickEvent()" [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.displayProfile"></app-header-profile>
 </div>
