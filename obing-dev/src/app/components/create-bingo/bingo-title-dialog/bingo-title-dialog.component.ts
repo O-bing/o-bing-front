@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -10,11 +10,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class BingoTitleDialogComponent implements OnInit {
 
-  form:FormGroup;
+  form:UntypedFormGroup;
 
   constructor(private dialogRef:MatDialogRef<BingoTitleDialogComponent>, private ngZone: NgZone) {
-    this.form = new FormGroup({
-      'titleForm': new FormControl('', [Validators.required])
+    this.form = new UntypedFormGroup({
+      'titleForm': new UntypedFormControl('', [Validators.required])
     })
   }
 
