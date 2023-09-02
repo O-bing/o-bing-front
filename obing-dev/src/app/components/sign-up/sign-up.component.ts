@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/class/user';
 import { toast } from 'bulma-toast'
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
@@ -13,24 +13,24 @@ export class SignUpComponent implements OnInit {
 
   @Output() onSubmit: EventEmitter<User>;
 
-  postForm: UntypedFormGroup
+  postForm: FormGroup
 
   submitted = false;
 
   baseImage!: File;
 
   constructor(private authService: AuthService) {
-    this.postForm = new UntypedFormGroup({
-      pseudo: new UntypedFormControl("", Validators.required),
-      email: new UntypedFormControl("",
+    this.postForm = new FormGroup({
+      pseudo: new FormControl("", Validators.required),
+      email: new FormControl("",
         [
           Validators.required,
           Validators.email,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
         ]
       ),
-      password: new UntypedFormControl("", Validators.required),
-      checkPassword: new UntypedFormControl("", Validators.required)
+      password: new FormControl("", Validators.required),
+      checkPassword: new FormControl("", Validators.required)
     });
     this.onSubmit = new EventEmitter();
   }

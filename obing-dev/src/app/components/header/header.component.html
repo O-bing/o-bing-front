@@ -13,13 +13,13 @@
 
         <th class="header-end">
             <a (click)="displayProfileHeader()">
-                <img *ngIf="this.isLoggedIn" class="imgProfile is" src="{{imgProfileURL}}" alt="profilePicture">
+                <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.CurrentUser.idImgProfile}}" alt="profilePicture">
             </a>
             <br />
-            <a *ngIf="this.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
-                {{this.currentUser.pseudo}}
+            <a *ngIf="this.CurrentUser.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
+                {{this.CurrentUser.pseudo}}
             </a>
         </th>
     </table>
-    <app-header-profile [userProfile]="this.currentUser" *ngIf="this.isLoggedIn && this.displayProfile"></app-header-profile>
+    <app-header-profile [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.displayProfile"></app-header-profile>
 </div>

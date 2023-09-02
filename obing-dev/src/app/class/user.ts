@@ -12,11 +12,12 @@ export interface User{
     telNumber?:string,
     rank?:UserRank,
     emailVerified?: boolean,
-    idImgProfil?:guid,
+    idImgProfile?:guid,
     listBingo?:Array<string>,
     fame?:number,
     favouriteBingo?:Array<string>,
-    gameList?:Array<string>
+    gameList?:Array<string>,
+    isLoggedIn?:Boolean
 }
 
 export enum UserRank {
