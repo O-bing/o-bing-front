@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { Bingo } from 'src/app/class/bingo';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
+import { BingoNotConnectedDialogComponent } from './bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
@@ -168,30 +169,39 @@ export class CreateBingoComponent implements OnInit {
   }
 
   private openDialog(tiles: Array<Array<Tile>>){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    const dialogNameConfig = new MatDialogConfig();
+    dialogNameConfig.disableClose = true;
+    dialogNameConfig.autoFocus = true;
     
-    const dialogRef = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
+    const dialogName = this.dialog.open(BingoTitleDialogComponent, dialogNameConfig);
 
-    dialogRef.afterClosed().subscribe( titleBingo => {
+    dialogName.afterClosed().subscribe( titleBingo => {
       const json = JSON.stringify(tiles);
       const ID = guid.uuidv4();
       this.bingoFileService.uploadBingoFile(json, ID);
+      const bingo : Bingo = {
+        uid : ID,
+        title : titleBingo,
+        owner : "",
+        creationDate : Date.now(),
+        numberPlayed : 0
+      }
       this.authService.getCurrentUser().subscribe(user=>{
         if(user){
-          const bingo : Bingo = {
-            uid : ID,
-            title : titleBingo,
-            owner : user.uid,
-            creationDate : Date.now(),
-            numberPlayed : 0
-          }
+          bingo.owner = user.uid
           this.bingoService.createBingo(bingo, ID);
           this.router.navigate(['/']);
         }
         else{
           console.log("Set up actions to indicate user to connect, or allow him to directly download the new Bingo")
+          const dialogSaveConfig = new MatDialogConfig();
+          dialogSaveConfig.disableClose = true;
+          dialogSaveConfig.autoFocus = true;
+    
+          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent, dialogSaveConfig);
+          dialogSave.afterClosed().subscribe( choice => {
+            this.router.navigate(['/']);
+          })
         }
       })    
     }
