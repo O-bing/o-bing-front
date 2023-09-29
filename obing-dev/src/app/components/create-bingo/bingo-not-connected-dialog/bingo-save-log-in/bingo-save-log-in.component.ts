@@ -23,15 +23,18 @@ export class BingoSaveLogInComponent implements OnInit {
   }
 
   logIn(userName: string, userPassword: string) {
-    this.authService.signIn(userName, userPassword)
-    this.ngZone.run(() => {
-      this.dialogRef.close()
-    });
+    this.authService.signIn(userName, userPassword).then((result) => {
+      if (result) {
+        this.ngZone.run(() => {
+          this.dialogRef.close(result)
+        });
+      }
+    })
   }
 
-  closeDialog(){
+  closeDialog() {
     this.ngZone.run(() => {
-      this.dialogRef.close()
+      this.dialogRef.close(false)
     });
   }
 

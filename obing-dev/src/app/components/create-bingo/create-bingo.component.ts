@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
 import { Router } from '@angular/router';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
@@ -29,7 +29,7 @@ export class CreateBingoComponent implements OnInit {
 
   saved: boolean = false;
 
-  constructor(private dialog : MatDialog, private bingoFileService:BingoFileService, private bingoService:BingoService, private authService : AuthService, private userService:UserService, private router: Router) { }
+  constructor(private dialog: MatDialog, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -98,14 +98,14 @@ export class CreateBingoComponent implements OnInit {
       // check if tiles match the columnsFormat for every line
 
       for (let i: number = 0; i < this.tilesList.length; i++) {
-        while (this.tilesList[i].length != this.columnsFormat){
-          if (this.columnsFormat > this.tilesList[i].length){
+        while (this.tilesList[i].length != this.columnsFormat) {
+          if (this.columnsFormat > this.tilesList[i].length) {
             const placeHolderTile = new Tile(this.counter, '')
             placeHolderTile.state = "filled"
             this.tilesList[i].push(placeHolderTile)
             this.counter += 1
           }
-          else if (this.columnsFormat < this.tilesList[i].length){
+          else if (this.columnsFormat < this.tilesList[i].length) {
             this.counter -= 1
             this.tilesList[i].pop()
           }
@@ -128,7 +128,7 @@ export class CreateBingoComponent implements OnInit {
   }
 
   saveBingo(): void {
-    if (this.tilesList[this.tilesList.length-1].length==0){
+    if (this.tilesList[this.tilesList.length - 1].length == 0) {
       console.log(this.tilesList)
     }
     if (!this.saved) {
@@ -145,7 +145,7 @@ export class CreateBingoComponent implements OnInit {
         }
         else {
           this.tilesList[this.tilesList.length - 1].pop()
-          if (this.tilesList[this.tilesList.length - 1].length==0){
+          if (this.tilesList[this.tilesList.length - 1].length == 0) {
             this.tilesList.pop()
           }
           this.openDialog(this.tilesList)
@@ -168,42 +168,40 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
-  private openDialog(tiles: Array<Array<Tile>>){
-    const dialogNameConfig = new MatDialogConfig();
-    dialogNameConfig.disableClose = true;
-    dialogNameConfig.autoFocus = true;
-    
-    const dialogName = this.dialog.open(BingoTitleDialogComponent, dialogNameConfig);
+  private openDialog(tiles: Array<Array<Tile>>) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
-    dialogName.afterClosed().subscribe( titleBingo => {
+    const dialogName = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
+
+    dialogName.afterClosed().subscribe(titleBingo => {
       const json = JSON.stringify(tiles);
       const ID = guid.uuidv4();
       this.bingoFileService.uploadBingoFile(json, ID);
-      const bingo : Bingo = {
-        uid : ID,
-        title : titleBingo,
-        owner : "",
-        creationDate : Date.now(),
-        numberPlayed : 0
+      const bingo: Bingo = {
+        uid: ID,
+        title: titleBingo,
+        owner: "",
+        creationDate: Date.now(),
+        numberPlayed: 0
       }
-      this.authService.getCurrentUser().subscribe(user=>{
-        if(user){
+
+      // TODO : make that dialog doesn't re-open after connection, because the subscribe result will be updated AND then reopen the dialog
+
+      this.authService.getCurrentUser().subscribe(user => {
+        if (user) {
           bingo.owner = user.uid
           this.bingoService.createBingo(bingo, ID);
           this.router.navigate(['/']);
         }
-        else{
+        else {
           console.log("Set up actions to indicate user to connect, or allow him to directly download the new Bingo")
-          const dialogSaveConfig = new MatDialogConfig();
-          dialogSaveConfig.disableClose = true;
-          dialogSaveConfig.autoFocus = true;
-    
-          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent, dialogSaveConfig);
-          dialogSave.afterClosed().subscribe( choice => {
-            this.router.navigate(['/']);
-          })
+
+          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent, dialogConfig);
+          
         }
-      })    
+      })
     }
     );
   }

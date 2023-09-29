@@ -1,7 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { BingoSaveLogInComponent } from './bingo-save-log-in/bingo-save-log-in.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 })
 export class BingoNotConnectedDialogComponent implements OnInit {
 
-  constructor(private dialogRef:MatDialogRef<BingoNotConnectedDialogComponent>, private ngZone: NgZone, private dialog: MatDialog, private router: Router, public authService: AuthService) { }
+  constructor(private dialogRef: MatDialogRef<BingoNotConnectedDialogComponent>, private ngZone: NgZone, private dialog: MatDialog, public authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -19,7 +18,7 @@ export class BingoNotConnectedDialogComponent implements OnInit {
   localSave() {
     console.log("Call future method to convert created bingo into pdf")
     this.ngZone.run(() => {
-      this.dialogRef.close(false)
+      this.dialogRef.close(true)
     });
   }
 
@@ -28,13 +27,14 @@ export class BingoNotConnectedDialogComponent implements OnInit {
     dialogLogInConfig.disableClose = true;
     dialogLogInConfig.autoFocus = true;
     const dialogLogIn = this.dialog.open(BingoSaveLogInComponent, dialogLogInConfig);
-    dialogLogIn.afterClosed().subscribe(() => {
-      console.log(this.authService.isLoggedIn)
-      if(this.authService.isLoggedIn){
-          this.ngZone.run(() => {
-            this.dialogRef.close(this.authService.isLoggedIn)
-          });
+    dialogLogIn.afterClosed().subscribe((logged) => {
+      if(logged){
+        this.ngZone.run(() => {
+          this.dialogRef.close(true)
+        });
       }
+      
+
     })
   }
 
