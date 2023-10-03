@@ -11,10 +11,10 @@ import { RouteData } from '../../pages';
 })
 export class AppService {
 
-  private routeData: BehaviorSubject<RouteData>;
+  private routeData: BehaviorSubject<RouteData |null>;
 
   constructor(private store: AngularFirestore) {
-    this.routeData = new BehaviorSubject(null);
+    this.routeData = new BehaviorSubject<RouteData | null>(null);
   }
 
   getRouteData() {
