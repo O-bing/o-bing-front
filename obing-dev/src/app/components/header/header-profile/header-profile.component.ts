@@ -21,6 +21,9 @@ export class HeaderProfileComponent implements OnInit {
 
   ngOnInit(): void {
       this.settingsTarget = document.querySelector('img.settingsImg') as HTMLElement
+      this.authService.getCurrentUser().subscribe(result=>{
+        this.userProfile.emailVerified = result?.emailVerified
+      })
   }
 
   mouseAction(action:string){
@@ -36,7 +39,6 @@ export class HeaderProfileComponent implements OnInit {
     this.settingsClicked = true
     this.clickEvent.emit(this.settingsClicked)
   }
-
   
   logOut(){
     this.authService.SignOut()

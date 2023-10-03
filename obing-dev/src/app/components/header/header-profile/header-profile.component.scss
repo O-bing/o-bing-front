@@ -13,31 +13,67 @@
     }
 
     .buttons {
-        .settingsDiv {
-            width: 50%;
+        left: 0%;
+        flex-wrap: nowrap;
+
+        .buttonsTable {
+            width: 100%;
+        }
+
+        .settingsCol {
+            width: 25%;
             text-align: start;
 
-            .settingsImg {
-                border: solid 1px rgba(106, 104, 104, 0.421);
-                padding: 5px;
-                border-radius: 25px;
-                cursor: pointer;
-                width: 45px;
-                vertical-align: middle;
+            .settingsDiv {
+                width: 100%;
+                height: 45px;
+
+                .settingsImg {
+                    border: solid 1px rgba(106, 104, 104, 0.421);
+                    padding: 5px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    width: 45px;
+                    vertical-align: middle;
+                }
             }
         }
 
+        .emailCol {
+            width: 34%;
+            padding-top: 5px;
+            text-align: center;
+            .emailVerifiedDiv {
+                cursor: pointer;
+                width: 100%;
 
-        .buttonDiv {
-            width: 50%;
+                .lockImg {
+                    position: absolute;
+                    width: 30px;
+                    height: 28px;
+                }
+
+                .emailImg {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        .buttonCol {
+            width: 33%;
+
             text-align: end;
 
-            .button {
-                margin-bottom: 0;
-                vertical-align: middle;
+            .buttonDiv {
+                width: 50%;
+
+                .button {
+                    margin-bottom: 0;
+                    vertical-align: middle;
+                }
             }
         }
-
 
     }
 }
