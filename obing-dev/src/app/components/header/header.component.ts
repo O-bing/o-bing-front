@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/class/user';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { User } from 'src/app/class/user';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 
 @Component({
@@ -10,23 +10,38 @@ import { UserService } from 'src/app/@shared/services/user/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  currentUser:User={pseudo:""}
+  @Input() CurrentUser!:User;
 
-  currentUserConnected:boolean=false
+  currentUser! : User;
 
-  imgProfileURL:string="";
+  isLoggedIn! : Boolean;
 
-  constructor(public authService : AuthService, public userService:UserService) { }
+  imgProfileURL : string = '';
+
+  displayProfile : Boolean = false;
+
+  constructor(private authService : AuthService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(user=>{
       if(user){
-        this.currentUserConnected = true
         this.userService.getUser(user.uid).subscribe(userObject=>{
-          this.currentUser.pseudo=userObject?.pseudo
+          this.currentUser = userObject!
+          this.currentUser.uid = user.uid
+          this.isLoggedIn = true
         })
       }
     })
   }
+
+  displayProfileHeader(){
+    if (!this.displayProfile){
+      this.displayProfile = true
+    }
+    else{
+      this.displayProfile = false
+    }
+  }
+
 
 }

@@ -20,8 +20,8 @@ import { RandomBingoComponent } from './components/random-bingo/random-bingo.com
 import { BingoListComponent } from './components/create-bingo/bingo-list/bingo-list.component';
 import { BingoTileComponent } from './components/create-bingo/bingo-list/bingo-tile/bingo-tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { BingoTitleDialogComponent } from './components/create-bingo/bingo-title-dialog/bingo-title-dialog.component';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -33,6 +33,13 @@ import { environment } from '../environments/environment';
 import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
+import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
+import { BingoCardComponent } from './components/bingo-user-list/bingo-card/bingo-card.component';
+import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
+import { BingoDisplayComponent } from './components/bingo-user-list/bingo-card/bingo-display/bingo-display.component';
+import { HeaderProfileComponent } from './components/header/header-profile/header-profile.component';
+import { BingoNotConnectedDialogComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-not-connected-dialog.component';
+import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-save-log-in/bingo-save-log-in.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +59,14 @@ import { OnlineStateService } from './@shared/services/online-state/online-state
     BingoListComponent,
     BingoTileComponent,
     BingoTitleDialogComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    BingoUserListComponent,
+    BingoCardComponent,
+    BingoPlayComponent,
+    BingoDisplayComponent,
+    HeaderProfileComponent,
+    BingoNotConnectedDialogComponent,
+    BingoSaveLogInComponent
   ],
   imports: [
     BrowserModule,

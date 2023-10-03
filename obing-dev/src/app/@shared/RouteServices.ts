@@ -1,3 +1,4 @@
 export enum RoutesServices {
-    Users = "user"
+    Users = "user",
+    Bingos = "bingos"
 }

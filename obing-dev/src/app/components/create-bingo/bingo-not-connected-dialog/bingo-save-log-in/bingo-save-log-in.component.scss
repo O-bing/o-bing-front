@@ -1,0 +1,25 @@
+.dialogHeader {
+    width: 100%;
+    .titleCol {
+        width: 98%;
+        .title {
+            display: inline-block;
+        }
+    }
+
+    .closeCol {
+        width: 2%;
+        .deleteTileButton {
+            display: inline-block;
+            font-size: x-small;
+            color: black;
+            font-weight: bolder;
+            position: absolute;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+    }
+
+
+}

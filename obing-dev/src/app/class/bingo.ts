@@ -1,11 +1,12 @@
 import { guid } from "../utils/guid";
 
 export interface Bingo{
-    uid?:string,
+    uid:string,
     title? : string,
     description?:string,
     owner?:string,
     creationDate?:number,
     idImgIllus?:guid,
-    numberPlayed:number
+    numberPlayed:number,
+    displayName?: string
 }

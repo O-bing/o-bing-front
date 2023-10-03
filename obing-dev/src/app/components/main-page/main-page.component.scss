@@ -14,22 +14,26 @@
         display: inline-block;
     }
 
-    .button {
+    .large-button {
         font-size: 25px;
         font-weight: bold;
         margin: 7px;
         margin-top: 40px;
+        margin-right: 25px;
+        margin-left: 25px;
         width: 270px;
     }
-    
+
     .is-info {
         background-color: rgb(77, 189, 223);
     }
 
     .small{
+        width: 128px;
         font-size: 25px;
         font-weight: bold;
-        width: 128px;
+        margin: 7px;
+        margin-top: 40px;
     }
 
 }

@@ -37,6 +37,61 @@ As Angular handle 'hot reload', saving your files will update your website vizua
 
 # Firebase deployment
 
+### Packages errors
+
+#### There is an error in the type definiition of the ```node_modules/@angular/fire/compat/firestore/interfaces.d.ts``` file.
+
+
+Replace the following file content : 
+
+```
+export interface DocumentSnapshotExists<T> extends firebase.firestore.DocumentSnapshot {
+    readonly exists: true;
+    data(options?: SnapshotOptions): T;
+}
+export interface DocumentSnapshotDoesNotExist extends firebase.firestore.DocumentSnapshot {
+    readonly exists: false;
+    data(options?: SnapshotOptions): undefined;
+    get(fieldPath: string | FieldPath, options?: SnapshotOptions): undefined;
+}
+export declare type DocumentSnapshot<T> = DocumentSnapshotExists<T> | DocumentSnapshotDoesNotExist;
+export interface QueryDocumentSnapshot<T> extends firebase.firestore.QueryDocumentSnapshot {
+    data(options?: SnapshotOptions): T;
+}
+export interface QuerySnapshot<T> extends firebase.firestore.QuerySnapshot {
+    readonly docs: QueryDocumentSnapshot<T>[];
+}
+export interface DocumentChange<T> extends firebase.firestore.DocumentChange {
+    readonly doc: QueryDocumentSnapshot<T>;
+}
+
+
+```
+
+with :
+
+```
+export interface DocumentSnapshotExists<T> extends firebase.firestore.DocumentSnapshot<T> {
+    readonly exists: true;
+    data(options?: SnapshotOptions): T;
+}
+export interface DocumentSnapshotDoesNotExist extends firebase.firestore.DocumentSnapshot {
+    readonly exists: false;
+    data(options?: SnapshotOptions): undefined;
+    get(fieldPath: string | FieldPath, options?: SnapshotOptions): undefined;
+}
+export declare type DocumentSnapshot<T> = DocumentSnapshotExists<T> | DocumentSnapshotDoesNotExist;
+export interface QueryDocumentSnapshot<T> extends firebase.firestore.QueryDocumentSnapshot<T> {
+    data(options?: SnapshotOptions): T;
+}
+export interface QuerySnapshot<T> extends firebase.firestore.QuerySnapshot<T> {
+    readonly docs: QueryDocumentSnapshot<T>[];
+}
+export interface DocumentChange<T> extends firebase.firestore.DocumentChange<T> {
+    readonly doc: QueryDocumentSnapshot<T>;
+}
+```
+
 ### Account logout/login
 
 Run the following commands :
