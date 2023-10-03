@@ -23,11 +23,11 @@ export class BingoUserListComponent implements OnInit {
 
   constructor(private bingoService: BingoService, private authService: AuthService, private userService: UserService) { }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.refreshList()
   }
 
-  refreshList(){
+  refreshList() {
     this.bingoUserList = []
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
@@ -59,9 +59,9 @@ export class BingoUserListComponent implements OnInit {
     })
   }
 
-  deleteBingo(uid:string){
+  deleteBingo(uid: string) {
     this.loading = true
-    this.bingoService.deleteBingo(uid).then( result => {
+    this.bingoService.deleteBingo(uid).then(() => {
         this.refreshList()
       }
     )
