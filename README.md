@@ -39,7 +39,7 @@ As Angular handle 'hot reload', saving your files will update your website vizua
 
 ### Packages errors
 
-There is an error in the type definiition of the 
+#### There is an error in the type definiition of the ```node_modules/@angular/fire/compat/firestore/interfaces.d.ts``` file.
 
 
 Replace the following file content : 
