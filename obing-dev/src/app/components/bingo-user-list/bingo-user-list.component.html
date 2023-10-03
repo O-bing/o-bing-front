@@ -1,7 +1,10 @@
 <div class="content">
     <h1 class="title">Your list of Bingo(s)</h1>
     <hr class="title-separator"/>
-    <ul class="bingoList">
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+    <ul class="bingoList" *ngIf="!loading">
         <li  *ngFor="let bingo of bingoUserList">
             <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
                 <p class="bingoName">{{bingo.displayName}}</p>

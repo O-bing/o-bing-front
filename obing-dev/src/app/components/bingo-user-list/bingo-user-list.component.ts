@@ -16,6 +16,8 @@ export class BingoUserListComponent implements OnInit {
 
   isLoggedIn! : Boolean;
 
+  loading : Boolean = true;
+
   bingoUserList:Bingo[] = []
 
   constructor(private bingoService:BingoService, private authService:AuthService, private userService:UserService) { }
@@ -42,6 +44,8 @@ export class BingoUserListComponent implements OnInit {
               }
             })
           })
+
+          this.loading = false
         })
       }
     })

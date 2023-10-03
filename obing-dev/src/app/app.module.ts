@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -81,6 +82,7 @@ import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-con
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     FormsModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
