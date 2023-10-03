@@ -6,8 +6,11 @@
     </div>
     <ul class="bingoList" *ngIf="!loading">
         <li  *ngFor="let bingo of bingoUserList">
-            <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
+            <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-info is-light">
                 <p class="bingoName">{{bingo.displayName}}</p>
+            </button>
+            <button class="deleteButton button is-danger" (click)="deleteBingo(bingo.uid)">
+                <img class="trashImg" src="assets/icons/icon-trash.png" title="Your email is verified !">
             </button>
         </li>
     </ul>

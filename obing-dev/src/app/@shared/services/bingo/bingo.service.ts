@@ -13,7 +13,7 @@ export class BingoService {
 
   constructor(
     private store: AngularFirestore,
-    private storage:AngularFireStorage // to get profile pictures later
+    private storage:AngularFireStorage // to get bingos illustrations later
   ) {
     this.bingoCollection = this.store.collection<Bingo>(RoutesServices.Bingos);
   }
@@ -30,8 +30,8 @@ export class BingoService {
 
   }
 
-  deleteBingo(){
-
+  deleteBingo(postId:string){
+    return this.bingoCollection.doc(postId).delete()
   }
 
   getAllBingos(){

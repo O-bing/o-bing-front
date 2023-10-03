@@ -1,52 +1,53 @@
-<div class="body">
-  <table class="dialogHeader">
-    <td class="titleCol">
-      <h1 class="title">Connection</h1>
-    </td>
-    <td class="closeCol">
-      <button class="deleteTileButton" (click)="closeDialog()">x</button>
-    </td>
-  </table>
+<body class="box">
+    <table class="dialogHeader">
+      <td class="titleCol">
+        <h1 class="title">Connection</h1>
+      </td>
+      <td class="closeCol">
+        <button class="deleteTileButton" (click)="closeDialog()">x</button>
+      </td>
+    </table>
 
-  <form *ngIf="!this.authService.isLoggedIn==true">
-    <div>
-      <div class="field">
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded has-icons-left">
-              <input type="text" class="input" placeholder="xyz@mail.com" #userName required>
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-            </p>
+    <form *ngIf="!this.authService.isLoggedIn==true">
+      <div>
+        <div class="field">
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input type="text" class="input" placeholder="xyz@mail.com" #userName required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-left">
+                <input type="password" class="input" placeholder="Mys3cretp@ssword" #userPassword required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded has-icons-left">
-              <input type="password" class="input" placeholder="Mys3cretp@ssword" #userPassword required>
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-            </p>
-          </div>
-        </div>
+
+      <div class="login">
+        <table class="loginTable">
+          <td class="buttonCol">
+            <button class="small button is-primary" value="Connexion"
+              (click)="logIn(userName.value, userPassword.value)">
+              Log in
+            </button>
+          </td>
+        </table>
       </div>
-    </div>
+    </form>
 
-
-    <div class="login">
-      <table class="loginTable">
-        <td class="buttonCol">
-          <button class="small button is-primary" value="Connexion" (click)="logIn(userName.value, userPassword.value)">
-            Log in
-          </button>
-        </td>
-      </table>
-    </div>
-  </form>
-
-</div>
+</body>

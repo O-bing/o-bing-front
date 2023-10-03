@@ -8,36 +8,41 @@ import { User } from 'src/app/class/user';
 @Component({
   selector: 'app-bingo-user',
   templateUrl: './bingo-user-list.component.html',
-  styleUrls: ['./bingo-user-list.component.scss']
+  styleUrls: ['./bingo-user-list.component.scss'],
+  standalone: false
 })
 export class BingoUserListComponent implements OnInit {
 
-  currentUser : User = {};
+  currentUser: User = {};
 
-  isLoggedIn : Boolean = false;
+  isLoggedIn: Boolean = false;
 
-  loading : Boolean = true;
+  loading: Boolean = true;
 
-  bingoUserList:Bingo[] = []
+  bingoUserList: Bingo[] = []
 
-  constructor(private bingoService:BingoService, private authService:AuthService, private userService:UserService) { }
+  constructor(private bingoService: BingoService, private authService: AuthService, private userService: UserService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    this.refreshList()
+  }
 
-    this.authService.getCurrentUser().subscribe(user=>{
-      if(user){
-        this.userService.getUser(user.uid).subscribe(userObject=>{
+  refreshList(){
+    this.bingoUserList = []
+    this.authService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.userService.getUser(user.uid).subscribe(userObject => {
           this.currentUser = {}
-          this.currentUser.pseudo=userObject?.pseudo
-          this.currentUser.uid=user.uid
+          this.currentUser.pseudo = userObject?.pseudo
+          this.currentUser.uid = user.uid
           this.isLoggedIn = true
 
-          this.bingoService.getAllBingos().subscribe(bingoArray=>{
-            bingoArray.forEach(bingo=>{
-              if (bingo.owner==this.currentUser.uid){
-                if (bingo.title!.length>15){
-                  bingo.displayName = bingo.title!.slice(0,15)+"..."
-                }else{
+          this.bingoService.getAllBingos().subscribe(bingoArray => {
+            bingoArray.forEach(bingo => {
+              if (bingo.owner == this.currentUser.uid) {
+                if (bingo.title!.length > 15) {
+                  bingo.displayName = bingo.title!.slice(0, 15) + "..."
+                } else {
                   bingo.displayName = bingo.title
                 }
                 this.bingoUserList.push(bingo)
@@ -48,7 +53,18 @@ export class BingoUserListComponent implements OnInit {
           this.loading = false
         })
       }
+      else {
+        this.loading = false
+      }
     })
+  }
+
+  deleteBingo(uid:string){
+    this.loading = true
+    this.bingoService.deleteBingo(uid).then( result => {
+        this.refreshList()
+      }
+    )
   }
 
 }

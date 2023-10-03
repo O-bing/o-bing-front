@@ -24,9 +24,11 @@
     }
 
     .addTileButton {
+        position: absolute;
         font-weight: 600;
         width: 100%;
-        text-align: center;
+        left:35%;
+        text-align: start;
         border: none;
         background: none;
         cursor: pointer;
