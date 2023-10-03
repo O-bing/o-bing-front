@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { RoutesServices } from 'src/app/@shared/RouteServices';
