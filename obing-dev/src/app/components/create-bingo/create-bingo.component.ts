@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
 import { Router } from '@angular/router';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';

@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 

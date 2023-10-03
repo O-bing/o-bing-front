@@ -20,8 +20,8 @@ import { RandomBingoComponent } from './components/random-bingo/random-bingo.com
 import { BingoListComponent } from './components/create-bingo/bingo-list/bingo-list.component';
 import { BingoTileComponent } from './components/create-bingo/bingo-list/bingo-tile/bingo-tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { BingoTitleDialogComponent } from './components/create-bingo/bingo-title-dialog/bingo-title-dialog.component';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { AngularFireModule } from '@angular/fire/compat';
