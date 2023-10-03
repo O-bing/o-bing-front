@@ -1,46 +1,45 @@
 <div class="main-content">
-
     <div class="main-selector">
         <div>
 
-            <button routerLink="/newBingo" class="button is-light">
+            <button routerLink="/newBingo" class="button large-button is-light">
                 New Bingo
             </button>
 
-            <button routerLink="/loadBingo" class="button is-light">
+            <button routerLink="/loadBingo" class="button large-button is-light">
                 Load a Bingo
             </button>
         </div>
         <div>
-            <button routerLink="/searchBingo" class="button is-light">
+            <button routerLink="/searchBingo" class="button large-button is-light">
                 Search a Bingo
             </button>
 
-            <button routerLink="/searchUser" class="button is-light">
+            <button routerLink="/searchUser" class="button large-button is-light">
                 Search a user
             </button>
         </div>
 
         <div>
-            <button routerLink="/randomBingo" class="button is-warning">
+            <button routerLink="/randomBingo" class="button large-button is-warning">
                 Random Bingo
             </button>
             
             <div class="element">
-                <button *ngIf="!currentUserConnected" routerLink="/signUp" class="small button is-info">
-                    Sign up
-                </button>
+                <div style="margin-right: 20px; margin-left: 18px;">
+                    <button *ngIf="!currentUserConnected" routerLink="/signUp" class="small button is-info">
+                        Sign up
+                    </button>
 
-                <button *ngIf="!currentUserConnected" routerLink="/logIn" class="small button is-primary"> 
-                    Log in
-                </button>
-
-                <button *ngIf="currentUserConnected" class="logOut button is-danger" value="Home" (click)="logOut()">
-                    Log out
+                    <button *ngIf="!currentUserConnected" routerLink="/logIn" class="small small-button button is-primary"> 
+                        Log in
+                    </button>
+                </div>
+                <button *ngIf="currentUserConnected" routerLink="/bingoUserList" class="button large-button is-link">
+                    My bingos
                 </button>
             </div>
         </div>
 
     </div>
-
 </div>

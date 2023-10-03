@@ -1,0 +1,15 @@
+<div class="headerProfile">
+    <div class="info">
+        <p>Full name : {{userProfile.fullName}}</p>
+        <p>Rank : {{userProfile.rank}}</p>
+        <p>Mail : {{userProfile.mail}}</p>
+    </div>
+    <div class="buttons">
+        <div class="settingsDiv" (mouseenter)="mouseAction('enter')" (mouseleave)="mouseAction('leave')">
+            <img #settingsImg class="settingsImg" (click)="this.settingsClick()" [routerLink]="['/user', userProfile.uid]" src="assets/buttons/gear.png">
+        </div>
+        <div class="buttonDiv"> <button class="button logout is-danger" value="Home" (click)="logOut()">
+                Log out
+            </button></div>
+    </div>
+</div>

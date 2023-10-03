@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
 import { Router } from '@angular/router';
-import { AppRoutingModule } from '../../app-routing.module'
-
+import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
+import { guid } from 'src/app/utils/guid';
+import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
+import { Bingo } from 'src/app/class/bingo';
+import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
+import { BingoNotConnectedDialogComponent } from './bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
@@ -24,7 +29,7 @@ export class CreateBingoComponent implements OnInit {
 
   saved: boolean = false;
 
-  constructor(private dialog : MatDialog, private router: Router) { }
+  constructor(private dialog: MatDialog, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -52,7 +57,6 @@ export class CreateBingoComponent implements OnInit {
   }
 
   autoCompleteBingo(): void {
-
     // Check if columnsFormat in intput respect rules
 
     if (this.columnsFormat > 5 || this.columnsFormat <= 1) {
@@ -78,7 +82,7 @@ export class CreateBingoComponent implements OnInit {
           for (let i: number = 0; i < this.rowsFormat; i++) {
             let placeHolderLine: Array<Tile> = []
             for (let y: number = 1; y < this.columnsFormat + 1; y++) {
-              const placeHolderTile = new Tile(this.counter, 'Placeholder')
+              const placeHolderTile = new Tile(this.counter, '')
               placeHolderTile.state = "filled"
               placeHolderLine.push(placeHolderTile)
               this.counter += 1
@@ -94,14 +98,14 @@ export class CreateBingoComponent implements OnInit {
       // check if tiles match the columnsFormat for every line
 
       for (let i: number = 0; i < this.tilesList.length; i++) {
-        while (this.tilesList[i].length != this.columnsFormat){
-          if (this.columnsFormat > this.tilesList[i].length){
-            const placeHolderTile = new Tile(this.counter, 'Placeholder')
+        while (this.tilesList[i].length != this.columnsFormat) {
+          if (this.columnsFormat > this.tilesList[i].length) {
+            const placeHolderTile = new Tile(this.counter, '')
             placeHolderTile.state = "filled"
             this.tilesList[i].push(placeHolderTile)
             this.counter += 1
           }
-          else if (this.columnsFormat < this.tilesList[i].length){
+          else if (this.columnsFormat < this.tilesList[i].length) {
             this.counter -= 1
             this.tilesList[i].pop()
           }
@@ -113,7 +117,7 @@ export class CreateBingoComponent implements OnInit {
         position: 'top-right',
         closeOnClick: true,
         message: 'Completed your bingo to match format.',
-        type: 'is-info',
+        type: 'is-white',
         dismissible: true
       })
 
@@ -124,7 +128,7 @@ export class CreateBingoComponent implements OnInit {
   }
 
   saveBingo(): void {
-    if (this.tilesList[this.tilesList.length-1].length==0){
+    if (this.tilesList[this.tilesList.length - 1].length == 0) {
       console.log(this.tilesList)
     }
     if (!this.saved) {
@@ -141,7 +145,7 @@ export class CreateBingoComponent implements OnInit {
         }
         else {
           this.tilesList[this.tilesList.length - 1].pop()
-          if (this.tilesList[this.tilesList.length - 1].length==0){
+          if (this.tilesList[this.tilesList.length - 1].length == 0) {
             this.tilesList.pop()
           }
           this.openDialog(this.tilesList)
@@ -164,29 +168,40 @@ export class CreateBingoComponent implements OnInit {
     }
   }
 
-  private downloadObjectAsJson(exportObj:any, exportName:string){
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-  }
-
-  private openDialog(tiles: Array<Array<Tile>>){
+  private openDialog(tiles: Array<Array<Tile>>) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    this.dialog.open(BingoTitleDialogComponent, dialogConfig);
-    
-    const dialogRef = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
+    const dialogName = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe( title => {
-      this.downloadObjectAsJson(tiles, title)
-      this.router.navigate(['/','home']);
-      
+    dialogName.afterClosed().subscribe(titleBingo => {
+      const json = JSON.stringify(tiles);
+      const ID = guid.uuidv4();
+      this.bingoFileService.uploadBingoFile(json, ID);
+      const bingo: Bingo = {
+        uid: ID,
+        title: titleBingo,
+        owner: "",
+        creationDate: Date.now(),
+        numberPlayed: 0
+      }
+
+      // TODO : make that dialog doesn't re-open after connection, because the subscribe result will be updated AND then reopen the dialog
+
+      this.authService.getCurrentUser().subscribe(user => {
+        if (user) {
+          bingo.owner = user.uid
+          this.bingoService.createBingo(bingo, ID);
+          this.router.navigate(['/']);
+        }
+        else {
+          console.log("Set up actions to indicate user to connect, or allow him to directly download the new Bingo")
+
+          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent, dialogConfig);
+          
+        }
+      })
     }
     );
   }

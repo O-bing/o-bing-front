@@ -1,61 +1,106 @@
 .main-content {
     text-align: center;
-    height: 100%;
     background-color: rgb(16, 155, 197);
+    padding-bottom: 50px;
 
     .creation-panel {
-        min-width: 1000px;;
-        width: 60%;
         margin-left: auto;
         margin-right: auto;
         background-color: rgb(77, 189, 223);
         border-radius: 10px;
-        padding: 15px;
+        min-height: 250px;
+        max-height: 500px;
+        max-width: 950px;
+        overflow-y: scroll;
+
         .info {
+
+            width: 950px;
+            margin-top: 10px;
             font-size: medium;
             font-weight: 100;
-            color:rgb(29, 28, 28);
-            .counter{
+            color: rgb(29, 28, 28);
+
+            .counter {
                 display: inline;
                 margin: 10px;
             }
-            .formater{
+
+            .formater {
                 display: inline;
                 margin: 10px;
+
+                input {
+                    border-radius: 2px;
+                    border: none;
+                }
             }
-            .reminder{
+
+            .reminder {
                 margin: 10px;
                 display: inline;
             }
         }
-        
-        .newBingo{
-            margin-top:10px;
+
+        .newBingo {
+            margin-top: 10px;
             padding: 10px;
+            width: 100%;
+            min-width: 940px;
         }
 
-        .autoCompleteButton{
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 5px;
-            background-color: rgb(204, 226, 233);
-            border-radius: 3px;
-            font-weight: 600;
-            margin: 5px;
-        }
+        .buttonsFrame {
+            padding-top: 10px;
 
-        .saveButton{
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 5px;
-            background-color: rgb(204, 226, 233);
-            border-radius: 3px;
-            font-weight: 600;
-            margin: 5px;
+            .autoCompleteButton {
+                border: none;
+                background: none;
+                cursor: pointer;
+                padding: 5px;
+                background-color: rgb(204, 226, 233);
+                border-radius: 3px;
+                font-weight: 600;
+                margin: 5px;
+            }
+
+            .saveButton {
+                border: none;
+                background: none;
+                cursor: pointer;
+                padding: 5px;
+                background-color: rgb(204, 226, 233);
+                border-radius: 3px;
+                font-weight: 600;
+                margin: 5px;
+            }
         }
     }
 
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(77, 189, 223);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(109, 155, 169);
+    border-radius: 5px;
+}
+
+/* Rectangle crossing both vertical and horizontal bars' ends */
+::-webkit-scrollbar-corner {
+    background: rgb(77, 189, 223);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(135, 192, 209);
+}

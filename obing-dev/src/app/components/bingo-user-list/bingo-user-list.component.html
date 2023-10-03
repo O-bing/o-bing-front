@@ -1,0 +1,25 @@
+<div class="content">
+    <h1 class="title">Your list of Bingo(s)</h1>
+    <hr class="title-separator"/>
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+    <ul class="bingoList" *ngIf="!loading">
+        <li  *ngFor="let bingo of bingoUserList">
+            <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button is-link">
+                <p class="bingoName">{{bingo.displayName}}</p>
+            </button>
+        </li>
+    </ul>
+    
+    <div class="title" *ngIf="bingoUserList.length == 0">
+        <h2>You haven't created any Bingo yet.</h2>
+        <button routerLink="/newBingo" class="button is-success">
+            Create one !
+        </button>
+    </div>
+
+    <div class="title" *ngIf="!isLoggedIn">
+        <h2>You must be logged in to see your bingo collection</h2>
+    </div>
+</div>

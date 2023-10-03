@@ -13,11 +13,11 @@ import { UserService } from '../user/user.service';
 export class AuthService {
   userCollection: AngularFirestoreCollection<User>;
   constructor(
-    public afs: AngularFirestore,   // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
-    public router: Router,
-    public ngZone: NgZone, // NgZone service to remove outside scope warning,
-    public usersService: UserService
+    private afs: AngularFirestore,   // Inject Firestore service
+    private afAuth: AngularFireAuth, // Inject Firebase auth service
+    private router: Router,
+    private ngZone: NgZone, // NgZone service to remove outside scope warning,
+    private userService: UserService
 
   ) {
     this.userCollection = this.afs.collection<User>(RoutesServices.Users);
@@ -42,11 +42,11 @@ export class AuthService {
   signIn(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['/']);
-        });
+        return true
       }).catch((error) => {
+        console.log(error)
         window.alert("Email/Password association does not exist")
+        return false
       })
   }
 
@@ -59,7 +59,7 @@ export class AuthService {
       .then((newUser) => {
 
         if (newUser) {
-          this.usersService.newUser(user, newUser.user!.uid);
+          this.userService.newUser(user, newUser.user!.uid);
           newUser.user!.sendEmailVerification();
           window.alert("Inscription réussie, un mail de vérification vient de vous être envoyé (verifiez vos spams)");
           this.router.navigate(['/logIn'])

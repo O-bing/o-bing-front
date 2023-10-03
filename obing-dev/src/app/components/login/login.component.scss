@@ -1,19 +1,16 @@
-.body {
+.body{
+    background-color: rgb(16, 155, 197);
+}
+
+.box {
     width: 50%;
-    min-width: 760px;
+    min-width: 350px;
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(77, 189, 223);
     border-radius: 10px;
     padding: 15px;
     margin-top: 5%;
-}
-
-form {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 6%;
-    width: 70%;
 }
 
 .title {
@@ -23,15 +20,42 @@ form {
     margin-top: 2%;
 }
 
+form {
+    margin-top: 8%;
+    margin-right: 20%;
+    margin-left: 20%;
+}
 
+.control.has-icons-left .input, .control.has-icons-left .select select {
+    padding-left: 1.0em;
+}
 
 .login{
-    vertical-align: middle;
+    width: 100%;
     margin:10px;
+    margin-left: 0px;
+    display: inline-block;
+    text-align: start;
+}
+
+.loginTable{
+    width: 100%;
+}
+
+.checkboxCol{
+    width: 50%;
+    vertical-align: middle;
 }
 
 .checkbox{
     float: left;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.buttonCol{
+    vertical-align: middle;
+    width: 50%;
 }
 
 .button {
@@ -57,6 +81,14 @@ form {
     margin-bottom: 60px;
     text-align: center;
     display: grid;
+}
+
+.forgottenPassword{
+    font-size: 20px;
+}
+
+.noAccount{
+    font-size: 20px;
 }
 
 .logOut{

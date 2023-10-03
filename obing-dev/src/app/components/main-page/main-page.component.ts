@@ -11,7 +11,7 @@ export class MainPageComponent implements OnInit {
 
   currentUserConnected:boolean=false
 
-  constructor(public authService : AuthService, public userService:UserService) { }
+  constructor(private authService : AuthService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(user=>{
@@ -21,8 +21,6 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  logOut(){
-    this.authService.SignOut()
-  }
+  
 
 }

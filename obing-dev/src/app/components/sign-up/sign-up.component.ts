@@ -19,7 +19,7 @@ export class SignUpComponent implements OnInit {
 
   baseImage!: File;
 
-  constructor(public authService: AuthService) {
+  constructor(private authService: AuthService) {
     this.postForm = new FormGroup({
       pseudo: new FormControl("", Validators.required),
       email: new FormControl("",

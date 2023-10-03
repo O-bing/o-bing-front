@@ -1,25 +1,20 @@
-#content{
-    overflow: hidden;
-    font-size: 1.5rem;
-    padding-top:10px;
-    padding-bottom: 50px;    
+#container {
+        min-height: 560px;
+        font-size: 1.5rem;
+        padding-top: 100px;
+        padding-bottom: 120px;
+        background-color: rgb(16, 155, 197);
+        position: relative;
 }
 
-#container{
-    width: 100%;
+.spinner{
+        display: flex;
+        padding-top: 10%;
+        justify-content: center;
+        height: 100%;
 }
 
-#header{
-    top: 0%; 
-    left: 0%;
-    width: 100%;
-    height: auto;
-}
-
-#footer{
-    position: fixed;
-    bottom: 0%;
-    left: 0%;
-    width: 100%;
-    height: auto;
+.mat-progress-spinner {
+        color: rgb(255,255,255);
+        background-color: rgb(16, 155, 197);
 }

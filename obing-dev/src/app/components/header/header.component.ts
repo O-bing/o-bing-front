@@ -1,32 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from 'src/app/class/user';
-import { AuthService } from 'src/app/@shared/services/auth/auth.service';
-import { UserService } from 'src/app/@shared/services/user/user.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  currentUser:User={pseudo:""}
+  @Input() CurrentUser!:User;
 
-  currentUserConnected:boolean=false
+  imgProfileURL : string = '';
 
-  imgProfileURL:string="";
+  displayProfile : Boolean = false;
 
-  constructor(public authService : AuthService, public userService:UserService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user=>{
-      if(user){
-        this.currentUserConnected = true
-        this.userService.getUser(user.uid).subscribe(userObject=>{
-          this.currentUser.pseudo=userObject?.pseudo
-        })
-      }
-    })
+  displayProfileHeader(){
+    if (!this.displayProfile){
+      this.displayProfile = true
+    }
+    else{
+      this.displayProfile = false
+    }
   }
+
+  clickEvent(){
+    this.displayProfile = false
+  }
+
 
 }

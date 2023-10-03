@@ -1,11 +1,10 @@
-<div id="header">
-  <app-header></app-header>
+<div class="spinner" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
 </div>
-<div id="container">
-  <div id="content">
-    <router-outlet></router-outlet>
-  </div>
-</div>
-<div id="footer">
-  <app-footer></app-footer>
+<div *ngIf="!loading">
+    <app-header [CurrentUser]="currentUser"></app-header>
+    <div id="container">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
 </div>

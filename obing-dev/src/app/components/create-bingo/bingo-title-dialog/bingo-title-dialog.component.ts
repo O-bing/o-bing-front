@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-bingo-title-dialog',
@@ -21,7 +21,7 @@ export class BingoTitleDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public save():void{
+  save():void{
     let title = new Date().getTime()
     if (this.form.get('titleForm')!.value != ''){
       title = this.form.get('titleForm')!.value

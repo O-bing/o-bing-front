@@ -1,18 +1,25 @@
-<div class="header">
+<div class="header-main">
     <table class="header-compartimenter">
         <th class="header-start">
-            <!--Placeholder-->
+            <a title="Don't have any support link yet" class="supportMe">
+                Support me
+            </a>
         </th>
-        <th class="header-main">
+        <th class="header-middle">
             <a class="title" routerLink="/">
                 O-Bing
             </a>
         </th>
+
         <th class="header-end">
-            <img class="imgProfile is" src={{this.imgProfileURL}}>
-            <a class="currentUser">
-                {{this.currentUser.pseudo}}
+            <a (click)="displayProfileHeader()">
+                <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.CurrentUser.idImgProfile}}" alt="profilePicture">
+            </a>
+            <br />
+            <a *ngIf="this.CurrentUser.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
+                {{this.CurrentUser.pseudo}}
             </a>
         </th>
     </table>
+    <app-header-profile (clickEvent)="clickEvent()" [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.displayProfile"></app-header-profile>
 </div>
