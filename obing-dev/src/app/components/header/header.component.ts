@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user';
 
 @Component({
@@ -8,7 +8,9 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderComponent {
 
-  @Input() CurrentUser!:User;
+  @Input() CurrentUser:User = {
+    isLoggedIn:false
+  };
 
   imgProfileURL : string = '';
 

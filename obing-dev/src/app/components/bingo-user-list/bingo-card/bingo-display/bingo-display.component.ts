@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BingoDisplayComponent implements OnInit {
 
-   @Input() BingoId!:string
+   @Input() BingoId:string = 'NaN'
 
   constructor() { }
 

@@ -12,9 +12,9 @@ import { User } from 'src/app/class/user';
 })
 export class BingoUserListComponent implements OnInit {
 
-  currentUser! : User;
+  currentUser : User = {};
 
-  isLoggedIn! : Boolean;
+  isLoggedIn : Boolean = false;
 
   loading : Boolean = true;
 

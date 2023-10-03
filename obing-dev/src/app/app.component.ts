@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   loading: Boolean = true;
 
-  currentUser!: User;
+  currentUser: User = {};
 
   constructor(private authService: AuthService, private userService: UserService) { }
 
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
 
       } else {
         this.loading = false
+        this.currentUser.isLoggedIn = false
       }
     })
   }
