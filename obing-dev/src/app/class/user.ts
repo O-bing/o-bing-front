@@ -12,7 +12,7 @@ export interface User{
     telNumber?:string,
     rank?:UserRank,
     emailVerified?: boolean,
-    idImgProfile?:guid,
+    imgProfileRef?:string,
     listBingo?:Array<string>,
     fame?:number,
     favouriteBingo?:Array<string>,

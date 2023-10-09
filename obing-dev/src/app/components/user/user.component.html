@@ -1,1 +1,74 @@
-<p>user works!</p>
+<form [formGroup]="postForm" (ngSubmit)="submitForm()">
+    <div class="columns">
+    <div class="column is-4 has-text-centered">
+        <div class="box">
+            <figure class="image is-1by1">
+                <img src={{this.imgProfileURL}}>
+            </figure>
+            <br>
+            <input class="button" type="file" (change)="uploadPhoto($event)" placeholder="Changer de photo de profil" name="photo" accept=".png,.JPEG,.jpg">
+            <div class="box">
+                <strong>{{this.user.pseudo}}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="column is-8">
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                    <h3 class="has-text-weight-bold">Statut</h3><br>
+                    <div class="field">
+                        <div class="control">
+                        <input class="input" type="text" placeholder="Titre" formControlName="Titre" readonly>
+                        </div>
+                    </div>
+                    <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box padd-40">
+                    <button class="button is-fullwidth is-danger" (click)="deleteAccount()">Se désinscrire</button>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                    <h3 class="has-text-weight-bold">Pseudo</h3>
+                    <br>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="email" placeholder="Changer votre Pseudo" formControlName="Pseudo">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="email" placeholder="Confirmer votre Pseudo" formControlName="ConfirmerPseudo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box">
+                    <h3 class="has-text-weight-bold">Mot de passe</h3>
+                    <br>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="password" placeholder="Mot de passe" formControlName="password">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="password" placeholder="Confirmer mot de passe" formControlName="password2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div clas="box">
+            <button type="submit" class="button is-success">Enregistrer les modifications</button>&nbsp;
+        </div>
+    </div>
+
+  </div>
+</form>

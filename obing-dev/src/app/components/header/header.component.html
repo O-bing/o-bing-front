@@ -13,7 +13,7 @@
 
         <th class="header-end">
             <a (click)="displayProfileHeader()">
-                <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.CurrentUser.idImgProfile}}" alt="profilePicture">
+                <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.CurrentUser.imgProfileRef}}" alt="profilePicture">
             </a>
             <br />
             <a *ngIf="this.CurrentUser.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
