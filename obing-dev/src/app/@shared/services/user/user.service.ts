@@ -4,6 +4,8 @@ import { User, UserRank } from 'src/app/class/user';
 import { RoutesServices } from '../../RouteServices';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { guid } from 'src/app/utils/guid';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,18 +28,21 @@ export class UserService {
 
   newUser(user: User, uid: string) {
     user.rank = UserRank.UserLambda;
-    user.imgProfileRef = '48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png'
-    return this.userCollection.doc(uid).set(user);
+    const userStaticImgSubscription: Subscription = this.getStaticUserPhoto().subscribe(res => {
+      user.imgProfileRef = guid.uuidv4() + '.png'
+      console.log(res)
+      this.uploadUserPhoto(res, user.imgProfileRef);
+      this.userCollection.doc(uid).set(user);
+    })
   }
 
   deletUser(userId: string) {
     return this.afAuth.currentUser.then(user => {
       if (user) {
-        this.userCollection.doc(userId).delete().then(res =>
-          {
-            console.log(res);
-            user.delete()
-          }
+        this.userCollection.doc(userId).delete().then(res => {
+          console.log(res);
+          user.delete()
+        }
         ).catch(error => console.log(error));
       }
     });
@@ -70,6 +75,10 @@ export class UserService {
     return this.userCollection.doc<User>(idProfile).update({
       pseudo: newPseudo
     });
+  }
+
+  getStaticUserPhoto() {
+    return this.storage.ref('Static/' + '48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png').getDownloadURL()
   }
 
   getUserPhoto(idUserPhoto: string) {

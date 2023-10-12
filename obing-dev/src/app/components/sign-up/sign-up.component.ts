@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/class/user';
 import { toast } from 'bulma-toast'
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
+import { guid } from 'src/app/utils/guid';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +19,7 @@ export class SignUpComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private userService:UserService) {
     this.postForm = new FormGroup({
       pseudo: new FormControl("", Validators.required),
       email: new FormControl("",
@@ -59,7 +61,8 @@ export class SignUpComponent implements OnInit {
         pseudo: this.postForm.get('pseudo')!.value,
         mail: this.postForm.get('email')!.value,
       }
-      this.authService.SignUp(newUser, this.postForm.get('password')!.value)
+      //this.authService.SignUp(newUser, this.postForm.get('password')!.value)
+      this.userService.newUser(newUser,guid.uuidv4())
     }
     else {
       toast({
