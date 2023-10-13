@@ -67,18 +67,18 @@ export class UserComponent implements OnInit {
     let pseudo2: string = this.postForm.get("ConfirmerPseudo")!.value;
     let pwd1 = this.postForm.get("password")!.value;
     let pwd2 = this.postForm.get("password2")!.value;
-
-
     this.authService.getCurrentUser().subscribe(user => {
       if (user != null) {
         this.userService.getUser(user.uid).subscribe(userObject => {
           if (userObject) {
+            userObject.uid = user.uid // adding uid for cleaner data usage in code
             if (this.imgToUpload) {
-              if (userObject.imgProfileRef != "48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png") {
+              /*if (userObject.imgProfileRef != "48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png") {
                 this.userService.deleteUserPhoto(userObject.imgProfileRef!);
-              }
+              }*/
               const ID = guid.uuidv4();
               this.userService.uploadUserPhoto(this.imgToUpload, ID);
+              console.log("test", userObject.uid!, ID)
               this.userService.updateImgProfileRef(userObject.uid!, ID);
             }
             this.userService.updateUserDescription(userObject.uid!, this.postForm.get("Description")!.value)
