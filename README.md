@@ -136,6 +136,8 @@ You will also have to give the build folder path :
 dist/obing-dev
 ```
 
+After completing every ```firebase init``` steps, run :
+
 ```
 ng build
 ```
