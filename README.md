@@ -130,8 +130,8 @@ During the ```firebase init``` compilation, you will have to select the followin
 ```
 
 You will also have to give the build folder path :
-```? What do you want to use as your public directory?```
 
+```? What do you want to use as your public directory?```
 ```
 dist/obing-dev
 ```
