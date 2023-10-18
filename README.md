@@ -92,16 +92,22 @@ export interface DocumentChange<T> extends firebase.firestore.DocumentChange<T> 
 }
 ```
 
-### Account logout/login
+### Firebase package installation & Account logout/login
 
 Run the following commands :
+
+```
+npm install -g firebase-tools
+```
 
 ```
 firebase logout
 ```
 (to be sure you don't try to connect with the wrong account)
 
-```firebase login```
+```
+firebase login
+```
 
 ### Project deployment
 
@@ -109,6 +115,23 @@ Run the following commands :
 
 ```
 firebase init
+```
+
+Choose to use the already existing configuration files for every step
+
+During the ```firebase init``` compilation, you will have to select the following options :
+```
+ (*) Realtime Database: Configure a security rules file for Realtime Database and (optionally) provision default instance
+ (*) Firestore: Configure security rules and indexes files for Firestore
+ ( ) Functions: Configure a Cloud Functions directory and its files
+ (*) Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
+ ( ) Hosting: Set up GitHub Action deploys
+ (*) Storage: Configure a security rules file for Cloud Storage
+```
+
+You will also have to give the build folder path :
+```? What do you want to use as your public directory?``` ```
+dist/obing-dev
 ```
 
 ```
