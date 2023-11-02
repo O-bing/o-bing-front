@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { Bingo } from 'src/app/class/bingo';
 
@@ -10,25 +11,31 @@ import { Bingo } from 'src/app/class/bingo';
 })
 export class BingoCardComponent implements OnInit {
 
-  bingoId:string="";
+  bingoId: string = "";
 
-  Bingo:Bingo={uid:"", numberPlayed:0}
+  Bingo: Bingo = { uid: "", numberPlayed: 0 }
 
-  constructor(private bingoService:BingoService, private route:ActivatedRoute) { }
+  BingoBody: string = ''
+
+  url : string = ''
+
+  constructor(private bingoService: BingoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-        this.bingoId = params.get('bingoId')!;
-        this.bingoService.getBingo(this.bingoId).subscribe(bingo=>{
-          if(bingo!=undefined){
-            this.Bingo=bingo
-            if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number')
+      this.bingoId = params.get('bingoId')!;
+      this.bingoService.getBingo(this.bingoId).subscribe(bingo => {
+        if (bingo != undefined) {
+          this.Bingo = bingo
+          if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
             this.Bingo.creationDate = new Date(this.Bingo.creationDate)
           }
-        })
-      }
+          
+        }
+      })
+    }
     );
-    
+
   }
 
 }

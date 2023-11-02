@@ -192,6 +192,7 @@ export class CreateBingoComponent implements OnInit {
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           bingo.owner = user.uid
+          bingo.content = json
           this.bingoService.createBingo(bingo, ID);
           this.router.navigate(['/']);
         }

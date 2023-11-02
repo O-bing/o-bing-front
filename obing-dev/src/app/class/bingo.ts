@@ -8,5 +8,6 @@ export interface Bingo{
     creationDate?:number|Date,
     idImgIllus?:guid,
     numberPlayed:number,
-    displayName?: string
+    displayName?: string,
+    content?:string
 }
