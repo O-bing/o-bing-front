@@ -9,5 +9,5 @@ export interface Bingo{
     idImgIllus?:guid,
     numberPlayed:number,
     displayName?: string,
-    content?:string
+    content?:any
 }

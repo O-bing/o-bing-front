@@ -1,0 +1,27 @@
+.tile {
+    display: inline-block;
+    margin: 5px;
+    width: 150px;
+    height: 55px;
+    border-radius: 3px;
+    font-size: medium;
+    font-weight: 100;
+    color: rgb(29, 28, 28);
+    background-color: rgb(211, 214, 236);
+    position: relative;
+
+
+    .textAreaTileText {
+        border-radius: 3px;
+        resize: none;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 120px;
+        height: 35.2px;
+        border: none;
+        background: none;
+        background-color: rgb(211, 214, 236);
+        cursor: default;
+    }
+}

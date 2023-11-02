@@ -6,6 +6,15 @@
 
     <p>{{Bingo.creationDate}}</p>
 
-    <app-bingo-display [BingoId]="Bingo.uid"></app-bingo-display>
+    <p>Will allow to display a playable bingo overview for bingo</p>
+    <ul>
+        <li *ngFor="let line of Bingo.content">
+                <ul>
+                        <li class="line">
+                            <app-tile-display *ngFor="let tile of line" [tile]="tile"></app-tile-display>
+                        </li>
+                </ul>
+        </li>
+    </ul>
 
 </div>
