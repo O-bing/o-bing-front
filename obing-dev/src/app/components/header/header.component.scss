@@ -15,34 +15,29 @@
 
             .header-start {
                 width: 33%;
-                padding-left: 20px;
+                padding-left: 30px;
+                padding-top:8px;
                 text-align: start;
 
                 .supportMe {
                     white-space: nowrap;
-                    padding: 10px;
-                    padding-top: 20px;
                     text-decoration: none;
                     color: rgba(0, 0, 0, .7);
                     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                    padding-right: 15px;
+                    padding-right: 10px;
                     font-size: 15px;
                 }
             }
 
             .header-middle {
                 width: 34%;
-                padding-left: 20px;
                 text-align: center;
 
                 .title {
                     white-space: nowrap;
-                    padding: 10px;
-                    padding-top: 20px;
                     text-decoration: none;
                     color: rgba(255, 233, 36, 0.7);
                     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                    padding-right: 15px;
                     font-size: 30px;
                     font-weight: bolder;
                 }
@@ -51,7 +46,8 @@
             .header-end {
                 width: 33%;
                 text-align: end;
-                padding-right: 50px;
+                padding-right: 10px;
+                padding-top:8px;
 
                 .currentUser {
                     color: rgb(255, 255, 255);
@@ -59,6 +55,15 @@
 
                 .buttonElement {
                     text-align: end;
+                }
+
+                .notConnected{
+                    white-space: nowrap;
+                    background-color: aqua;
+                    padding: 8px;
+                    border-radius: 8px;
+                    font-size: 15px;
+                    color: rgb(255, 255, 255);
                 }
             }
         }

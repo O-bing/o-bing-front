@@ -1,0 +1,49 @@
+.box {
+    position: fixed;    
+    width: min-content;
+    right: 0;
+    margin-right: 20px;
+    z-index: 1000;
+    text-align: end;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 5px;
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+    .title {
+        text-align: start;
+    }
+    
+    .control.has-icons-left .input, .control.has-icons-left .select select {
+        padding-left: 1.0em;
+    }
+
+    .input{
+        width: min-content;
+    }
+
+    .login{
+        .checkboxCol{
+            text-align: start;
+        }
+
+        .checkbox{
+            font-size: 15px;
+        }
+        
+        .buttonCol{
+            text-align: end;
+        }
+        
+        .button {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .small{
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+    
+}

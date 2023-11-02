@@ -41,6 +41,7 @@ import { BingoDisplayComponent } from './components/bingo-user-list/bingo-card/b
 import { HeaderProfileComponent } from './components/header/header-profile/header-profile.component';
 import { BingoNotConnectedDialogComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-save-log-in/bingo-save-log-in.component';
+import { HeaderConnectComponent } from './components/header/header-connect/header-connect.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-con
     BingoDisplayComponent,
     HeaderProfileComponent,
     BingoNotConnectedDialogComponent,
-    BingoSaveLogInComponent
+    BingoSaveLogInComponent,
+    HeaderConnectComponent
   ],
   imports: [
     BrowserModule,

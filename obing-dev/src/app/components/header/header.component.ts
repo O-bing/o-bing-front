@@ -16,6 +16,8 @@ export class HeaderComponent {
 
   displayProfile : Boolean = false;
 
+  displayConnect : Boolean = false;
+
   constructor() { }
 
   displayProfileHeader(){
@@ -27,8 +29,18 @@ export class HeaderComponent {
     }
   }
 
+  displayConnectHeader(){
+    if (!this.displayConnect){
+      this.displayConnect = true
+    }
+    else{
+      this.displayConnect = false
+    }
+  }
+
   clickEvent(){
     this.displayProfile = false
+    this.displayConnect = false
   }
 
 
