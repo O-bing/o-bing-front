@@ -5,7 +5,7 @@ export interface Bingo{
     title? : string,
     description?:string,
     owner?:string,
-    creationDate?:number,
+    creationDate?:number|Date,
     idImgIllus?:guid,
     numberPlayed:number,
     displayName?: string

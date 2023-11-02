@@ -22,6 +22,8 @@ export class BingoCardComponent implements OnInit {
         this.bingoService.getBingo(this.bingoId).subscribe(bingo=>{
           if(bingo!=undefined){
             this.Bingo=bingo
+            if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number')
+            this.Bingo.creationDate = new Date(this.Bingo.creationDate)
           }
         })
       }
