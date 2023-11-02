@@ -59,11 +59,12 @@
 
                 .notConnected{
                     white-space: nowrap;
-                    background-color: rgb(55, 83, 175);
                     padding: 8px;
                     border-radius: 8px;
                     font-size: 15px;
-                    color: rgb(255, 255, 255);
+                    background-color: #b1b610;
+                    border-color: transparent;
+                    color: #fff;
                 }
             }
         }

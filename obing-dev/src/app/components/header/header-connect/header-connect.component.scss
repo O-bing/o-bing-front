@@ -23,26 +23,30 @@
     }
 
     .login{
-        .checkboxCol{
-            text-align: start;
-        }
-
-        .checkbox{
-            font-size: 15px;
-        }
-        
-        .buttonCol{
-            text-align: end;
-        }
-        
-        .button {
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .small{
-            font-size: 20px;
-            font-weight: bold;
+        .loginTable{
+            width: 100%;
+            
+            .checkboxCol{
+                text-align: start;
+            }
+    
+            .checkbox{
+                font-size: 15px;
+            }
+            
+            .buttonCol{
+                text-align: end;
+            }
+            
+            .button {
+                font-size: 20px;
+                font-weight: bold;
+            }
+            
+            .small{
+                font-size: 20px;
+                font-weight: bold;
+            }
         }
     }
     

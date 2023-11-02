@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { User, UserRank } from 'src/app/class/user';
 import { RoutesServices } from '../../RouteServices';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { guid } from 'src/app/utils/guid';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,13 @@ export class UserService {
     this.userCollection = this.store.collection<User>(RoutesServices.Users);
   }
 
-  getUser(uid: string) {
+  getUser(uid: string):Observable<User | undefined> {
     return this.userCollection.doc<User>(uid).valueChanges();
   }
 
-  newUser(user: User, uid: string) {
+  newUser(user: User, uid: string):Subscription{
     user.rank = UserRank.UserLambda;
-    const userStaticImgSubscription: Subscription = this.getStaticUserPhoto().subscribe(res => {
+    return this.getStaticUserPhoto().subscribe(res => {
       user.imgProfileRef = guid.uuidv4() + '.png'
       console.log(res)
       this.uploadUserPhoto(res, user.imgProfileRef);
@@ -36,7 +36,7 @@ export class UserService {
     })
   }
 
-  deletUser(userId: string) {
+  deletUser(userId: string): Promise<void> {
     return this.afAuth.currentUser.then(user => {
       if (user) {
         this.userCollection.doc(userId).delete().then(res => {
@@ -48,7 +48,7 @@ export class UserService {
     });
   }
 
-  updatePassword(newPassword: string) {
+  updatePassword(newPassword: string): Promise<void> {
     return this.afAuth.currentUser.then(user => {
       if (user) {
         user.updatePassword(newPassword).catch(error =>
@@ -58,38 +58,38 @@ export class UserService {
     });
   }
 
-  updateUserDescription(idProfile: string, newDescription: string) {
+  updateUserDescription(idProfile: string, newDescription: string): Promise<void> {
     return this.userCollection.doc<User>(idProfile).update({
       description: newDescription
     });
   }
 
-  updateImgProfileRef(idProfile: string, newImageId: string) {
+  updateImgProfileRef(idProfile: string, newImageId: string): Promise<void> {
     console.log(idProfile, newImageId)
     return this.userCollection.doc<User>(idProfile).update({
       imgProfileRef: newImageId
     });
   }
 
-  updatePseudo(idProfile: string, newPseudo: string) {
+  updatePseudo(idProfile: string, newPseudo: string): Promise<void> {
     return this.userCollection.doc<User>(idProfile).update({
       pseudo: newPseudo
     });
   }
 
-  getStaticUserPhoto() {
+  getStaticUserPhoto(): Observable<any> {
     return this.storage.ref('Static/' + '48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png').getDownloadURL()
   }
 
-  getUserPhoto(idUserPhoto: string) {
+  getUserPhoto(idUserPhoto: string): Observable<any>  {
     return this.storage.ref('ImgProfile/' + idUserPhoto).getDownloadURL();
   }
 
-  uploadUserPhoto(imgToUpload: File, idImage: string) {
+  uploadUserPhoto(imgToUpload: File, idImage: string): AngularFireUploadTask {
     return this.storage.upload('ImgProfile/' + idImage, imgToUpload);
   }
 
-  deleteUserPhoto(idUserPhoto: string) {
+  deleteUserPhoto(idUserPhoto: string): Observable<any> {
     return this.storage.ref('ImgProfile/' + idUserPhoto).delete();
   }
 

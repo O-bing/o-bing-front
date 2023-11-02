@@ -22,7 +22,7 @@ export class OnlineStateService implements OnInit, OnDestroy {
     this.networkStatus$.unsubscribe();
   }
 
-  checkNetworkStatus() {
+  checkNetworkStatus() : boolean{
     this.networkStatus$ = Subscription.EMPTY;
     this.networkStatus = navigator.onLine;
     this.networkStatus$ = merge(

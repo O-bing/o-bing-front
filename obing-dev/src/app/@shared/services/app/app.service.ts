@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { RouteData } from '../../pages';
@@ -17,11 +17,11 @@ export class AppService {
     this.routeData = new BehaviorSubject<RouteData | null>(null);
   }
 
-  getRouteData() {
+  getRouteData(): Observable<RouteData | null>{
     return this.routeData.asObservable().pipe(filter(data => !!data));
   }
 
-  setRouteData(data: RouteData) {
+  setRouteData(data: RouteData):void{
     this.routeData.next(data);
   }
 }

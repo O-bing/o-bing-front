@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Bingo } from 'src/app/class/bingo';
 import { RoutesServices } from '../../RouteServices';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,11 @@ export class BingoService {
     this.bingoCollection = this.store.collection<Bingo>(RoutesServices.Bingos);
   }
 
-  getBingo(uid:string){
+  getBingo(uid:string):Observable<Bingo| undefined>{
     return this.bingoCollection.doc<Bingo>(uid).valueChanges();
   }
 
-  createBingo(bingo:Bingo, uid:string){
+  createBingo(bingo:Bingo, uid:string):Promise<void>{
     return this.bingoCollection.doc(uid).set(bingo);
   }
 
@@ -30,11 +31,11 @@ export class BingoService {
 
   }
 
-  deleteBingo(postId:string){
+  deleteBingo(postId:string):Promise<void>{
     return this.bingoCollection.doc(postId).delete()
   }
 
-  getAllBingos(){
+  getAllBingos():Observable<Bingo[]>{
     return this.bingoCollection.valueChanges()
   }
 

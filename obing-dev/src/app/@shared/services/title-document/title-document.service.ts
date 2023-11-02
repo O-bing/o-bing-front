@@ -11,7 +11,7 @@ export class TitleDocumentService {
   ) {
   }
 
-  setTitlePage(title: string) {
+  setTitlePage(title: string) : void {
     this.titleService.setTitle(`MyApp - ${title}`);
   }
 }

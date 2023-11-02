@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   // Sign in with email/password Connexion
-  signIn(email: string, password: string) {
+  signIn(email: string, password: string): Promise<boolean> {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         return true
@@ -52,7 +52,7 @@ export class AuthService {
 
 
   // Sign up with email/password Inscription
-  SignUp(user: User, password: string) {
+  SignUp(user: User, password: string): Promise<void> {
 
     return this.afAuth.createUserWithEmailAndPassword(user.mail!, password!)
 
@@ -64,7 +64,7 @@ export class AuthService {
           window.alert("Inscription réussie, un mail de vérification vient de vous être envoyé (verifiez vos spams)");
           this.router.navigate(['/logIn'])
         }
-        
+
       }).catch((error) => {
         window.alert(error)
       })
@@ -76,7 +76,7 @@ export class AuthService {
   }
 
   // Reset Forgot password
-  ForgotPassword(passwordResetEmail: string) {
+  ForgotPassword(passwordResetEmail: string) : Promise<void> {
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         window.alert("Un mail vient de vous être envoyé, veuillez vérifier vos mails.");
@@ -103,7 +103,7 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider: any) {
+  AuthLogin(provider: any): Promise<void> {
     return this.afAuth.signInWithPopup(provider)
       .then((result) => {
         this.ngZone.run(() => {
@@ -116,7 +116,7 @@ export class AuthService {
   }
 
   // Sign out
-  SignOut() {
+  SignOut() : Promise<void>{
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('userToken');
       localStorage.removeItem('userTokenExpiresAt');
