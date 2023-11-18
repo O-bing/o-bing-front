@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -35,13 +35,13 @@ import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
 import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
-import { BingoCardComponent } from './components/bingo-user-list/bingo-card/bingo-card.component';
+import { BingoCardComponent } from './components/bingo-card/bingo-card.component';
 import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
 import { HeaderProfileComponent } from './components/header/header-profile/header-profile.component';
 import { BingoNotConnectedDialogComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-save-log-in/bingo-save-log-in.component';
 import { HeaderConnectComponent } from './components/header/header-connect/header-connect.component';
-import { TileDisplayComponent } from './components/bingo-user-list/bingo-card/tile-display/tile-display.component';
+import { TileDisplayComponent } from './components/bingo-card/tile-display/tile-display.component';
 @NgModule({
   declarations: [
     AppComponent,
