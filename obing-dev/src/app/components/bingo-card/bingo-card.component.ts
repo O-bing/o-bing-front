@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
@@ -12,7 +12,6 @@ import { Tile } from 'src/app/types/Tile';
 })
 export class BingoCardComponent implements OnInit {
 
-  
   @Output() tilesCountEvent = new EventEmitter<number>();
 
   @Output() tilesSaveEvent = new EventEmitter<Array<Array<Tile>>>();
@@ -26,6 +25,8 @@ export class BingoCardComponent implements OnInit {
   constructor(private bingoService: BingoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    var container = document.getElementById('body')!;
+    container.scrollLeft = container.scrollWidth/2;
     this.route.paramMap.subscribe(params => {
       this.bingoId = params.get('bingoId')!;
       this.bingoService.getBingo(this.bingoId).subscribe(bingo => {
@@ -40,5 +41,4 @@ export class BingoCardComponent implements OnInit {
       })
     });
   }
-
 }

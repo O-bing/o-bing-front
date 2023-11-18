@@ -1,6 +1,26 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
 .body{
+    white-space: nowrap;
+    overflow:scroll;
     text-align: center;
     background-color: rgb(109, 200, 228);
     border-radius: 10px;
     padding: 15px;
+    margin-top: 10px;
+    padding: 10px;
+    .bingo{
+        
+        
+        .lineList {
+            padding-top: 10px;
+            padding-bottom: 50px;
+            .line{
+                width: 100%;
+            }
+        
+        }
+    }
 }

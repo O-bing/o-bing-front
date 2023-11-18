@@ -1,4 +1,4 @@
-<div class="body">
+<div class="body" id="body">
     
     <p>{{Bingo.uid}}</p>
 
@@ -7,14 +7,16 @@
     <p>{{Bingo.creationDate}}</p>
 
     <p>Will allow to display a playable bingo overview for bingo</p>
-    <ul>
-        <li *ngFor="let line of Bingo.content">
-                <ul>
-                        <li class="line">
-                            <app-tile-display *ngFor="let tile of line" [tile]="tile"></app-tile-display>
-                        </li>
-                </ul>
-        </li>
-    </ul>
+    <div class="bingo">
+        <ul class="lineList">
+            <li *ngFor="let line of Bingo.content">
+                    <ul>
+                            <li class="line">
+                                <app-tile-display *ngFor="let tile of line" [tile]="tile"></app-tile-display>
+                            </li>
+                    </ul>
+            </li>
+        </ul>
+    </div>
 
 </div>
