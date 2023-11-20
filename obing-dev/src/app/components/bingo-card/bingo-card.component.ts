@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
@@ -11,7 +11,7 @@ import { Bingo } from 'src/app/class/bingo';
   templateUrl: './bingo-card.component.html',
   styleUrls: ['./bingo-card.component.scss']
 })
-export class BingoCardComponent implements OnInit {
+export class BingoCardComponent implements OnInit, AfterViewChecked {
 
   bingoId: string = "";
 
@@ -24,6 +24,8 @@ export class BingoCardComponent implements OnInit {
   owner: string = ''
 
   loading: boolean = true
+
+  setScrollView: boolean = false
 
   constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private route: ActivatedRoute) { }
 
@@ -64,5 +66,13 @@ export class BingoCardComponent implements OnInit {
       })
     });
     this.loading = false
+  }
+
+  ngAfterViewChecked(){
+    let body = document.getElementById('bodyCard')
+    let page = window.innerWidth
+    if (!this.setScrollView && body){
+      body.scrollLeft = page/2
+    }
   }
 }

@@ -1,4 +1,4 @@
-<div class="body" id="scrollBody">
+<div class="body" id="bodyCard">
     <div class="spinner" *ngIf="loading">
         <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
     </div>
@@ -11,7 +11,7 @@
         <p>{{Bingo.creationDate}}</p>
 
         <p>Will allow to display a playable bingo overview for bingo</p>
-        <div class="bingo">
+        <div class="bingo" id="bingo">
             <ul class="lineList">
                 <li *ngFor="let line of Bingo.content">
                     <ul>

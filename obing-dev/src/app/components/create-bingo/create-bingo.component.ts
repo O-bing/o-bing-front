@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
@@ -18,7 +18,7 @@ import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-pri
   styleUrls: ['./create-bingo.component.scss']
 })
 
-export class CreateBingoComponent implements OnInit {
+export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   counter: number = 0;
 
@@ -34,6 +34,8 @@ export class CreateBingoComponent implements OnInit {
 
   connected : boolean = false
 
+  setScrollView:boolean = false
+
   constructor(private dialog: MatDialog, private bingoPrivateRefService: BingoPrivateRefService, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -45,10 +47,12 @@ export class CreateBingoComponent implements OnInit {
   }
 
   ngAfterViewChecked(){
-    let creationPanel = document.getElementById('creation-panel')!
-    console.log(creationPanel.scrollLeft)
-    console.log(creationPanel.scrollWidth)
-    creationPanel.scrollLeft = creationPanel.scrollWidth/2
+    let creationPanel = document.getElementById('creation-panel')
+    let page = window.innerWidth
+    if (!this.setScrollView && creationPanel){      
+      creationPanel.scrollLeft = page/2
+      this.setScrollView = true
+    }
   }
 
   checkFormat(event: Event): void {
