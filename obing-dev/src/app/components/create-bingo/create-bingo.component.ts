@@ -44,6 +44,13 @@ export class CreateBingoComponent implements OnInit {
     })
   }
 
+  ngAfterViewChecked(){
+    let creationPanel = document.getElementById('creation-panel')!
+    console.log(creationPanel.scrollLeft)
+    console.log(creationPanel.scrollWidth)
+    creationPanel.scrollLeft = creationPanel.scrollWidth/2
+  }
+
   checkFormat(event: Event): void {
     const columnsFormat: number = Number((event.target as any).value);
     if (columnsFormat) {

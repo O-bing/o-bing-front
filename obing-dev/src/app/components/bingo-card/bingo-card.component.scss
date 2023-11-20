@@ -1,10 +1,6 @@
-::-webkit-scrollbar {
-  display: none;
-}
-
 .body{
     white-space: nowrap;
-    overflow:scroll;
+    overflow-y: scroll;    
     text-align: center;
     background-color: rgb(109, 200, 228);
     border-radius: 10px;
@@ -23,4 +19,27 @@
         
         }
     }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(109, 155, 169);
+    border-radius: 5px;
+}
+
+/* Rectangle crossing both vertical and horizontal bars' ends */
+::-webkit-scrollbar-corner {
+    background-color: rgb(109, 200, 228);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(135, 192, 209);
 }

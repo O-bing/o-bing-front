@@ -28,8 +28,6 @@ export class BingoCardComponent implements OnInit {
   constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    var container = document.getElementById('body')!;
-    container.scrollLeft = container.scrollWidth / 2;
     this.route.paramMap.subscribe(params => {
       this.bingoId = params.get('bingoId')!;
       this.bingoPrivateRefService.getBingoPrivateRef(this.bingoId).subscribe(privateRef => { // Step 1 : check the bingo access ref
@@ -45,12 +43,10 @@ export class BingoCardComponent implements OnInit {
                     if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
                       this.Bingo.creationDate = new Date(this.Bingo.creationDate)
                       this.Bingo.content = JSON.parse(this.Bingo.content)
-                      this.loading = false
                     }
                   }
                 })
               }
-              this.loading = false
             })
           }
           else { // public
@@ -60,7 +56,6 @@ export class BingoCardComponent implements OnInit {
                 if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
                   this.Bingo.creationDate = new Date(this.Bingo.creationDate)
                   this.Bingo.content = JSON.parse(this.Bingo.content)
-                  this.loading = false
                 }
               }
             })
@@ -68,5 +63,6 @@ export class BingoCardComponent implements OnInit {
         }
       })
     });
+    this.loading = false
   }
 }
