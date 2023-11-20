@@ -1,5 +1,9 @@
 <div class="body" id="body">
-    <div class="hasAccess" *ngIf="Bingo.uid != ''">
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+
+    <div class="hasAccess" *ngIf="Bingo.uid != '' && !loading">
         <p>{{Bingo.uid}}</p>
 
         <p>{{Bingo.owner}}</p>
@@ -19,7 +23,7 @@
             </ul>
         </div>
     </div>
-    <div class="noAccess" *ngIf="Bingo.uid == ''">
+    <div class="noAccess" *ngIf="Bingo.uid == '' && !loading">
         <br/>
         <br/>
         <br/>

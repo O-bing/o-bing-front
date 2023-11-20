@@ -28,6 +28,8 @@ export class BingoCardComponent implements OnInit {
 
   owner: string = ''
 
+  loading: boolean = true
+
   constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -41,16 +43,19 @@ export class BingoCardComponent implements OnInit {
           this.owner = privateRef.owner
           if (privateRef.isPrivate) { // private
             this.authService.getCurrentUser().subscribe(user => { // Step 2 : if private, check if current user is the owner of the bingo
-              if (user && user.uid == privateRef.owner)
+              if (user && user.uid == privateRef.owner) {
                 this.bingoService.getBingo(this.bingoId).subscribe(bingo => { // Step 3 : get bingo
                   if (bingo) {
                     this.Bingo = bingo
                     if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
                       this.Bingo.creationDate = new Date(this.Bingo.creationDate)
                       this.Bingo.content = JSON.parse(this.Bingo.content)
+                      this.loading = false
                     }
                   }
                 })
+              }
+              this.loading = false
             })
           }
           else { // public
@@ -60,6 +65,7 @@ export class BingoCardComponent implements OnInit {
                 if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
                   this.Bingo.creationDate = new Date(this.Bingo.creationDate)
                   this.Bingo.content = JSON.parse(this.Bingo.content)
+                  this.loading = false
                 }
               }
             })
