@@ -14,7 +14,7 @@
         <div class="newBingo" *ngIf="!this.saved">
             <app-bingo-list (tilesSaveEvent)="setTilesList($event)" (tilesCountEvent)="tilesCount($event)"></app-bingo-list>
             <div class="buttonsFrame">
-                <label class="checkbox">
+                <label class="checkbox" *ngIf="connected">
                     <input type="checkbox" [(ngModel)]="privateChecked">
                     Private
                 </label>

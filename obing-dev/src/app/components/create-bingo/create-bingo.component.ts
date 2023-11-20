@@ -32,9 +32,16 @@ export class CreateBingoComponent implements OnInit {
 
   saved: boolean = false;
 
-  constructor(private dialog: MatDialog, private bingoPrivateRefService: BingoPrivateRefService, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private userService: UserService, private router: Router) { }
+  connected : boolean = false
+
+  constructor(private dialog: MatDialog, private bingoPrivateRefService: BingoPrivateRefService, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(user => {
+     if (user){
+      this.connected = true
+     }
+    })
   }
 
   checkFormat(event: Event): void {
