@@ -1,11 +1,10 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { Bingo } from 'src/app/class/bingo';
-import { Tile } from 'src/app/types/Tile';
 
 @Component({
   selector: 'app-bingo-card',
@@ -13,10 +12,6 @@ import { Tile } from 'src/app/types/Tile';
   styleUrls: ['./bingo-card.component.scss']
 })
 export class BingoCardComponent implements OnInit {
-
-  @Output() tilesCountEvent = new EventEmitter<number>();
-
-  @Output() tilesSaveEvent = new EventEmitter<Array<Array<Tile>>>();
 
   bingoId: string = "";
 

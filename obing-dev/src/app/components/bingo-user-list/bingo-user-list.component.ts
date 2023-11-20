@@ -22,14 +22,15 @@ export class BingoUserListComponent implements OnInit {
 
   bingoUserList: Bingo[] = []
 
-  constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private userService: UserService) { }
+  constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private userService: UserService) {
+  }
 
-  ngOnInit(): void {
+  ngOnInit():void{
     this.refreshList()
   }
 
   refreshList() {
-    this.bingoUserList = []
+    this.loading = true
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
         this.userService.getUser(user.uid).subscribe(userObject => {
@@ -37,8 +38,8 @@ export class BingoUserListComponent implements OnInit {
           this.currentUser.pseudo = userObject?.pseudo
           this.currentUser.uid = user.uid
           this.isLoggedIn = true
-
           this.bingoService.getAllBingos().subscribe(bingoArray => {
+            this.bingoUserList = []
             bingoArray.forEach(bingo => {
               if (bingo.owner == this.currentUser.uid) {
                 if (bingo.title!.length > 15) {
@@ -49,13 +50,9 @@ export class BingoUserListComponent implements OnInit {
                 this.bingoUserList.push(bingo)
               }
             })
+            this.loading = false
           })
-
-          this.loading = false
         })
-      }
-      else {
-        this.loading = false
       }
     })
   }
