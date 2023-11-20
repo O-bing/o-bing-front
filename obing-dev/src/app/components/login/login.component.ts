@@ -23,10 +23,12 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string, password: string) {
-    this.authService.signIn(username, password).then(() => {
-      this.ngZone.run(() => {
-        this.router.navigate(['/']);
-      });
+    this.authService.signIn(username, password).then((result) => {
+      if (result){
+        this.ngZone.run(() => {
+          this.router.navigate(['/']);
+        });
+      }
     }
     )
   }

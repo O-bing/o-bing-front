@@ -14,6 +14,11 @@
         <div class="newBingo" *ngIf="!this.saved">
             <app-bingo-list (tilesSaveEvent)="setTilesList($event)" (tilesCountEvent)="tilesCount($event)"></app-bingo-list>
             <div class="buttonsFrame">
+                <label class="checkbox">
+                    <input type="checkbox" [(ngModel)]="privateChecked">
+                    Private
+                </label>
+                <br/>
                 <button class="autoCompleteButton" (click)="autoCompleteBingo()">Auto complete</button>
                 <button class="saveButton" (click)="saveBingo()">Save</button>
             </div>

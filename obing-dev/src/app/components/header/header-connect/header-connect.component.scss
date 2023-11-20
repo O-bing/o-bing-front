@@ -25,7 +25,7 @@
     .login{
         .loginTable{
             width: 100%;
-            
+            /* // Changed after removing the 'Remember me' checkbox
             .checkboxCol{
                 text-align: start;
             }
@@ -33,9 +33,9 @@
             .checkbox{
                 font-size: 15px;
             }
-            
+            */
             .buttonCol{
-                text-align: end;
+                text-align: center; // Changed from 'end' to 'center' after removing the 'Remember me' checkbox
             }
             
             .button {

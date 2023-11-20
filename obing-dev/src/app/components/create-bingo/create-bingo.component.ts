@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from 'src/app/types/Tile';
 import * as bulmaToast from 'bulma-toast'
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { BingoTitleDialogComponent } from './bingo-title-dialog/bingo-title-dialog.component';
 import { Router } from '@angular/router';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
@@ -11,6 +11,7 @@ import { Bingo } from 'src/app/class/bingo';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { BingoNotConnectedDialogComponent } from './bingo-not-connected-dialog/bingo-not-connected-dialog.component';
+import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
@@ -27,9 +28,11 @@ export class CreateBingoComponent implements OnInit {
 
   rowsFormat: number = 2;
 
+  privateChecked: boolean = false;
+
   saved: boolean = false;
 
-  constructor(private dialog: MatDialog, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private userService: UserService, private router: Router) { }
+  constructor(private dialog: MatDialog, private bingoPrivateRefService: BingoPrivateRefService, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -149,7 +152,6 @@ export class CreateBingoComponent implements OnInit {
             this.tilesList.pop()
           }
           this.openDialog(this.tilesList)
-          this.saved = true
         }
       }
       else {
@@ -169,11 +171,8 @@ export class CreateBingoComponent implements OnInit {
   }
 
   private openDialog(tiles: Array<Array<Tile>>) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
 
-    const dialogName = this.dialog.open(BingoTitleDialogComponent, dialogConfig);
+    const dialogName = this.dialog.open(BingoTitleDialogComponent);
 
     dialogName.afterClosed().subscribe(titleBingo => {
       const json = JSON.stringify(tiles);
@@ -187,20 +186,22 @@ export class CreateBingoComponent implements OnInit {
         numberPlayed: 0
       }
 
-      // TODO : make that dialog doesn't re-open after connection, because the subscribe result will be updated AND then reopen the dialog
-
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           bingo.owner = user.uid
           bingo.content = json
-          this.bingoService.createBingo(bingo, ID);
+          this.bingoService.createBingo(bingo, ID).then(() => {
+            this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+            this.saved = true
+          }
+          )
           this.router.navigate(['/']);
         }
         else {
-          console.log("Set up actions to indicate user to connect, or allow him to directly download the new Bingo")
+          console.log("Set up actions to allow user to directly download the new Bingo")
 
-          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent, dialogConfig);
-          
+          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent);
+
         }
       })
     }

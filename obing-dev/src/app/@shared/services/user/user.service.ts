@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { User, UserRank } from 'src/app/class/user';
-import { RoutesServices } from '../../RouteServices';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { guid } from 'src/app/utils/guid';
@@ -19,7 +18,7 @@ export class UserService {
     private storage: AngularFireStorage,
     public afAuth: AngularFireAuth,
   ) {
-    this.userCollection = this.store.collection<User>(RoutesServices.Users);
+    this.userCollection = this.store.collection<User>('user');
   }
 
   getUser(uid: string):Observable<User | undefined> {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { Bingo } from 'src/app/class/bingo';
@@ -21,7 +22,7 @@ export class BingoUserListComponent implements OnInit {
 
   bingoUserList: Bingo[] = []
 
-  constructor(private bingoService: BingoService, private authService: AuthService, private userService: UserService) { }
+  constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.refreshList()
@@ -61,10 +62,15 @@ export class BingoUserListComponent implements OnInit {
 
   deleteBingo(uid: string) {
     this.loading = true
-    this.bingoService.deleteBingo(uid).then(() => {
-        this.refreshList()
+    this.bingoService.getBingo(uid).subscribe(bingo => {
+      if (bingo) {
+        this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
+          this.bingoService.deleteBingo(uid).then(() => {
+            this.refreshList()
+          })
+        })
       }
-    )
+    })
   }
 
 }

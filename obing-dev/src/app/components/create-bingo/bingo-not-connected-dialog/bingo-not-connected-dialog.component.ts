@@ -33,9 +33,13 @@ export class BingoNotConnectedDialogComponent implements OnInit {
           this.dialogRef.close(true)
         });
       }
-      
-
     })
+  }
+  
+  closeDialog() {
+    this.ngZone.run(() => {
+      this.dialogRef.close(false)
+    });
   }
 
 }

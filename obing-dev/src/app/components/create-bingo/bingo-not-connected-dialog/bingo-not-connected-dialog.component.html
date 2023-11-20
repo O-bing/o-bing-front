@@ -1,9 +1,17 @@
 <body class="box">
-        <h2>Save your bingo locally or log in</h2>
+        <table class="dialogHeader">
+                <tr class="closeLine">
+                        <button class="deleteTileButton" (click)="closeDialog()">x</button>
+                </tr>
+                <br/>
+                <tr class="buttonsLine">
+                        <div>
+                                <button class="button is-light" type="button" (click)="localSave()">Save bingo
+                                        locally</button>
 
-        <div>
-                <button class="button is-light" type="button" (click)="localSave()">Save bingo locally</button>
-
-                <button class="button is-link" type="button" (click)="logInAndSave()">Log in</button>
-        </div>
+                                <button class="button is-link" type="button" (click)="logInAndSave()">Log in</button>
+                        </div>
+                </tr>
+                
+        </table>
 </body>

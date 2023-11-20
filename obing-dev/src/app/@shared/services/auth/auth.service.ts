@@ -3,7 +3,6 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Router } from "@angular/router";
 import { User } from 'src/app/class/user';
-import { RoutesServices } from '../../RouteServices';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -20,7 +19,7 @@ export class AuthService {
     private userService: UserService
 
   ) {
-    this.userCollection = this.afs.collection<User>(RoutesServices.Users);
+    this.userCollection = this.afs.collection<User>('users');
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {

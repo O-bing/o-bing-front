@@ -51,6 +51,11 @@
 
         .buttonsFrame {
             padding-top: 10px;
+            
+            .checkbox{
+                font-size: 15px;
+                vertical-align: middle;
+            }
 
             .autoCompleteButton {
                 border: none;

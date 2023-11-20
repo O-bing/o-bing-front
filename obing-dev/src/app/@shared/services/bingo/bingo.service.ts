@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Bingo } from 'src/app/class/bingo';
-import { RoutesServices } from '../../RouteServices';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +15,7 @@ export class BingoService {
     private store: AngularFirestore,
     private storage:AngularFireStorage // to get bingos illustrations later
   ) {
-    this.bingoCollection = this.store.collection<Bingo>(RoutesServices.Bingos);
+    this.bingoCollection = this.store.collection<Bingo>('bingos');
   }
 
   getBingo(uid:string):Observable<Bingo| undefined>{
