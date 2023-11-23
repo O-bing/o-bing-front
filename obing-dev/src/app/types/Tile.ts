@@ -7,7 +7,7 @@ export class Tile {
 
     text: string;
 
-    state: "empty" | "filled";
+    state: "empty" | "filled" | "blank";
 
     constructor(newId:number, newText: string="Add +") {
 
@@ -45,6 +45,11 @@ export class Tile {
 
         this.state = "filled"
 
+    }
+
+    setStateToBlank(){
+        this.state = "blank"
+        this.setTileText('Blank')
     }
 
 }
