@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,17 +14,19 @@ import { guid } from 'src/app/utils/guid';
 })
 
 export class UserComponent implements OnInit {
+  
   public user: User = {};
   public postForm: FormGroup;
   private imgToUpload: File | null = null;
-  private loading: boolean = true;
+  public loading: boolean = true;
   public imgProfileURL: string = '';
+  public authUser: firebase.default.User | undefined; // firebase.user type
 
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    public router: Router,
+    private router: Router,
   ) {
     this.postForm = new FormGroup({
       Titre: new FormControl(),
@@ -39,15 +41,16 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
+        this.authUser = user
         this.userService.getUser(user.uid).subscribe(userObject => {
           if (userObject) {
             this.user = userObject
             this.loading = false
             this.postForm.get("Titre")!.setValue(this.getRank(this.user.rank!));
-
+            /*
             const userImgRefSubscription: Subscription = this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
               this.imgProfileURL = res
-            })
+            })*/
 
             if (this.user.description != null) {
               this.postForm.get("Description")!.setValue(this.user.description);
@@ -58,6 +61,7 @@ export class UserComponent implements OnInit {
       }
       else {
         this.loading = false
+        this.router.navigate(['user-not-found'])
       }
     })
   }
@@ -137,6 +141,11 @@ export class UserComponent implements OnInit {
     }
     else {
       return "Administrateur";
+    }
+  }
+  sendVerificationEmail(){
+    if (!this.authUser!.emailVerified){
+      this.authUser!.sendEmailVerification()
     }
   }
 }

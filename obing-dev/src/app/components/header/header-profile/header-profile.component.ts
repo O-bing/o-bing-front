@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { User } from 'src/app/class/user';
 
@@ -17,7 +18,7 @@ export class HeaderProfileComponent implements OnInit {
 
   settingsTarget! : HTMLElement
 
-  constructor(private authService : AuthService) {}
+  constructor(private authService : AuthService, private router: Router) {}
 
   ngOnInit(): void {
       this.settingsTarget = document.querySelector('img.settingsImg') as HTMLElement
@@ -42,6 +43,7 @@ export class HeaderProfileComponent implements OnInit {
   
   logOut(){
     this.authService.SignOut()
+    this.router.navigate([''])
   }
 
 }

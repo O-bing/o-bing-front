@@ -1,4 +1,4 @@
-<form [formGroup]="postForm" (ngSubmit)="submitForm()">
+<form *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm" (ngSubmit)="submitForm()">
     <div class="columns">
     <div class="column is-4 has-text-centered">
         <div class="box">
@@ -9,6 +9,16 @@
             <input class="button" type="file" (change)="uploadPhoto($event)" placeholder="Changer de photo de profil" name="photo" accept=".png,.JPEG,.jpg">
             <div class="box">
                 <strong>{{this.user.pseudo}}</strong>
+            </div>
+            <div class="emailVerifiedDiv">
+                <a *ngIf="!authUser!.emailVerified" title="Your email is not verified">
+                    <img class="lockImg" src="assets/icons/icon-lock.png">
+                    <img class="emailImg" src="assets/icons/icon-mail.png">
+                </a>
+                <a *ngIf="authUser!.emailVerified" title="Your email is verified !">
+                    <img class="emailImg" src="assets/icons/icon-mail.png">
+                </a>
+                <button class="sendVerifEmailButton button is-fullwidth is-info" (click)="sendVerificationEmail()" *ngIf="authUser!.emailVerified">Send new verification email</button>
             </div>
         </div>
     </div>
@@ -38,12 +48,12 @@
                     <br>
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="email" placeholder="Changer votre Pseudo" formControlName="Pseudo">
+                            <input autocomplete="new-password" class="input" type="email" placeholder="Changer votre Pseudo" formControlName="Pseudo">
                         </div>
                     </div>
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="email" placeholder="Confirmer votre Pseudo" formControlName="ConfirmerPseudo">
+                            <input autocomplete="new-password" class="input" type="email" placeholder="Confirmer votre Pseudo" formControlName="ConfirmerPseudo">
                         </div>
                     </div>
                 </div>
@@ -54,12 +64,12 @@
                     <br>
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="password" placeholder="Mot de passe" formControlName="password">
+                            <input autocomplete="new-password" class="input" type="password" placeholder="Nouveau mot de passe" formControlName="password">
                         </div>
                     </div>
                     <div class="field">
                         <div class="control">
-                            <input class="input" type="password" placeholder="Confirmer mot de passe" formControlName="password2">
+                            <input autocomplete="new-password" class="input" type="password" placeholder="Confirmer mot de passe" formControlName="password2">
                         </div>
                     </div>
                 </div>

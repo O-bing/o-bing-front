@@ -14,8 +14,13 @@
             </th>
             <th class="emailCol">
                 <div class="emailVerifiedDiv">
-                    <img class="lockImg" *ngIf="!userProfile.emailVerified" src="assets/icons/icon-lock.png" title="Your email is not verified">
-                    <img class="emailImg" src="assets/icons/icon-mail.png" title="Your email is verified !">
+                    <a *ngIf="!userProfile.emailVerified" title="Your email is not verified">
+                        <img class="lockImg" src="assets/icons/icon-lock.png">
+                        <img class="emailImg" src="assets/icons/icon-mail.png">
+                    </a>
+                    <a *ngIf="userProfile.emailVerified" title="Your email is verified !">
+                        <img class="emailImg" src="assets/icons/icon-mail.png">
+                    </a>
                 </div>
             </th>
             <th class="buttonCol">

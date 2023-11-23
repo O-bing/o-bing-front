@@ -1,3 +1,20 @@
-.padd-40{
-    padding:40px;
+.emailVerifiedDiv {
+    cursor: pointer;
+    padding-top: 5px;
+    text-align: center;
+
+    .lockImg {
+        position: absolute;
+        width: 50px;
+        height: 48px;
+    }
+
+    .emailImg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .sendVerifEmailButton{
+        padding:1px;
+    }
 }
