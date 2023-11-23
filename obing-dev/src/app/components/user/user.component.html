@@ -18,7 +18,7 @@
                 <a *ngIf="authUser!.emailVerified" title="Your email is verified !">
                     <img class="emailImg" src="assets/icons/icon-mail.png">
                 </a>
-                <button class="sendVerifEmailButton button is-fullwidth is-info" (click)="sendVerificationEmail()" *ngIf="authUser!.emailVerified">Send new verification email</button>
+                <button class="sendVerifEmailButton button is-fullwidth is-info" (click)="sendVerificationEmail()" *ngIf="!authUser!.emailVerified">Send new verification email</button>
             </div>
         </div>
     </div>
