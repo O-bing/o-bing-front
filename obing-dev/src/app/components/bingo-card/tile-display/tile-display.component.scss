@@ -24,4 +24,19 @@
         background-color: rgb(211, 214, 236);
         cursor: default;
     }
+
+    .blankText{
+        font-style: oblique;
+        color: rgb(143, 134, 134);
+        border-radius: 3px;
+        resize: none;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 120px;
+        height: 35.2px;
+        border: none;
+        background: none;
+        cursor: text;
+    }
 }

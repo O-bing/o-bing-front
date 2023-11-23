@@ -45,14 +45,24 @@ export class BingoListComponent implements OnInit {
     }
   }
 
-  addOrModify(tile: Tile) {
+  addOrModify(event:{tile:Tile, isBlank:boolean}) {
+
+    let tile=event.tile
 
     if (tile.state == 'empty') {
 
-      tile.setStateToFilled()
-      tile.setTileText('')
-      this.theAddTile()
-      this.tilesCountEvent.emit(this.getListLength())
+      if(!event.isBlank){
+        tile.setStateToFilled()
+        tile.setTileText('')
+        this.theAddTile()
+        this.tilesCountEvent.emit(this.getListLength())
+      }
+      else{
+        tile.setStateToBlank()
+        this.theAddTile()
+        this.tilesCountEvent.emit(this.getListLength())
+      }
+      
 
     }
 

@@ -8,7 +8,7 @@ import { Tile } from '../../../../types/Tile';
 })
 export class BingoTileComponent implements OnInit {
 
-  @Output() tileClickEvent = new EventEmitter<Tile>();
+  @Output() tileClickEvent = new EventEmitter<{tile:Tile, isBlank:boolean}>();
 
   @Output() deleteTileClickEvent = new EventEmitter<Tile>();
 
@@ -20,11 +20,11 @@ export class BingoTileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addOrChange(event:Event) : void {
+  addOrChange(event:Event, blank:boolean) : void {
     if(this.tile.state=='filled'){
       this.tile.text = (event.target as any).value;
     }
-    this.tileClickEvent.emit(this.tile)
+    this.tileClickEvent.emit({tile:this.tile, isBlank:blank})
   }
 
   deleteTile() : void {
