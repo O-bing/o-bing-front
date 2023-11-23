@@ -59,6 +59,7 @@ export class BingoListComponent implements OnInit {
       }
       else{
         tile.setStateToBlank()
+        tile.setTileText('')
         this.theAddTile()
         this.tilesCountEvent.emit(this.getListLength())
       }

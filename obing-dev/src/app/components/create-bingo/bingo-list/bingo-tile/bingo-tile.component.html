@@ -7,6 +7,6 @@
     <button class="addBlankTileButton" *ngIf="tile.state=='empty'" (click)="addOrChange($event, true)">Add <br/> blank</button>
     <textarea class="textAreaTileText" rows="2" *ngIf="tile.state=='filled'" value="{{tile.text}}"
         placeholder="Add tile text here ..." (input)="addOrChange($event, true)"></textarea>
-    <p class="blankText" *ngIf="tile.state=='blank'">{{tile.text}}</p>
+    <p class="blankText" *ngIf="tile.state=='blank'">Blank</p>
 
 </div>

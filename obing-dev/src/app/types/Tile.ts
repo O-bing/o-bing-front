@@ -49,7 +49,6 @@ export class Tile {
 
     setStateToBlank(){
         this.state = "blank"
-        this.setTileText('Blank')
     }
 
 }
