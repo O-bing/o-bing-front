@@ -1,8 +1,8 @@
 const {readFile, writeFile, readdirSync, promises: fsPromises} = require('fs');
 
-const packagePath = '../../obing-dev/node_modules/@angular/fire/compat/firestore/interfaces.d.ts'
+const packagePath = '../obing-dev/node_modules/@angular/fire/compat/firestore/interfaces.d.ts'
 
-const dirContents = readdirSync('../');
+const dirContents = readdirSync('../obing-dev/node_modules/@angular/fire/compat/firestore/');
 console.log(dirContents);
 
 readFile(packagePath, 'utf-8', function (err, contents) {
