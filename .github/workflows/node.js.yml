@@ -22,11 +22,13 @@ jobs:
           cache-dependency-path: obing-dev/package-lock.json
       - run: 
       - name: Install dependencies
-        run: cd obing-dev
-             npm install
+        run: |
+          cd obing-dev
+          npm install
       - name: Build
-        run: cd obing-dev
-             npm run build
+        run: |
+          cd obing-dev
+          npm run build
 
   deploy:
     needs:
