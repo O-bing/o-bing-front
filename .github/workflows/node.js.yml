@@ -20,7 +20,6 @@ jobs:
           node-version:  ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: obing-dev/package-lock.json
-      - run: 
       - name: Install dependencies
         run: |
           cd obing-dev
