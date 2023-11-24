@@ -8,7 +8,8 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name : Checkout
+        uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -25,7 +26,8 @@ jobs:
         run: |
           cd obing-dev
           npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Firebase hosting deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_O_BING }}'
