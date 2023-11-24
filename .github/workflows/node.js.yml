@@ -7,30 +7,30 @@ on:
     branches: [ "main" ]
 jobs:
 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: [20.x]
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version:  ${{ matrix.node-version }}
-  #         cache: 'npm'
-  #         cache-dependency-path: obing-dev/package-lock.json
-  #     - name: Install dependencies
-  #       run: |
-  #         cd obing-dev
-  #         npm install
-  #     - name: Firestore package correction
-  #       run: node .github/workflows/package-patcher.js
-  #     - name: Build
-  #       run: |
-  #         cd obing-dev
-  #         npm run build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version:  ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: obing-dev/package-lock.json
+      - name: Install dependencies
+        run: |
+          cd obing-dev
+          npm install
+      - name: Firestore package correction
+        run: node .github/workflows/package-patcher.js
+      - name: Build
+        run: |
+          cd obing-dev
+          npm run build
 
   deploy:
     needs:
