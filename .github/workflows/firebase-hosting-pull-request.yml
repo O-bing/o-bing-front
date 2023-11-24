@@ -21,7 +21,10 @@ jobs:
           npm install
       - name: Firestore package correction
         run: node .github/workflows/package-patcher.js
-      - run: npm ci && npm run build
+      - name: Build
+        run: |
+          cd obing-dev
+          npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
