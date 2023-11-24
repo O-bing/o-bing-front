@@ -42,5 +42,6 @@ jobs:
     steps:
       - name: Deploy Webapp
         run: |
+          npm install firebase
           firebase login
           firebase deploy --only hosting:o-bing-pld
