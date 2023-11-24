@@ -41,8 +41,7 @@ As Angular handle 'hot reload', saving your files will update your website vizua
 
 #### There is an error in the type definiition of the ```node_modules/@angular/fire/compat/firestore/interfaces.d.ts``` file.
 
-
-Replace the following file content : 
+Run the ```.github/workflows/package-patcher.js``` script to replace the following file content : 
 
 ```
 export interface DocumentSnapshotExists<T> extends firebase.firestore.DocumentSnapshot {
