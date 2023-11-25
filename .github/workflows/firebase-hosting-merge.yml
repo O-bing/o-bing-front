@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd obing-dev
-          npm install
+          npm ci
       - name: Firestore package correction
         run: node .github/workflows/package-patcher.js
       - name: Build
