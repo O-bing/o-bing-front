@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
 @Component({
@@ -8,37 +9,52 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderComponent {
 
-  @Input() CurrentUser:User = {
-    isLoggedIn:false
+  @Input() CurrentUser: User = {
+    isLoggedIn: false
   };
 
-  imgProfileURL : string = '';
+  imgProfileURL: string = '';
 
-  displayProfile : Boolean = false;
+  displayProfile: Boolean = false;
 
-  displayConnect : Boolean = false;
+  displayConnect: Boolean = false;
 
-  constructor() { }
+  constructor(
+    private userService : UserService
+  ){}
 
-  displayProfileHeader(){
-    if (!this.displayProfile){
+  ngOnInit(): void {
+    if (this.CurrentUser.imgProfileRef == 'imgProfileRef.png') {
+      this.userService.getStaticUserPhoto().subscribe(res => {
+        this.imgProfileURL = res
+      })
+    }
+    else {
+      this.userService.getUserPhoto(this.CurrentUser.imgProfileRef!).subscribe(res => {
+        this.imgProfileURL = res
+      })
+    }
+  }
+
+  displayProfileHeader() {
+    if (!this.displayProfile) {
       this.displayProfile = true
     }
-    else{
+    else {
       this.displayProfile = false
     }
   }
 
-  displayConnectHeader(){
-    if (!this.displayConnect){
+  displayConnectHeader() {
+    if (!this.displayConnect) {
       this.displayConnect = true
     }
-    else{
+    else {
       this.displayConnect = false
     }
   }
 
-  clickEvent(){
+  clickEvent() {
     this.displayProfile = false
     this.displayConnect = false
   }

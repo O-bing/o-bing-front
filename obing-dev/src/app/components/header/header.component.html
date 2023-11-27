@@ -13,13 +13,15 @@
 
         <th class="header-end">
             <div *ngIf="this.CurrentUser.isLoggedIn">
-                <a (click)="displayProfileHeader()">
-                    <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.CurrentUser.imgProfileRef}}" alt="profilePicture">
-                </a>
-                <br />
-                <a *ngIf="this.CurrentUser.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
-                    {{this.CurrentUser.pseudo}}
-                </a>
+                <div class="userBox" >
+                    <a (click)="displayProfileHeader()">
+                        <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.imgProfileURL}}" alt="profilePicture">
+                    </a>
+                    <br />
+                    <a *ngIf="this.CurrentUser.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
+                        {{this.CurrentUser.pseudo}}
+                    </a>
+                </div>
             </div>
             <div *ngIf="!this.CurrentUser.isLoggedIn">
                 <a (click)="displayConnectHeader()" class="notConnected">

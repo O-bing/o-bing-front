@@ -1,5 +1,3 @@
-import { guid } from "../utils/guid";
-
 export interface User{
     uid?:string,
     name?:string,

@@ -64,7 +64,6 @@ export class UserService {
   }
 
   updateImgProfileRef(idProfile: string, newImageId: string): Promise<void> {
-    console.log(idProfile, newImageId)
     return this.userCollection.doc<User>(idProfile).update({
       imgProfileRef: newImageId
     });
@@ -77,7 +76,7 @@ export class UserService {
   }
 
   getStaticUserPhoto(): Observable<any> {
-    return this.storage.ref('Static/' + '48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png').getDownloadURL()
+    return this.storage.ref('Static/' + 'imgProfileRef.png').getDownloadURL()
   }
 
   getUserPhoto(idUserPhoto: string): Observable<any>  {

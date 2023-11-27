@@ -37,11 +37,6 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  errorHandler(error: any): void {
-    console.log(error)
-  }
-
   signUp() {
     this.submitted = true;
     if (this.postForm.get('email')!.status == 'INVALID') {
@@ -60,8 +55,9 @@ export class SignUpComponent implements OnInit {
       const newUser: User = {
         pseudo: this.postForm.get('pseudo')!.value,
         mail: this.postForm.get('email')!.value,
+        imgProfileRef: 'imgProfileRef.png'
       }
-      //this.authService.SignUp(newUser, this.postForm.get('password')!.value)
+      this.authService.SignUp(newUser, this.postForm.get('password')!.value)
       this.userService.newUser(newUser,guid.uuidv4())
     }
     else {
