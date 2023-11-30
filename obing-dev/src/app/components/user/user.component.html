@@ -1,6 +1,6 @@
 <form class="form" *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm">
     <div class="columns">
-        <div class="column is-4 has-text-centered">
+        <div class="column userCard is-4 has-text-centered">
             <div class="box">
                 <div class="spinner" *ngIf="loadingImg">
                     <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="column is-8">
+        <div class="column userInfos is-8">
             <div class="columns">
                 <div class="column">
                     <div class="spinner" *ngIf="loading">
@@ -39,7 +39,7 @@
                         <h2 class="has-text-weight-bold">Statut</h2>
                         <div class="field">
                             <div class="control">
-                                <h3 class="has-text-weight-bold">{{this.getRank(this.user.rank!)}}</h3>
+                                <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.user.rank!)}}</h3>
                             </div>
                         </div>
                         <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>

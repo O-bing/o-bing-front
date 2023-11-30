@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private authService: AuthService,
     private router: Router,
   ) {
@@ -110,7 +110,7 @@ export class UserComponent implements OnInit {
     this.postForm.get("password")!.setValue("");
     this.postForm.get("password2")!.setValue("");
     this.loading = false
-    
+
     if (action){
       this.router.navigate(['/'])
     }
@@ -164,23 +164,6 @@ export class UserComponent implements OnInit {
       this.user.imgProfileRef = 'imgProfileRef.png'
       this.imgToUpload = null
     }
-  }
-
-  getRank(userRank: UserRank): string {
-    let rank:string = 'BingoNewbie'
-    if(userRank = UserRank.BingoTester){
-      rank = 'BingoTester'
-    }
-    else if(userRank = UserRank.BingoVeteran){
-      rank = 'BingoVeteran'
-    }
-    else if(userRank = UserRank.BingoMaster){
-      rank = 'BingoMaster'
-    }
-    else if(userRank = UserRank.UserAdmin){
-      rank = 'UserAdmin'
-    }
-    return rank
   }
 
   sendVerificationEmail() {

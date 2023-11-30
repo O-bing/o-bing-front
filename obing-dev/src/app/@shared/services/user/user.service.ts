@@ -29,7 +29,6 @@ export class UserService {
     user.rank = UserRank.BingoNewbie;
     return this.getStaticUserPhoto().subscribe(res => {
       user.imgProfileRef = guid.uuidv4() + '.png'
-      console.log(res)
       this.uploadUserPhoto(res, user.imgProfileRef);
       this.userCollection.doc(uid).set(user);
     })
@@ -39,7 +38,6 @@ export class UserService {
     return this.afAuth.currentUser.then(user => {
       if (user) {
         this.userCollection.doc(userId).delete().then(res => {
-          console.log(res);
           user.delete()
         }
         ).catch(error => console.log(error));
@@ -89,6 +87,23 @@ export class UserService {
 
   deleteUserPhoto(idUserPhoto: string): Observable<any> {
     return this.storage.ref('ImgProfile/' + idUserPhoto).delete();
+  }
+
+  getStringRank(userRank: UserRank): string {
+    let rank:string = 'BingoNewbie'
+    if(userRank = UserRank.BingoTester){
+      rank = 'BingoTester'
+    }
+    else if(userRank = UserRank.BingoVeteran){
+      rank = 'BingoVeteran'
+    }
+    else if(userRank = UserRank.BingoMaster){
+      rank = 'BingoMaster'
+    }
+    else if(userRank = UserRank.UserAdmin){
+      rank = 'UserAdmin'
+    }
+    return rank
   }
 
 

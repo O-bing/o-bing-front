@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
 @Component({
@@ -11,16 +12,18 @@ import { User } from 'src/app/class/user';
 export class HeaderProfileComponent implements OnInit {
 
   @Input() userProfile : User = {};
+  
+  @Input() DisplayProfile : boolean = false;
 
-  @Output() clickEvent = new EventEmitter<Boolean>();
+  @Output() SettingsClick = new EventEmitter();
 
-  settingsClicked : Boolean = false;
+  settingsClicked : boolean = false;
 
   settingsTarget! : HTMLElement
 
   public loading: boolean = true;
 
-  constructor(private authService : AuthService, private router: Router) {}
+  constructor(private authService : AuthService, public userService: UserService, private router: Router, private el:ElementRef) {}
 
   ngOnInit(): void {
       this.authService.getCurrentUser().subscribe(result=>{
@@ -28,6 +31,19 @@ export class HeaderProfileComponent implements OnInit {
         this.loading = false
       })
   }
+
+  
+  @HostListener('document:click', ['$event.target'])
+  clickInOut(target:any){
+    const clickedIn = this.el.nativeElement.contains(target)
+    if (!clickedIn){
+      console.log('clickedOut')
+      if(this.DisplayProfile){
+        console.log('profile is displayed')
+      }
+    }
+  }
+
 
   mouseAction(action:string){
     this.settingsTarget = document.querySelector('img.settingsImg') as HTMLElement
@@ -41,7 +57,7 @@ export class HeaderProfileComponent implements OnInit {
 
   settingsClick(){
     this.settingsClicked = true
-    this.clickEvent.emit(this.settingsClicked)
+    this.SettingsClick.emit()
   }
   
   logOut(){

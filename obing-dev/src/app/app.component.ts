@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   title: string = 'O-bing';
 
-  loading: Boolean = true;
+  loading: boolean = true;
 
   currentUser: User = {};
 

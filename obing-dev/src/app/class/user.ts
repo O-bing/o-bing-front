@@ -15,7 +15,7 @@ export interface User{
     fame?:number,
     favouriteBingo?:Array<string>,
     gameList?:Array<string>,
-    isLoggedIn?:Boolean
+    isLoggedIn?:boolean
 }
 
 export enum UserRank {

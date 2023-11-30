@@ -16,9 +16,9 @@ export class BingoUserListComponent implements OnInit {
 
   currentUser: User = {};
 
-  isLoggedIn: Boolean = false;
+  isLoggedIn: boolean = false;
 
-  loading: Boolean = true;
+  loading: boolean = true;
 
   bingoUserList: Bingo[] = []
 

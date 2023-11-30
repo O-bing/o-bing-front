@@ -3,10 +3,10 @@
         <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
     </div>
 </div>
-<div class="headerProfile" *ngIf="!loading">
+<div class="box headerProfile" *ngIf="!loading">
     <div class="info">
         <p>{{userProfile.pseudo}}</p>
-        <p>Rank : {{userProfile.rank}}</p>
+        <p>Rank : {{this.userService.getStringRank(userProfile.rank!)}}</p>
         <p>Mail : {{userProfile.mail}}</p>
     </div>
     <div class="buttons">

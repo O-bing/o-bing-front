@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
@@ -14,14 +14,13 @@ export class HeaderComponent {
     isLoggedIn: false
   };
 
-
   imgProfileURL: string = '';
 
-  displayProfile: Boolean = false;
+  displayProfile: boolean = false;
 
-  displayConnect: Boolean = false;
+  displayConnect: boolean = false;
 
-  loading: Boolean = true
+  loading: boolean = true
 
   public authUser: firebase.default.User | undefined;
 
@@ -55,6 +54,8 @@ export class HeaderComponent {
           }
         }
         )
+      } else {
+        this.loading = false
       }
     }
     )
@@ -77,11 +78,5 @@ export class HeaderComponent {
       this.displayConnect = false
     }
   }
-
-  clickEvent() {
-    this.displayProfile = false
-    this.displayConnect = false
-  }
-
-
+  
 }
