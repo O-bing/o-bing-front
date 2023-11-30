@@ -2,7 +2,10 @@
     <div class="columns">
         <div class="column is-4 has-text-centered">
             <div class="box">
-                <figure class="image is-1by1">
+                <div class="spinner" *ngIf="loadingImg">
+                    <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+                </div>
+                <figure *ngIf="!loadingImg" class="image is-1by1">
                     <img src={{this.imgProfileURL}}>
                 </figure>
                 <br/>
@@ -29,11 +32,14 @@
         <div class="column is-8">
             <div class="columns">
                 <div class="column">
-                    <div class="box">
+                    <div class="spinner" *ngIf="loading">
+                        <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+                    </div>
+                    <div class="box" *ngIf="!loading">
                         <h3 class="has-text-weight-bold">Statut</h3><br/>
                         <div class="field">
                             <div class="control">
-                                <input class="input" type="text" placeholder="Titre" formControlName="Titre" readonly>
+                                <input class="input" type="text" placeholder="Rank" formControlName="Rank" readonly>
                             </div>
                         </div>
                         <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>
@@ -42,7 +48,10 @@
             </div>
             <div class="columns">
                 <div class="column">
-                    <div class="box">
+                    <div class="spinner" *ngIf="loading">
+                        <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+                    </div>
+                    <div class="box" *ngIf="!loading">
                         <h3 class="has-text-weight-bold">Pseudo</h3>
                         <br/>
                         <div class="field">

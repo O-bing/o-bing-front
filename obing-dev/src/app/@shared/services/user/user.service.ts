@@ -26,7 +26,7 @@ export class UserService {
   }
 
   newUser(user: User, uid: string):Subscription{
-    user.rank = UserRank.UserLambda;
+    user.rank = UserRank.BingoNewbie;
     return this.getStaticUserPhoto().subscribe(res => {
       user.imgProfileRef = guid.uuidv4() + '.png'
       console.log(res)

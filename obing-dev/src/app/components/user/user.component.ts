@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
   public postForm: FormGroup;
   private imgToUpload: File | null = null;
   public loading: boolean = true;
+  public loadingImg: boolean = true;
   public imgProfileURL: string = '';
   public authUser: firebase.default.User | undefined;
 
@@ -29,7 +30,7 @@ export class UserComponent implements OnInit {
     private router: Router,
   ) {
     this.postForm = new FormGroup({
-      Titre: new FormControl(),
+      Rank: new FormControl(),
       Description: new FormControl(),
       Pseudo: new FormControl(),
       ConfirmerPseudo: new FormControl(),
@@ -46,15 +47,17 @@ export class UserComponent implements OnInit {
           if (userObject) {
             this.user = userObject
             this.user.uid = user.uid
-            this.postForm.get("Titre")!.setValue(this.getRank(this.user.rank!));
+            this.postForm.get("Rank")!.setValue(this.getRank(this.user.rank!));
             if (this.user.imgProfileRef == 'imgProfileRef.png') {
               this.userService.getStaticUserPhoto().subscribe(res => {
                 this.imgProfileURL = res
+                this.loadingImg = false
               })
             }
             else {
               this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
                 this.imgProfileURL = res
+                this.loadingImg = false
               })
             }
 
@@ -151,17 +154,27 @@ export class UserComponent implements OnInit {
       
       this.userService.updateImgProfileRef(this.authUser.uid,'imgProfileRef.png')
       this.user.imgProfileRef = 'imgProfileRef.png'
+      this.imgToUpload = null
     }
   }
 
-  getRank(rang: UserRank): string {
-    if (rang == UserRank.UserLambda) {
-      return "Utilisateur";
+  getRank(userRank: UserRank): string {
+    let rank:string = 'BingoNewbie'
+    if(userRank = UserRank.BingoTester){
+      rank = 'BingoTester'
     }
-    else {
-      return "Administrateur";
+    else if(userRank = UserRank.BingoVeteran){
+      rank = 'BingoVeteran'
     }
+    else if(userRank = UserRank.BingoMaster){
+      rank = 'BingoMaster'
+    }
+    else if(userRank = UserRank.UserAdmin){
+      rank = 'UserAdmin'
+    }
+    return rank
   }
+
   sendVerificationEmail() {
     if (!this.authUser!.emailVerified) {
       this.authUser!.sendEmailVerification()

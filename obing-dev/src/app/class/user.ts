@@ -19,6 +19,9 @@ export interface User{
 }
 
 export enum UserRank {
-    UserLambda=0,
-    UserAdmin=1
+    BingoNewbie=0,
+    BingoTester=1,
+    BingoVeteran=2,
+    BingoMaster=3,
+    UserAdmin=-1
 }
