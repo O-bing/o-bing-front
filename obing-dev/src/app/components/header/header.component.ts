@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
@@ -9,9 +10,10 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderComponent {
 
-  @Input() CurrentUser: User = {
+  @Input() public CurrentUser: User = {
     isLoggedIn: false
   };
+
 
   imgProfileURL: string = '';
 
@@ -21,23 +23,41 @@ export class HeaderComponent {
 
   loading: Boolean = true
 
+  public authUser: firebase.default.User | undefined;
+
   constructor(
-    private userService : UserService
-  ){}
+    private authService: AuthService,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
-    if (this.CurrentUser.imgProfileRef == 'imgProfileRef.png') {
-      this.userService.getStaticUserPhoto().subscribe(res => {
-        this.imgProfileURL = res
-        this.loading = false
-      })
+    this.authService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.authUser = user
+        this.userService.getUser(user.uid).subscribe(userObject => {
+          if (userObject) {
+            this.CurrentUser = userObject
+            this.CurrentUser.isLoggedIn = true
+            if (this.CurrentUser.imgProfileRef == 'imgProfileRef.png') {
+              this.userService.getStaticUserPhoto().subscribe(res => {
+                this.imgProfileURL = res
+                this.loading = false
+              })
+            }
+            else {
+              this.userService.getUserPhoto(this.CurrentUser.imgProfileRef!).subscribe(res => {
+                this.imgProfileURL = res
+                this.loading = false
+              })
+            }
+          } else {
+            this.loading = false
+          }
+        }
+        )
+      }
     }
-    else {
-      this.userService.getUserPhoto(this.CurrentUser.imgProfileRef!).subscribe(res => {
-        this.imgProfileURL = res
-        this.loading = false
-      })
-    }
+    )
   }
 
   displayProfileHeader() {

@@ -14,7 +14,7 @@
         vertical-align: middle;
 
         .header-start {
-            width: 10%;
+            width: 20%;
             padding-left: 30px;
             padding-top: 8px;
             text-align: start;
@@ -31,7 +31,7 @@
         }
 
         .header-middle {
-            width: 80%;
+            width: 60%;
             text-align: center;
             vertical-align: middle;
 
@@ -50,19 +50,19 @@
             vertical-align: middle;
             padding-right: 10px;
             padding-top: 8px;
-            text-align: center;
-
+            text-align: end;
             .spinner {
                 position: fixed;
                 right: 0;
                 margin-right: 20px;
                 z-index: 1000;
-                text-align: end;
                 padding: 10px;
             }
             
-
             .userBox {
+                align-self: flex-end;
+                text-align: center;
+                margin-right: 0;
                 .currentUser {
                     color: rgb(255, 255, 255);
                 }
@@ -70,6 +70,7 @@
                 .imgProfile {
                     width: 50px;
                     height: 50px;
+                    border-radius: 50%;
                 }
             }
 

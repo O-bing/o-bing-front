@@ -12,8 +12,8 @@
         </th>
 
         <th class="header-end">
-            <div *ngIf="loading">
-                <div class="spinner" *ngIf="loading">
+            <div *ngIf="!this.CurrentUser.isLoggedIn && loading">
+                <div class="spinner">
                     <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
                 </div>
             </div>

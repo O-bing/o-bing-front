@@ -1,4 +1,4 @@
-<form class="form" *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm" (ngSubmit)="submitForm()">
+<form class="form" *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm">
     <div class="columns">
         <div class="column is-4 has-text-centered">
             <div class="box">
@@ -6,12 +6,12 @@
                     <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
                 </div>
                 <figure *ngIf="!loadingImg" class="image is-1by1">
-                    <img src={{this.imgProfileURL}}>
+                    <img class="profileImg" src={{this.imgProfileURL}}>
                 </figure>
                 <br/>
                 <input class="button uploadPhotoButton" type="file" (change)="uploadPhoto($event)"
                     placeholder="Changer de photo de profil" name="photo" accept=".png,.JPEG,.jpg">
-                <button (click)="resetUserPhoto()">Reset user photo</button>
+                <button type="button" (click)="resetUserPhoto()">Reset user photo</button>
                 <br/>
                 <div class="box pseudoBox">
                     <strong>{{this.user.pseudo}}</strong>
@@ -36,10 +36,10 @@
                         <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
                     </div>
                     <div class="box" *ngIf="!loading">
-                        <h3 class="has-text-weight-bold">Statut</h3><br/>
+                        <h2 class="has-text-weight-bold">Statut</h2>
                         <div class="field">
                             <div class="control">
-                                <input class="input" type="text" placeholder="Rank" formControlName="Rank" readonly>
+                                <h3 class="has-text-weight-bold">{{this.getRank(this.user.rank!)}}</h3>
                             </div>
                         </div>
                         <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>
@@ -89,7 +89,7 @@
             </div>
             <div class="endButtons">
 
-                <button type="submit" class="submitButton button is-success">Enregistrer les modifications</button>
+                <button type="submit" (click)="submitForm()" class="submitButton button is-success">Enregistrer les modifications</button>
 
                 <button class="unsubscribeButton button is-fullwidth is-danger" (click)="deleteAccount()">Se
                     désinscrire</button>
