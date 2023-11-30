@@ -1,4 +1,9 @@
-<div class="headerProfile">
+<div *ngIf="loading">
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+</div>
+<div class="headerProfile" *ngIf="!loading">
     <div class="info">
         <p>{{userProfile.pseudo}}</p>
         <p>Rank : {{userProfile.rank}}</p>

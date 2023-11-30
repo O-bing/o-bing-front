@@ -18,21 +18,24 @@ export class HeaderProfileComponent implements OnInit {
 
   settingsTarget! : HTMLElement
 
+  public loading: boolean = true;
+
   constructor(private authService : AuthService, private router: Router) {}
 
   ngOnInit(): void {
-      this.settingsTarget = document.querySelector('img.settingsImg') as HTMLElement
       this.authService.getCurrentUser().subscribe(result=>{
         this.userProfile.emailVerified = result?.emailVerified
+        this.loading = false
       })
   }
 
   mouseAction(action:string){
+    this.settingsTarget = document.querySelector('img.settingsImg') as HTMLElement
     if(action=="enter"){
-      this.settingsTarget.style.backgroundColor='rgb(222, 214, 214)';
+      this.settingsTarget.style.backgroundColor='rgb(240, 230, 230)';
     }
     else if(action=="leave"){
-      this.settingsTarget.style.backgroundColor='rgb(240, 230, 230)';
+      this.settingsTarget.style.backgroundColor='rgb(255, 255, 255)';
     }
   }
 

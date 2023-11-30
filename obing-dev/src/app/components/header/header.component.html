@@ -12,7 +12,12 @@
         </th>
 
         <th class="header-end">
-            <div *ngIf="this.CurrentUser.isLoggedIn">
+            <div *ngIf="loading">
+                <div class="spinner" *ngIf="loading">
+                    <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
+                </div>
+            </div>
+            <div *ngIf="this.CurrentUser.isLoggedIn && !loading">
                 <div class="userBox" >
                     <a (click)="displayProfileHeader()">
                         <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.imgProfileURL}}" alt="profilePicture">
