@@ -55,6 +55,7 @@ export class HeaderConnectComponent implements OnInit {
   login(username: string, password: string) {
     this.authService.signIn(username, password).then(() => {
         this.closeClick()
+        location.reload();
       }
     )
   }
