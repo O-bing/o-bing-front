@@ -1,101 +1,103 @@
-<form class="form" *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm">
-    <div class="columns">
-        <div class="column userCard is-4 has-text-centered">
-            <div class="box">
-                <div class="spinner" *ngIf="loadingImg">
-                    <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
-                </div>
-                <figure *ngIf="!loadingImg" class="image is-1by1">
-                    <img class="profileImg" src={{this.imgProfileURL}}>
-                </figure>
-                <br/>
-                <input class="button uploadPhotoButton" type="file" (change)="uploadPhoto($event)"
-                    placeholder="Changer de photo de profil" name="photo" accept=".png,.JPEG,.jpg">
-                <button type="button" (click)="resetUserPhoto()">Reset user photo</button>
-                <br/>
-                <div class="box pseudoBox">
-                    <strong>{{this.user.pseudo}}</strong>
-                </div>
-                <div class="emailVerifiedDiv">
-                    <a *ngIf="!authUser!.emailVerified" title="Your email is not verified">
-                        <img class="lockImg" src="assets/icons/icon-lock.png">
-                        <img class="emailImg" src="assets/icons/icon-mail.png">
-                    </a>
-                    <a *ngIf="authUser!.emailVerified" title="Your email is verified !">
-                        <img class="emailImg" src="assets/icons/icon-mail.png">
-                    </a>
-                    <button class="sendVerifEmailButton button is-fullwidth is-info" (click)="sendVerificationEmail()"
-                        *ngIf="!authUser!.emailVerified">Send new verification email</button>
-                </div>
-            </div>
-        </div>
-        <div class="column userInfos is-8">
-            <div class="columns">
-                <div class="column">
-                    <div class="spinner" *ngIf="loading">
+<div class="container">
+    <form class="form" *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm">
+        <div class="columns">
+            <div class="column userCard is-4 has-text-centered">
+                <div class="box">
+                    <div class="spinner" *ngIf="loadingImg">
                         <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
                     </div>
-                    <div class="box" *ngIf="!loading">
-                        <h2 class="has-text-weight-bold">Statut</h2>
-                        <div class="field">
-                            <div class="control">
-                                <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.user.rank!)}}</h3>
-                            </div>
-                        </div>
-                        <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>
+                    <figure *ngIf="!loadingImg" class="image is-1by1">
+                        <img class="profileImg" src={{this.imgProfileURL}}>
+                    </figure>
+                    <br/>
+                    <input class="button uploadPhotoButton" type="file" (change)="uploadPhoto($event)"
+                        placeholder="Changer de photo de profil" name="photo" accept=".png,.JPEG,.jpg">
+                    <button type="button" (click)="resetUserPhoto()">Reset user photo</button>
+                    <br/>
+                    <div class="box pseudoBox">
+                        <strong>{{this.user.pseudo}}</strong>
+                    </div>
+                    <div class="emailVerifiedDiv">
+                        <a *ngIf="!authUser!.emailVerified" title="Your email is not verified">
+                            <img class="lockImg" src="assets/icons/icon-lock.png">
+                            <img class="emailImg" src="assets/icons/icon-mail.png">
+                        </a>
+                        <a *ngIf="authUser!.emailVerified" title="Your email is verified !">
+                            <img class="emailImg" src="assets/icons/icon-mail.png">
+                        </a>
+                        <button class="sendVerifEmailButton button is-fullwidth is-info" (click)="sendVerificationEmail()"
+                            *ngIf="!authUser!.emailVerified">Send new verification email</button>
                     </div>
                 </div>
             </div>
-            <div class="columns">
-                <div class="column">
-                    <div class="spinner" *ngIf="loading">
-                        <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+            <div class="column userInfos is-8">
+                <div class="columns">
+                    <div class="column">
+                        <div class="spinner" *ngIf="loading">
+                            <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+                        </div>
+                        <div class="box" *ngIf="!loading">
+                            <h2 class="has-text-weight-bold">Statut</h2>
+                            <div class="field">
+                                <div class="control">
+                                    <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.user.rank!)}}</h3>
+                                </div>
+                            </div>
+                            <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>
+                        </div>
                     </div>
-                    <div class="box" *ngIf="!loading">
-                        <h3 class="has-text-weight-bold">Pseudo</h3>
-                        <br/>
-                        <div class="field">
-                            <div class="control">
-                                <input autocomplete="new-password" class="input" type="email"
-                                    placeholder="Changer votre Pseudo" formControlName="Pseudo">
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="spinner" *ngIf="loading">
+                            <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+                        </div>
+                        <div class="box" *ngIf="!loading">
+                            <h3 class="has-text-weight-bold">Pseudo</h3>
+                            <br/>
+                            <div class="field">
+                                <div class="control">
+                                    <input autocomplete="new-password" class="input" type="email"
+                                        placeholder="Changer votre Pseudo" formControlName="Pseudo">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input autocomplete="new-password" class="input" type="email"
+                                        placeholder="Confirmer votre Pseudo" formControlName="ConfirmerPseudo">
+                                </div>
                             </div>
                         </div>
-                        <div class="field">
-                            <div class="control">
-                                <input autocomplete="new-password" class="input" type="email"
-                                    placeholder="Confirmer votre Pseudo" formControlName="ConfirmerPseudo">
+                    </div>
+                    <div class="column">
+                        <div class="box">
+                            <h3 class="has-text-weight-bold">Mot de passe</h3>
+                            <br/>
+                            <div class="field">
+                                <div class="control">
+                                    <input autocomplete="new-password" class="input" type="password"
+                                        placeholder="Nouveau mot de passe" formControlName="password">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input autocomplete="new-password" class="input" type="password"
+                                        placeholder="Confirmer mot de passe" formControlName="password2">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="box">
-                        <h3 class="has-text-weight-bold">Mot de passe</h3>
-                        <br/>
-                        <div class="field">
-                            <div class="control">
-                                <input autocomplete="new-password" class="input" type="password"
-                                    placeholder="Nouveau mot de passe" formControlName="password">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="control">
-                                <input autocomplete="new-password" class="input" type="password"
-                                    placeholder="Confirmer mot de passe" formControlName="password2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="endButtons">
+                <div class="endButtons">
 
-                <button type="submit" (click)="submitForm()" class="submitButton button is-success">Enregistrer les modifications</button>
+                    <button type="submit" (click)="submitForm()" class="submitButton button is-success">Enregistrer les modifications</button>
 
-                <button class="unsubscribeButton button is-fullwidth is-danger" (click)="deleteAccount()">Se
-                    désinscrire</button>
-    
+                    <button class="unsubscribeButton button is-fullwidth is-danger" (click)="deleteAccount()">Se
+                        désinscrire</button>
+        
+                </div>
             </div>
+
         </div>
-
-    </div>
-</form>
+    </form>
+</div>
