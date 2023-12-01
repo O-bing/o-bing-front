@@ -1,7 +1,6 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User, UserRank } from 'src/app/class/user';
@@ -14,22 +13,22 @@ import { guid } from 'src/app/utils/guid';
 })
 
 export class UserComponent implements OnInit {
-  
+
   public user: User = {};
   public postForm: FormGroup;
   private imgToUpload: File | null = null;
   public loading: boolean = true;
+  public loadingImg: boolean = true;
   public imgProfileURL: string = '';
-  public authUser: firebase.default.User | undefined; // firebase.user type
+  public authUser: firebase.default.User | undefined;
 
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private authService: AuthService,
     private router: Router,
   ) {
     this.postForm = new FormGroup({
-      Titre: new FormControl(),
       Description: new FormControl(),
       Pseudo: new FormControl(),
       ConfirmerPseudo: new FormControl(),
@@ -45,64 +44,76 @@ export class UserComponent implements OnInit {
         this.userService.getUser(user.uid).subscribe(userObject => {
           if (userObject) {
             this.user = userObject
-            this.loading = false
-            this.postForm.get("Titre")!.setValue(this.getRank(this.user.rank!));
-            /*
-            const userImgRefSubscription: Subscription = this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
-              this.imgProfileURL = res
-            })*/
+            this.user.uid = user.uid
+            if (this.user.imgProfileRef == 'imgProfileRef.png') {
+              this.userService.getStaticUserPhoto().subscribe(res => {
+                this.imgProfileURL = res
+                this.loadingImg = false
+              })
+            }
+            else {
+              this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
+                this.imgProfileURL = res
+                this.loadingImg = false
+              })
+            }
 
             if (this.user.description != null) {
               this.postForm.get("Description")!.setValue(this.user.description);
             }
+
+            this.loading = false
           }
 
         })
       }
       else {
         this.loading = false
-        this.router.navigate(['user-not-found'])
+        this.router.navigate(['**'])
       }
     })
   }
 
   submitForm() {
+    let action: boolean = false
+    this.loading = true
+    if(this.imgToUpload){
+      action = true
+      const ID = guid.uuidv4();
+      if (this.user.imgProfileRef != 'imgProfileRef.png') {
+        this.userService.deleteUserPhoto(this.user.imgProfileRef!);
+      }
+      this.userService.uploadUserPhoto(this.imgToUpload, ID)
+      this.userService.updateImgProfileRef(this.user.uid!, ID);
+      this.user.imgProfileRef = ID
+    }
     let pseudo1: string = this.postForm.get("Pseudo")!.value;
     let pseudo2: string = this.postForm.get("ConfirmerPseudo")!.value;
+
+    this.userService.updateUserDescription(this.user.uid!, this.postForm.get("Description")!.value)
+
+    if (pseudo1 != null && pseudo1.length > 0 && pseudo2 != null && pseudo2.length > 0) {
+      action = true
+      this.changePseudo(pseudo1, pseudo2, this.user.uid!);
+    }
+
     let pwd1 = this.postForm.get("password")!.value;
     let pwd2 = this.postForm.get("password2")!.value;
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user != null) {
-        this.userService.getUser(user.uid).subscribe(userObject => {
-          if (userObject) {
-            userObject.uid = user.uid // adding uid for cleaner data usage in code
-            if (this.imgToUpload) {
-              /*if (userObject.imgProfileRef != "48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png") {
-                this.userService.deleteUserPhoto(userObject.imgProfileRef!);
-              }*/
-              const ID = guid.uuidv4();
-              this.userService.uploadUserPhoto(this.imgToUpload, ID);
-              console.log("test", userObject.uid!, ID)
-              this.userService.updateImgProfileRef(userObject.uid!, ID);
-            }
-            this.userService.updateUserDescription(userObject.uid!, this.postForm.get("Description")!.value)
 
-            if (pseudo1 != null && pseudo1.length > 0 && pseudo2 != null && pseudo2.length > 0) {
-              this.changePseudo(pseudo1, pseudo2, userObject.uid!);
-            }
-
-            if (pwd1 != null && pwd1.length > 0 && pwd2 != null && pwd2.length > 0 && this.check(pwd1, pwd2, "mot de passe")) {
-              this.userService.updatePassword(pwd1)
-            }
-          }
-        });
-      }
-    });
+    if (pwd1 != null && pwd1.length > 0 && pwd2 != null && pwd2.length > 0 && this.check(pwd1, pwd2, "mot de passe")) {
+      action = true
+      this.userService.updatePassword(pwd1)
+    }
 
     this.postForm.get("Pseudo")!.setValue("");
     this.postForm.get("ConfirmerPseudo")!.setValue("");
     this.postForm.get("password")!.setValue("");
     this.postForm.get("password2")!.setValue("");
+    this.loading = false
+
+    if (action){
+      this.router.navigate(['/'])
+    }
   }
 
   changePseudo(pseudo1: string, pseudo2: string, idProfile: string): void {
@@ -123,7 +134,7 @@ export class UserComponent implements OnInit {
   }
 
   deleteAccount() {
-    if (this.user.imgProfileRef != '48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png') {
+    if (this.user.imgProfileRef != 'imgProfileRef.png') {
       this.userService.deleteUserPhoto(this.user.imgProfileRef!);
     }
     this.userService.deletUser(this.user.uid!)
@@ -132,19 +143,31 @@ export class UserComponent implements OnInit {
 
   uploadPhoto(event: Event) {
     const target = event.target as HTMLInputElement;
-    this.imgToUpload = target.files![0];
+    if (target.files && target.files.length != 0) {
+      this.imgToUpload = target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imgProfileURL = reader.result as string;
+      }
+      reader.readAsDataURL(this.imgToUpload)
+    }
   }
 
-  getRank(rang: UserRank): string {
-    if (rang == UserRank.UserLambda) {
-      return "Utilisateur";
-    }
-    else {
-      return "Administrateur";
+  resetUserPhoto(){
+    if(this.authUser && this.user.imgProfileRef != 'imgProfileRef.png'){
+      this.userService.getStaticUserPhoto().subscribe(res => {
+        this.imgProfileURL = res
+      })
+      
+      this.userService.updateImgProfileRef(this.authUser.uid,'imgProfileRef.png')
+      this.userService.deleteUserPhoto(this.user.imgProfileRef!)
+      this.user.imgProfileRef = 'imgProfileRef.png'
+      this.imgToUpload = null
     }
   }
-  sendVerificationEmail(){
-    if (!this.authUser!.emailVerified){
+
+  sendVerificationEmail() {
+    if (!this.authUser!.emailVerified) {
       this.authUser!.sendEmailVerification()
     }
   }

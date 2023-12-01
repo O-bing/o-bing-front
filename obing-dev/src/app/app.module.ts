@@ -37,11 +37,12 @@ import { OnlineStateService } from './@shared/services/online-state/online-state
 import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
 import { BingoCardComponent } from './components/bingo-card/bingo-card.component';
 import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
-import { HeaderProfileComponent } from './components/header/header-profile/header-profile.component';
+import { HeaderProfileComponent } from './components/header/header-end/header-profile/header-profile.component';
 import { BingoNotConnectedDialogComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-save-log-in/bingo-save-log-in.component';
-import { HeaderConnectComponent } from './components/header/header-connect/header-connect.component';
+import { HeaderConnectComponent } from './components/header/header-end/header-connect/header-connect.component';
 import { TileDisplayComponent } from './components/bingo-card/tile-display/tile-display.component';
+import { HeaderEndComponent } from './components/header/header-end/header-end.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,8 @@ import { TileDisplayComponent } from './components/bingo-card/tile-display/tile-
     BingoNotConnectedDialogComponent,
     BingoSaveLogInComponent,
     HeaderConnectComponent,
-    TileDisplayComponent
+    TileDisplayComponent,
+    HeaderEndComponent
   ],
   imports: [
     BrowserModule,

@@ -108,7 +108,7 @@ firebase logout
 firebase login
 ```
 
-### Project deployment
+### Project deployment (old way)
 
 Run the following commands :
 
@@ -163,3 +163,7 @@ Finally, run the following command to deploy your website on firebase hosting :
 ```
 firebase deploy --only hosting:o-bing-pld
 ```
+
+### Project deployment (new way)
+
+Pull request or Merge on main will trigger a CI/CD pipeline that will do the whole process

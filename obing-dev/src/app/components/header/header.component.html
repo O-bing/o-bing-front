@@ -12,16 +12,23 @@
         </th>
 
         <th class="header-end">
-            <div *ngIf="this.CurrentUser.isLoggedIn">
-                <a (click)="displayProfileHeader()">
-                    <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.CurrentUser.imgProfileRef}}" alt="profilePicture">
-                </a>
-                <br />
-                <a *ngIf="this.CurrentUser.isLoggedIn" (click)="displayProfileHeader()" class="currentUser">
-                    {{this.CurrentUser.pseudo}}
-                </a>
+            <div *ngIf="loading">
+                <div class="spinner">
+                    <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
+                </div>
             </div>
-            <div *ngIf="!this.CurrentUser.isLoggedIn">
+            <div *ngIf="this.CurrentUser.isLoggedIn && !loading">
+                <div class="userBox" >
+                    <a (click)="displayProfileHeader()">
+                        <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.imgProfileURL}}" alt="profilePicture">
+                    </a>
+                    <br />
+                    <a (click)="displayProfileHeader()" *ngIf="this.CurrentUser.isLoggedIn" class="currentUser">
+                        {{this.CurrentUser.pseudo}}
+                    </a>
+                </div>
+            </div>
+            <div class="notConnectedDiv" *ngIf="!this.CurrentUser.isLoggedIn">
                 <a (click)="displayConnectHeader()" class="notConnected">
                     Not connected
                 </a>
@@ -29,6 +36,5 @@
             
         </th>
     </table>
-    <app-header-profile (clickEvent)="clickEvent()" [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.displayProfile"></app-header-profile>
-    <app-header-connect (clickEvent)="clickEvent()" *ngIf="!this.CurrentUser.isLoggedIn && this.displayConnect"></app-header-connect>
+    <app-header-end (CloseClick)="displayHeaders()" [CurrentUser]="this.CurrentUser" [DisplayConnect]="this.displayConnect" [DisplayProfile]="this.displayProfile"></app-header-end>
 </div>

@@ -1,12 +1,15 @@
-.headerProfile {
+.spinner{
     position: fixed;
     right: 0;
     margin-right: 20px;
     z-index: 1000;
     text-align: end;
-    background-color: rgb(255, 255, 255);
     padding: 10px;
+}
+
+.headerProfile {
     border-radius: 5px;
+    background-color: rgb(255, 255, 255);
     font-size:15px;
     font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     .info {

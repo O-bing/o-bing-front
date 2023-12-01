@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
 @Component({
@@ -8,40 +10,78 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderComponent {
 
-  @Input() CurrentUser:User = {
-    isLoggedIn:false
+  @Input() public CurrentUser: User = {
+    isLoggedIn: false
   };
 
-  imgProfileURL : string = '';
+  imgProfileURL: string = '';
 
-  displayProfile : Boolean = false;
+  displayProfile: boolean = false;
 
-  displayConnect : Boolean = false;
+  displayConnect: boolean = false;
 
-  constructor() { }
+  loading: boolean = true
 
-  displayProfileHeader(){
-    if (!this.displayProfile){
+  public authUser: firebase.default.User | undefined;
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) { }
+
+  ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.authUser = user
+        this.userService.getUser(user.uid).subscribe(userObject => {
+          if (userObject) {
+            this.CurrentUser = userObject
+            this.CurrentUser.isLoggedIn = true
+            if (this.CurrentUser.imgProfileRef == 'imgProfileRef.png') {
+              this.userService.getStaticUserPhoto().subscribe(res => {
+                this.imgProfileURL = res
+                this.loading = false
+              })
+            }
+            else {
+              this.userService.getUserPhoto(this.CurrentUser.imgProfileRef!).subscribe(res => {
+                this.imgProfileURL = res
+                this.loading = false
+              })
+            }
+          } else {
+            this.loading = false
+          }
+        }
+        )
+      } else {
+        this.loading = false
+      }
+    }
+    )
+  }
+
+  displayHeaders(){
+    this.displayProfileHeader()
+    this.displayConnectHeader()
+  }
+
+  displayProfileHeader() {
+    if (!this.displayProfile) {
       this.displayProfile = true
     }
-    else{
+    else {
       this.displayProfile = false
     }
   }
 
-  displayConnectHeader(){
-    if (!this.displayConnect){
+  displayConnectHeader() {
+    if (!this.displayConnect) {
       this.displayConnect = true
     }
-    else{
+    else {
       this.displayConnect = false
     }
   }
-
-  clickEvent(){
-    this.displayProfile = false
-    this.displayConnect = false
-  }
-
-
+  
 }

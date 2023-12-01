@@ -1,14 +1,19 @@
-<div class="headerProfile">
+<div *ngIf="loading">
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+</div>
+<div class="box headerProfile" *ngIf="!loading">
     <div class="info">
         <p>{{userProfile.pseudo}}</p>
-        <p>Rank : {{userProfile.rank}}</p>
+        <p>Rank : {{this.userService.getStringRank(userProfile.rank!)}}</p>
         <p>Mail : {{userProfile.mail}}</p>
     </div>
     <div class="buttons">
         <table class="buttonsTable">
             <th class="settingsCol">
                 <div class="settingsDiv" (mouseenter)="mouseAction('enter')" (mouseleave)="mouseAction('leave')">
-                    <img #settingsImg class="settingsImg" (click)="this.settingsClick()"
+                    <img #settingsImg class="settingsImg" (click)="this.closeClick()"
                         [routerLink]="['/user', userProfile.uid]" src="assets/buttons/gear.png">
                 </div>
             </th>

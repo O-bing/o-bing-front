@@ -1,5 +1,3 @@
-import { guid } from "../utils/guid";
-
 export interface User{
     uid?:string,
     name?:string,
@@ -17,10 +15,13 @@ export interface User{
     fame?:number,
     favouriteBingo?:Array<string>,
     gameList?:Array<string>,
-    isLoggedIn?:Boolean
+    isLoggedIn?:boolean
 }
 
 export enum UserRank {
-    UserLambda=0,
-    UserAdmin=1
+    BingoNewbie=0,
+    BingoTester=1,
+    BingoVeteran=2,
+    BingoMaster=3,
+    UserAdmin=-1
 }

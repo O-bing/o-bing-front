@@ -26,10 +26,9 @@ export class UserService {
   }
 
   newUser(user: User, uid: string):Subscription{
-    user.rank = UserRank.UserLambda;
+    user.rank = UserRank.BingoNewbie;
     return this.getStaticUserPhoto().subscribe(res => {
       user.imgProfileRef = guid.uuidv4() + '.png'
-      console.log(res)
       this.uploadUserPhoto(res, user.imgProfileRef);
       this.userCollection.doc(uid).set(user);
     })
@@ -39,7 +38,6 @@ export class UserService {
     return this.afAuth.currentUser.then(user => {
       if (user) {
         this.userCollection.doc(userId).delete().then(res => {
-          console.log(res);
           user.delete()
         }
         ).catch(error => console.log(error));
@@ -64,7 +62,6 @@ export class UserService {
   }
 
   updateImgProfileRef(idProfile: string, newImageId: string): Promise<void> {
-    console.log(idProfile, newImageId)
     return this.userCollection.doc<User>(idProfile).update({
       imgProfileRef: newImageId
     });
@@ -77,7 +74,7 @@ export class UserService {
   }
 
   getStaticUserPhoto(): Observable<any> {
-    return this.storage.ref('Static/' + '48f6eaz4f8ez4az6f4ea8f4a5faz4f8af6azf4a2f1afza8f4za7azfa.png').getDownloadURL()
+    return this.storage.ref('Static/' + 'imgProfileRef.png').getDownloadURL()
   }
 
   getUserPhoto(idUserPhoto: string): Observable<any>  {
@@ -90,6 +87,23 @@ export class UserService {
 
   deleteUserPhoto(idUserPhoto: string): Observable<any> {
     return this.storage.ref('ImgProfile/' + idUserPhoto).delete();
+  }
+
+  getStringRank(userRank: UserRank): string {
+    let rank:string = 'BingoNewbie'
+    if(userRank = UserRank.BingoTester){
+      rank = 'BingoTester'
+    }
+    else if(userRank = UserRank.BingoVeteran){
+      rank = 'BingoVeteran'
+    }
+    else if(userRank = UserRank.BingoMaster){
+      rank = 'BingoMaster'
+    }
+    else if(userRank = UserRank.UserAdmin){
+      rank = 'UserAdmin'
+    }
+    return rank
   }
 
 
