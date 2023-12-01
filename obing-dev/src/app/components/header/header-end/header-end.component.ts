@@ -14,12 +14,12 @@ export class HeaderEndComponent {
 
   @Input() DisplayConnect: boolean = false;
   
-  @Output() SettingsClick = new EventEmitter();
+  @Output() CloseClick = new EventEmitter();
 
   constructor(private el:ElementRef) {}
 
-  settingsClick(){
-    this.SettingsClick.emit()
+  closeClick(){
+    this.CloseClick.emit()
   }
 
 }

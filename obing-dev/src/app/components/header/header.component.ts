@@ -61,6 +61,11 @@ export class HeaderComponent {
     )
   }
 
+  displayHeaders(){
+    this.displayProfileHeader()
+    this.displayConnectHeader()
+  }
+
   displayProfileHeader() {
     if (!this.displayProfile) {
       this.displayProfile = true

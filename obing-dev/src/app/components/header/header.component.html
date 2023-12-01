@@ -12,7 +12,7 @@
         </th>
 
         <th class="header-end">
-            <div *ngIf="!this.CurrentUser.isLoggedIn && loading">
+            <div *ngIf="loading">
                 <div class="spinner">
                     <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
                 </div>
@@ -36,5 +36,5 @@
             
         </th>
     </table>
-    <app-header-end (SettingsClick)="displayProfileHeader()" [CurrentUser]="this.CurrentUser" [DisplayConnect]="this.displayConnect" [DisplayProfile]="this.displayProfile"></app-header-end>
+    <app-header-end (CloseClick)="displayHeaders()" [CurrentUser]="this.CurrentUser" [DisplayConnect]="this.displayConnect" [DisplayProfile]="this.displayProfile"></app-header-end>
 </div>

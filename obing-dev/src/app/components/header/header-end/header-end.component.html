@@ -1,2 +1,2 @@
-<app-header-profile class="headerProfile" (SettingsClick)="settingsClick()" [DisplayProfile]="this.DisplayProfile" [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.DisplayProfile"></app-header-profile>
-<app-header-connect *ngIf="!this.CurrentUser.isLoggedIn && this.DisplayConnect"></app-header-connect>
+<app-header-profile class="headerProfile" (CloseClick)="closeClick()" [DisplayProfile]="this.DisplayProfile" [userProfile]="this.CurrentUser" *ngIf="this.CurrentUser.isLoggedIn && this.DisplayProfile"></app-header-profile>
+<app-header-connect (CloseClick)="closeClick()" [DisplayConnect]="this.DisplayConnect" *ngIf="!this.CurrentUser.isLoggedIn && this.DisplayConnect"></app-header-connect>

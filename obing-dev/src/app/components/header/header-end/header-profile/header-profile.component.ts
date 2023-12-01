@@ -15,9 +15,9 @@ export class HeaderProfileComponent implements OnInit {
   
   @Input() DisplayProfile : boolean = false;
 
-  @Output() SettingsClick = new EventEmitter();
+  @Output() CloseClick = new EventEmitter();
 
-  settingsClicked : boolean = false;
+  closeClicked : boolean = false;
 
   settingsTarget! : HTMLElement
 
@@ -40,9 +40,9 @@ export class HeaderProfileComponent implements OnInit {
   clickInOut(target:any){
     const clickedIn = this.el.nativeElement.contains(target)
     if (!clickedIn){
-      if(this.DisplayProfile && this.shown){
+      if(this.shown){
         this.shown = false
-        this.SettingsClick.emit()
+        this.CloseClick.emit()
       }
     }else{
       this.shown = true
@@ -60,9 +60,9 @@ export class HeaderProfileComponent implements OnInit {
     }
   }
 
-  settingsClick(){
-    this.settingsClicked = true
-    this.SettingsClick.emit()
+  closeClick(){
+    this.closeClicked = true
+    this.CloseClick.emit()
   }
   
   logOut(){

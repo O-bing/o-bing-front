@@ -13,7 +13,7 @@
         <table class="buttonsTable">
             <th class="settingsCol">
                 <div class="settingsDiv" (mouseenter)="mouseAction('enter')" (mouseleave)="mouseAction('leave')">
-                    <img #settingsImg class="settingsImg" (click)="this.settingsClick()"
+                    <img #settingsImg class="settingsImg" (click)="this.closeClick()"
                         [routerLink]="['/user', userProfile.uid]" src="assets/buttons/gear.png">
                 </div>
             </th>

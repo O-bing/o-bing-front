@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
@@ -10,7 +10,16 @@ import { OnlineStateService } from 'src/app/@shared/services/online-state/online
 })
 export class HeaderConnectComponent implements OnInit {
 
-  constructor(public authService: AuthService, private onlineStateSvc: OnlineStateService, private router: Router, private ngZone: NgZone) {
+  
+  @Input() DisplayConnect : boolean = false;
+
+  @Output() CloseClick = new EventEmitter();
+
+  closeClicked : boolean = false;
+
+  shown: boolean = false
+
+  constructor(public authService: AuthService, private onlineStateSvc: OnlineStateService, private router: Router, private ngZone: NgZone, private el:ElementRef) {
     const state = this.onlineStateSvc.checkNetworkStatus()
     if (state) {
       console.log("You're currently online")
@@ -20,14 +29,33 @@ export class HeaderConnectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(result=>{
+      this.shown = true
+    })
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  clickInOut(target:any){
+    const clickedIn = this.el.nativeElement.contains(target)
+    if (!clickedIn){
+      if(this.DisplayConnect && this.shown){
+        this.shown = false
+        this.CloseClick.emit()
+      }
+    }else{
+      this.shown = true
+    }
+  }
+
+  closeClick(){
+    this.closeClicked = true
+    this.CloseClick.emit()
   }
 
   login(username: string, password: string) {
     this.authService.signIn(username, password).then(() => {
-      this.ngZone.run(() => {
-        this.router.navigate(['/']);
-      });
-    }
+        this.closeClick()
+      }
     )
   }
 
