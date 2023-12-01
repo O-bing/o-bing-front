@@ -2,6 +2,8 @@
 
 Font of the [O-bing](https://o-bing-pld.web.app/) project
 
+## :warning::warning: Project in developpement :warning::warning:
+
 # Local dev deployment
 
 ### Install dependencies
