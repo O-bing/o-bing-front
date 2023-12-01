@@ -18,7 +18,6 @@ export class HeaderEndComponent {
 
   constructor(private el:ElementRef) {}
 
-
   settingsClick(){
     this.SettingsClick.emit()
   }

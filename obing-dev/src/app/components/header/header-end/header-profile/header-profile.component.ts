@@ -23,12 +23,15 @@ export class HeaderProfileComponent implements OnInit {
 
   public loading: boolean = true;
 
+  shown : boolean = false;
+
   constructor(private authService : AuthService, public userService: UserService, private router: Router, private el:ElementRef) {}
 
   ngOnInit(): void {
       this.authService.getCurrentUser().subscribe(result=>{
         this.userProfile.emailVerified = result?.emailVerified
         this.loading = false
+        this.shown = true
       })
   }
 
@@ -37,10 +40,12 @@ export class HeaderProfileComponent implements OnInit {
   clickInOut(target:any){
     const clickedIn = this.el.nativeElement.contains(target)
     if (!clickedIn){
-      console.log('clickedOut')
-      if(this.DisplayProfile){
-        console.log('profile is displayed')
+      if(this.DisplayProfile && this.shown){
+        this.shown = false
+        this.SettingsClick.emit()
       }
+    }else{
+      this.shown = true
     }
   }
 
