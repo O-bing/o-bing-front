@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class OnlineStateService implements OnInit, OnDestroy {
 
   networkStatus: boolean = false;
-  networkStatus$: Subscription = Subscription.EMPTY;
+  networkStatusSubscribtion: Subscription = Subscription.EMPTY;
 
   constructor() {}
 
@@ -19,13 +19,13 @@ export class OnlineStateService implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.networkStatus$.unsubscribe();
+    this.networkStatusSubscribtion.unsubscribe();
   }
 
   checkNetworkStatus() : boolean{
-    this.networkStatus$ = Subscription.EMPTY;
+    this.networkStatusSubscribtion = Subscription.EMPTY;
     this.networkStatus = navigator.onLine;
-    this.networkStatus$ = merge(
+    this.networkStatusSubscribtion = merge(
       of(null),
       fromEvent(window, 'online'),
       fromEvent(window, 'offline')
@@ -34,7 +34,7 @@ export class OnlineStateService implements OnInit, OnDestroy {
       .subscribe(status => {
         this.networkStatus = status;
       });
-      this.networkStatus$.unsubscribe();
+      this.networkStatusSubscribtion.unsubscribe();
       return this.networkStatus
   }
 }

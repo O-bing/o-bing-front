@@ -1,27 +1,23 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import { Version } from 'src/app/class/version';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-import { RouteData } from '../../pages';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
+  versionCollection : AngularFirestoreCollection<Version>;
 
-  private routeData: BehaviorSubject<RouteData |null>;
-
-  constructor(private store: AngularFirestore) {
-    this.routeData = new BehaviorSubject<RouteData | null>(null);
+  constructor(
+    private store: AngularFirestore
+  ) {
+    this.versionCollection = this.store.collection<Version>('version');
   }
 
-  getRouteData(): Observable<RouteData | null>{
-    return this.routeData.asObservable().pipe(filter(data => !!data));
+  getCurrentVersion():Observable<Version[]>{
+    return this.versionCollection.valueChanges();
   }
 
-  setRouteData(data: RouteData):void{
-    this.routeData.next(data);
-  }
 }

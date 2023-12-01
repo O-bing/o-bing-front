@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, NgZone, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
-import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 
 @Component({
   selector: 'app-header-connect',
@@ -19,14 +18,7 @@ export class HeaderConnectComponent implements OnInit {
 
   shown: boolean = false
 
-  constructor(public authService: AuthService, private onlineStateSvc: OnlineStateService, private router: Router, private ngZone: NgZone, private el:ElementRef) {
-    const state = this.onlineStateSvc.checkNetworkStatus()
-    if (state) {
-      console.log("You're currently online")
-    } else {
-      console.log("You're currently offline")
-    }
-  }
+  constructor(public authService: AuthService, private el:ElementRef) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(result=>{
