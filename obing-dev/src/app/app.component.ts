@@ -29,12 +29,11 @@ export class AppComponent implements OnInit {
     const isPWA = this.isPWA()
     const state = this.onlineStateSvc.checkNetworkStatus()
     if (state) {
-      console.log("You are currently online")
       if(isPWA){
         this.checkAppVersion()
       }
     } else {
-      console.log("You are currently offline. Try to use the application while being connect to internet, a newer version of the may exist")
+      window.alert("You are currently offline. Try to use the application while being connect to internet, a newer version of the may exist")
     }
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
