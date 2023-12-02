@@ -83,7 +83,6 @@ export class AppComponent implements OnInit {
       }
     })
 
-
     // Get localstorage value
 
 
