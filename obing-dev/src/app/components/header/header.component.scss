@@ -94,6 +94,21 @@
                     color: #fff;
                 }
             }
+
+            .offlineDiv{
+
+                margin-top: 5px;
+                .offline {
+                    white-space: nowrap;
+                    padding: 8px;
+                    margin-right: 20px;
+                    border-radius: 8px;
+                    font-size: 15px;
+                    background-color: #93938f;
+                    border-color: transparent;
+                    color: #fff;
+                }
+            }
         }
     }
 }

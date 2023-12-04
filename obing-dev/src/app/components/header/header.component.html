@@ -1,7 +1,7 @@
 <div class="header-main">
     <table class="header-compartimenter">
         <th class="header-start">
-            <a title="Don't have any support link yet" class="supportMe">
+            <a title="Don't have any support link yet" class="supportMe"  *ngIf="this.online">
                 Support <br/>
                 me
             </a>
@@ -12,7 +12,7 @@
             </a>
         </th>
 
-        <th class="header-end">
+        <th class="header-end" *ngIf="this.online">
             <div *ngIf="loading">
                 <div class="spinner">
                     <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
@@ -32,6 +32,14 @@
             <div class="notConnectedDiv" *ngIf="!this.CurrentUser.isLoggedIn">
                 <a (click)="displayConnectHeader()" class="notConnected">
                     Not connected
+                </a>
+            </div>
+            
+        </th>
+        <th class="header-end" *ngIf="!this.online">
+            <div class="offlineDiv" *ngIf="!this.CurrentUser.isLoggedIn">
+                <a class="offline">
+                    Offline
                 </a>
             </div>
             

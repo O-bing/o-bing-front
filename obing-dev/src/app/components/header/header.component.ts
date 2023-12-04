@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
@@ -22,46 +23,52 @@ export class HeaderComponent {
 
   loading: boolean = true
 
+  online: boolean = true
+
   public authUser: firebase.default.User | undefined;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private onlineStateSvc: OnlineStateService
   ) { }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.authUser = user
-        this.userService.getUser(user.uid).subscribe(userObject => {
-          if (userObject) {
-            this.CurrentUser = userObject
-            this.CurrentUser.isLoggedIn = true
-            if (this.CurrentUser.imgProfileRef == 'imgProfileRef.png') {
-              this.userService.getStaticUserPhoto().subscribe(res => {
-                this.imgProfileURL = res
-                this.loading = false
-              })
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+      this.authService.getCurrentUser().subscribe(user => {
+        if (user) {
+          this.authUser = user
+          this.userService.getUser(user.uid).subscribe(userObject => {
+            if (userObject) {
+              this.CurrentUser = userObject
+              this.CurrentUser.isLoggedIn = true
+              if (this.CurrentUser.imgProfileRef == 'imgProfileRef.png') {
+                this.userService.getStaticUserPhoto().subscribe(res => {
+                  this.imgProfileURL = res
+                  this.loading = false
+                })
+              }
+              else {
+                this.userService.getUserPhoto(this.CurrentUser.imgProfileRef!).subscribe(res => {
+                  this.imgProfileURL = res
+                  this.loading = false
+                })
+              }
+            } else {
+              this.loading = false
             }
-            else {
-              this.userService.getUserPhoto(this.CurrentUser.imgProfileRef!).subscribe(res => {
-                this.imgProfileURL = res
-                this.loading = false
-              })
-            }
-          } else {
-            this.loading = false
           }
+          )
+        } else {
+          this.loading = false
         }
-        )
-      } else {
-        this.loading = false
       }
-    }
-    )
+      )
+    })
   }
 
-  displayHeaders(){
+  displayHeaders() {
     this.displayProfileHeader()
     this.displayConnectHeader()
   }
@@ -83,5 +90,5 @@ export class HeaderComponent {
       this.displayConnect = false
     }
   }
-  
+
 }
