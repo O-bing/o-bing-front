@@ -10,6 +10,7 @@ import { AppService } from './@shared/services/app/app.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
 
   title: string = 'O-bing';
@@ -23,60 +24,61 @@ export class AppComponent implements OnInit {
     private userService: UserService,
     private onlineStateSvc: OnlineStateService,
     private appService: AppService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     const isPWA = this.isPWA()
-    const state = this.onlineStateSvc.checkNetworkStatus()
-    if (state) {
-      if(isPWA){
-        this.checkAppVersion()
-      }
-    } else {
-      window.alert("You are currently offline. Try to use the application while being connect to internet, a newer version of the may exist")
-    }
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.userService.getUser(user.uid).subscribe(userObject => {
-          this.currentUser = userObject!
-          this.currentUser.uid = user.uid
-          this.currentUser.isLoggedIn = true
-          this.loading = false
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      console.log(state)
+      if (state) { // Online mod
+        this.authService.getCurrentUser().subscribe(user => {
+          if (user) {
+            this.userService.getUser(user.uid).subscribe(userObject => {
+              this.currentUser = userObject!
+              this.currentUser.uid = user.uid
+              this.currentUser.isLoggedIn = true
+              this.loading = false
+            })
+    
+          } else {
+            this.loading = false
+            this.currentUser.isLoggedIn = false
+          }
         })
-
-      } else {
-        this.loading = false
-        this.currentUser.isLoggedIn = false
+        if (isPWA) {
+          this.checkAppVersion()
+        }
+      } else { // Offline mod
+        window.alert("You are currently offline. Try to use the application while being connect to internet, a newer version of the may exist")
       }
     })
+
   }
 
-  private isPWA():boolean{
-    let isPWA:boolean = false;
+  private isPWA(): boolean {
+    let isPWA: boolean = false;
     window.addEventListener('DOMContentLoaded', () => {
       let displayMode = 'browser tab';
       if (window.matchMedia('(display-mode: standalone)').matches) {
         displayMode = 'standalone';
         isPWA = true
       }
-      // Log launch display mode to analytics
-      console.log('DISPLAY_MODE_LAUNCH:', displayMode);      
     });
     return isPWA
   }
 
-  private async checkAppVersion(){
+  private async checkAppVersion() {
 
     // Get current deployed Firebase Hosting version
 
-    this.appService.getCurrentVersion().subscribe(version=>{
-      if(!localStorage.getItem("version")){        
+    this.appService.getCurrentVersion().subscribe(version => {
+      if (!localStorage.getItem("version")) {
         localStorage.setItem("version", version[0].versionId)
         localStorage.setItem("versionDate", version[0].date.toString())
-      }else {
+      } else {
         let localVersion = localStorage.getItem("version")
         let localVersionDate = Number(localStorage.getItem("versionDate"))
-        if(localVersion!=version[0].versionId && localVersionDate<version[0].date){
+        if (localVersion != version[0].versionId && localVersionDate < version[0].date) {
           window.alert("Update your local app version, a newer one exists !")
         }
       }
@@ -99,7 +101,7 @@ export class AppComponent implements OnInit {
 
 
     // If not equal, ask user to redownload the app
-    
+
 
 
     // OPTIONAL : maybe display a visual element to tell the user he's using a legacy app
