@@ -10,7 +10,7 @@ import { OnlineStateService } from 'src/app/@shared/services/online-state/online
 })
 export class LoginComponent implements OnInit {
 
-  online: boolean = true;
+  online: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
     })
   }

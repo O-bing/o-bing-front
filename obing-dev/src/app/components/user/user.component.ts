@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
-import { User, UserRank } from 'src/app/class/user';
+import { User } from 'src/app/class/user';
 import { guid } from 'src/app/utils/guid';
 
 @Component({
@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   public loadingImg: boolean = true;
   public imgProfileURL: string = '';
   public authUser: firebase.default.User | undefined;
-  public online: boolean = true
+  public online: boolean = false
 
 
   constructor(
@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       if (this.online) {
         this.authService.getCurrentUser().subscribe(user => {

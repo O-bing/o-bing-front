@@ -23,7 +23,7 @@ export class HeaderComponent {
 
   loading: boolean = true
 
-  online: boolean = true
+  online: boolean = false
 
   public authUser: firebase.default.User | undefined;
 
@@ -34,7 +34,7 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {

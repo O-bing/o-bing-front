@@ -22,7 +22,7 @@ export class BingoNotConnectedDialogComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
     })
   }

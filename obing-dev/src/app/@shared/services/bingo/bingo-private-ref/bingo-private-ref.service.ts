@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { BingoPrivateRef } from 'src/app/class/bingoPrivateRef';
-import { Observable } from 'rxjs';
-import { guid } from 'src/app/utils/guid';
 
 
 @Injectable({

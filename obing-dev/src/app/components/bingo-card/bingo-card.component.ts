@@ -1,7 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
-import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { Bingo } from 'src/app/class/bingo';

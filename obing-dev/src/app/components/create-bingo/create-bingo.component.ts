@@ -9,7 +9,6 @@ import { guid } from 'src/app/utils/guid';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { Bingo } from 'src/app/class/bingo';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
-import { UserService } from 'src/app/@shared/services/user/user.service';
 import { BingoNotConnectedDialogComponent } from './bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
@@ -37,7 +36,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   setScrollView: boolean = false
 
-  online: boolean = true
+  online: boolean = false
 
   constructor(
     private dialog: MatDialog,
@@ -50,7 +49,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
