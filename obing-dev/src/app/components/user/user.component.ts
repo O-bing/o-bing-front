@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User, UserRank } from 'src/app/class/user';
 import { guid } from 'src/app/utils/guid';
@@ -21,12 +22,14 @@ export class UserComponent implements OnInit {
   public loadingImg: boolean = true;
   public imgProfileURL: string = '';
   public authUser: firebase.default.User | undefined;
+  public online: boolean = true
 
 
   constructor(
     public userService: UserService,
     private authService: AuthService,
     private router: Router,
+    private onlineStateSvc: OnlineStateService
   ) {
     this.postForm = new FormGroup({
       Description: new FormControl(),
@@ -38,38 +41,43 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.authUser = user
-        this.userService.getUser(user.uid).subscribe(userObject => {
-          if (userObject) {
-            this.user = userObject
-            this.user.uid = user.uid
-            if (this.user.imgProfileRef == 'imgProfileRef.png') {
-              this.userService.getStaticUserPhoto().subscribe(res => {
-                this.imgProfileURL = res
-                this.loadingImg = false
-              })
-            }
-            else {
-              this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
-                this.imgProfileURL = res
-                this.loadingImg = false
-              })
-            }
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+      if (this.online) {
+        this.authService.getCurrentUser().subscribe(user => {
+          if (user) {
+            this.authUser = user
+            this.userService.getUser(user.uid).subscribe(userObject => {
+              if (userObject) {
+                this.user = userObject
+                this.user.uid = user.uid
+                if (this.user.imgProfileRef == 'imgProfileRef.png') {
+                  this.userService.getStaticUserPhoto().subscribe(res => {
+                    this.imgProfileURL = res
+                    this.loadingImg = false
+                  })
+                }
+                else {
+                  this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
+                    this.imgProfileURL = res
+                    this.loadingImg = false
+                  })
+                }
 
-            if (this.user.description != null) {
-              this.postForm.get("Description")!.setValue(this.user.description);
-            }
+                if (this.user.description != null) {
+                  this.postForm.get("Description")!.setValue(this.user.description);
+                }
 
-            this.loading = false
+                this.loading = false
+              }
+
+            })
           }
-
+          else {
+            this.loading = false
+            this.router.navigate(['**'])
+          }
         })
-      }
-      else {
-        this.loading = false
-        this.router.navigate(['**'])
       }
     })
   }
@@ -77,7 +85,7 @@ export class UserComponent implements OnInit {
   submitForm() {
     let action: boolean = false
     this.loading = true
-    if(this.imgToUpload){
+    if (this.imgToUpload) {
       action = true
       const ID = guid.uuidv4();
       if (this.user.imgProfileRef != 'imgProfileRef.png') {
@@ -111,7 +119,7 @@ export class UserComponent implements OnInit {
     this.postForm.get("password2")!.setValue("");
     this.loading = false
 
-    if (action){
+    if (action) {
       this.router.navigate(['/'])
     }
   }
@@ -153,13 +161,13 @@ export class UserComponent implements OnInit {
     }
   }
 
-  resetUserPhoto(){
-    if(this.authUser && this.user.imgProfileRef != 'imgProfileRef.png'){
+  resetUserPhoto() {
+    if (this.authUser && this.user.imgProfileRef != 'imgProfileRef.png') {
       this.userService.getStaticUserPhoto().subscribe(res => {
         this.imgProfileURL = res
       })
-      
-      this.userService.updateImgProfileRef(this.authUser.uid,'imgProfileRef.png')
+
+      this.userService.updateImgProfileRef(this.authUser.uid, 'imgProfileRef.png')
       this.userService.deleteUserPhoto(this.user.imgProfileRef!)
       this.user.imgProfileRef = 'imgProfileRef.png'
       this.imgToUpload = null

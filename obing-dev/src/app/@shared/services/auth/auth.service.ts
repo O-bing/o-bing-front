@@ -40,10 +40,9 @@ export class AuthService {
   // Sign in with email/password Connexion
   signIn(email: string, password: string): Promise<boolean> {
     return this.afAuth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then(() => {
         return true
-      }).catch((error) => {
-        console.log(error)
+      }).catch(e => {
         window.alert("Email/Password association does not exist")
         return false
       })

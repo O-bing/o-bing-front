@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 
 @Component({
   selector: 'app-user-search',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserSearchComponent implements OnInit {
 
-  constructor() { }
+  online:boolean=true;
+
+  constructor(
+    private onlineStateSvc: OnlineStateService
+  ) { }
 
   ngOnInit(): void {
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+    })
   }
 
 }

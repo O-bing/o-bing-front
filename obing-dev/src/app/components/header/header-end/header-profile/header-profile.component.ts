@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
@@ -11,61 +12,76 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderProfileComponent implements OnInit {
 
-  @Input() userProfile : User = {};
-  
-  @Input() DisplayProfile : boolean = false;
+  @Input() userProfile: User = {};
+
+  @Input() DisplayProfile: boolean = false;
 
   @Output() CloseClick = new EventEmitter();
 
-  closeClicked : boolean = false;
+  closeClicked: boolean = false;
 
-  settingsTarget! : HTMLElement
+  settingsTarget!: HTMLElement
 
   public loading: boolean = true;
 
-  shown : boolean = false;
+  shown: boolean = false;
 
-  constructor(private authService : AuthService, public userService: UserService, private router: Router, private el:ElementRef) {}
+  online: boolean = true
+
+  constructor(
+    private authService: AuthService,
+    public userService: UserService,
+    private router: Router,
+    private el: ElementRef,
+    private onlineStateSvc: OnlineStateService,
+  ) { }
 
   ngOnInit(): void {
-      this.authService.getCurrentUser().subscribe(result=>{
-        this.userProfile.emailVerified = result?.emailVerified
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+      if (this.online) {
+        this.authService.getCurrentUser().subscribe(result => {
+          this.userProfile.emailVerified = result?.emailVerified
+          this.loading = false
+          this.shown = true
+        })
+      } else {
         this.loading = false
-        this.shown = true
-      })
+      }
+    })
   }
 
-  
+
   @HostListener('document:click', ['$event.target'])
-  clickInOut(target:any){
+  clickInOut(target: any) {
     const clickedIn = this.el.nativeElement.contains(target)
-    if (!clickedIn){
-      if(this.shown){
+    if (!clickedIn) {
+      if (this.shown) {
         this.shown = false
         this.CloseClick.emit()
       }
-    }else{
+    } else {
       this.shown = true
     }
   }
 
 
-  mouseAction(action:string){
+  mouseAction(action: string) {
     this.settingsTarget = document.querySelector('img.settingsImg') as HTMLElement
-    if(action=="enter"){
-      this.settingsTarget.style.backgroundColor='rgb(240, 230, 230)';
+    if (action == "enter") {
+      this.settingsTarget.style.backgroundColor = 'rgb(240, 230, 230)';
     }
-    else if(action=="leave"){
-      this.settingsTarget.style.backgroundColor='rgb(255, 255, 255)';
+    else if (action == "leave") {
+      this.settingsTarget.style.backgroundColor = 'rgb(255, 255, 255)';
     }
   }
 
-  closeClick(){
+  closeClick() {
     this.closeClicked = true
     this.CloseClick.emit()
   }
-  
-  logOut(){
+
+  logOut() {
     this.authService.SignOut()
     this.router.navigate([''])
   }

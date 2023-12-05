@@ -1,6 +1,6 @@
 <div class="body">
 
-  <div class="box">
+  <div class="box" *ngIf="this.online">
     <nav>
       <h1 class="title">Connection</h1>
     </nav>
@@ -60,10 +60,14 @@
 
       <div class="links">
         <a class="forgottenPassword" routerLink="/forgotPassword">Mot de passe oublié</a>
-        <br/>
+        <br />
         <p class="noAccount">Vous n'avez pas de compte ? <a routerLink="/signUp">Inscrivez-vous</a></p>
       </div>
     </form>
 
+  </div>
+  
+  <div class="box" *ngIf="!this.online">
+    <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
   </div>
 </div>

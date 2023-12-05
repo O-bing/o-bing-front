@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { BingoNotConnectedDialogComponent } from './bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
@@ -32,25 +33,39 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   saved: boolean = false;
 
-  connected : boolean = false
+  connected: boolean = false
 
-  setScrollView:boolean = false
+  setScrollView: boolean = false
 
-  constructor(private dialog: MatDialog, private bingoPrivateRefService: BingoPrivateRefService, private bingoFileService: BingoFileService, private bingoService: BingoService, private authService: AuthService, private router: Router) { }
+  online: boolean = true
+
+  constructor(
+    private dialog: MatDialog,
+    private bingoPrivateRefService: BingoPrivateRefService,
+    private bingoFileService: BingoFileService,
+    private bingoService: BingoService,
+    private authService: AuthService,
+    private router: Router,
+    private onlineStateSvc: OnlineStateService
+  ) { }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {
-     if (user){
-      this.connected = true
-     }
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+      this.authService.getCurrentUser().subscribe(user => {
+        if (user) {
+          this.connected = true
+        }
+      })
     })
+
   }
 
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {
     let creationPanel = document.getElementById('creation-panel')
     let page = window.innerWidth
-    if (!this.setScrollView && creationPanel){      
-      creationPanel.scrollLeft = page/2
+    if (!this.setScrollView && creationPanel) {
+      creationPanel.scrollLeft = page / 2
       this.setScrollView = true
     }
   }
@@ -204,26 +219,32 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
         numberPlayed: 0
       }
 
-      this.authService.getCurrentUser().subscribe(user => {
-        if (user) {
-          bingo.owner = user.uid
-          bingo.content = json
-          this.bingoService.createBingo(bingo, ID).then(() => {
-            this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
-            this.saved = true
+      if (this.online) {
+        this.authService.getCurrentUser().subscribe(user => {
+          if (user) {
+            bingo.owner = user.uid
+            bingo.content = json
+            this.bingoService.createBingo(bingo, ID).then(() => {
+              this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+              this.saved = true
+            }
+            )
+            this.router.navigate(['/']);
+          } else {
+            this.localSave()
           }
-          )
-          this.router.navigate(['/']);
-        }
-        else {
-          console.log("Set up actions to allow user to directly download the new Bingo")
+        })
+      } else {
+        this.localSave()
 
-          const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent);
-
-        }
-      })
+      }
     }
     );
+  }
+
+  localSave() {
+    const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent);
+    console.log("Set up actions to allow user to directly download the new Bingo, store it in localstorage")
   }
 
 }

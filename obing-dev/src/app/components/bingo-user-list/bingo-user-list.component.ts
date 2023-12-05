@@ -26,6 +26,7 @@ export class BingoUserListComponent implements OnInit {
   }
 
   ngOnInit():void{
+    // TODO : check if online, check local storage if not
     this.refreshList()
   }
 

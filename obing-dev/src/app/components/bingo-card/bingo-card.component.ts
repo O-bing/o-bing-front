@@ -30,6 +30,7 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
   constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // TODO : check if online, check local storage if not
     this.route.paramMap.subscribe(params => {
       this.bingoId = params.get('bingoId')!;
       this.bingoPrivateRefService.getBingoPrivateRef(this.bingoId).subscribe(privateRef => { // Step 1 : check the bingo access ref

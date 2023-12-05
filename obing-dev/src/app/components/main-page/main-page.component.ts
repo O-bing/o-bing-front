@@ -10,28 +10,30 @@ import { UserService } from 'src/app/@shared/services/user/user.service';
 })
 export class MainPageComponent implements OnInit {
 
-  currentUserConnected:boolean=false
+  currentUserConnected: boolean = false
 
-  online:boolean=true
+  online: boolean = true
 
   constructor(
-    private authService : AuthService, 
+    private authService: AuthService,
     private onlineStateSvc: OnlineStateService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state=>{
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
       this.online = state
-      this.authService.getCurrentUser().subscribe(user=>{
-        if(user){
-          this.currentUserConnected = true
-        }
-      })
+      if (this.online) {
+        this.authService.getCurrentUser().subscribe(user => {
+          if (user) {
+            this.currentUserConnected = true
+          }
+        })
+      }
     })
   }
 
-  ngAfterViewChecked(){
-    if(!this.online){
+  ngAfterViewChecked() {
+    if (!this.online) {
       let searchUserButton = document.querySelector('button.searchUser') as HTMLElement
       let signUpButton = document.querySelector('button.signUp') as HTMLElement
       let logInButton = document.querySelector('button.logIn') as HTMLElement
@@ -41,13 +43,13 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  private onfOffButtons(button:HTMLElement){
-    button.style.backgroundColor='rgb(93, 96, 96)';
-    button.style.color='rgb(48, 47, 47)';
-    button.title='This feature is disabled while offline';
-    button.setAttribute('disabled','true');
+  private onfOffButtons(button: HTMLElement) {
+    button.style.backgroundColor = 'rgb(93, 96, 96)';
+    button.style.color = 'rgb(48, 47, 47)';
+    button.title = 'This feature is disabled while offline';
+    button.setAttribute('disabled', 'true');
   }
 
-  
+
 
 }

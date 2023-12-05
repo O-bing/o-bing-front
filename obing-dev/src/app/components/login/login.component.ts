@@ -10,31 +10,37 @@ import { OnlineStateService } from 'src/app/@shared/services/online-state/online
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public authService: AuthService, private onlineStateSvc: OnlineStateService, private router: Router, private ngZone: NgZone) {
-    const state = this.onlineStateSvc.checkNetworkStatus()
-    if (state) {
-      console.log("You're currently online")
-    } else {
-      console.log("You're currently offline")
-    }
-  }
+  online: boolean = true;
+
+  constructor(
+    public authService: AuthService,
+    private onlineStateSvc: OnlineStateService,
+    private router: Router,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(): void {
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+    })
   }
 
   login(username: string, password: string) {
-    this.authService.signIn(username, password).then((result) => {
-      if (result){
-        this.ngZone.run(() => {
-          this.router.navigate(['/']);
-        });
-      }
+    if (this.online) {
+      this.authService.signIn(username, password).then((result) => {
+        if (result) {
+          this.ngZone.run(() => {
+            this.router.navigate(['/']);
+          });
+        }
+      })
     }
-    )
   }
 
   ForgotPassword(passwordResetEmail: string) {
-    this.authService.ForgotPassword(passwordResetEmail);
+    if(this.online){
+      this.authService.ForgotPassword(passwordResetEmail);
+    }
   }
 
 }

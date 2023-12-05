@@ -5,6 +5,7 @@ import { toast } from 'bulma-toast'
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { guid } from 'src/app/utils/guid';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +20,13 @@ export class SignUpComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private authService: AuthService, private userService:UserService) {
+  online:boolean=true;
+
+  constructor(
+    private authService: AuthService,
+    private userService:UserService,
+    private onlineStateSvc: OnlineStateService
+    ) {
     this.postForm = new FormGroup({
       pseudo: new FormControl("", Validators.required),
       email: new FormControl("",
@@ -36,7 +43,11 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+      this.online = state
+    })
   }
+  
   signUp() {
     this.submitted = true;
     if (this.postForm.get('email')!.status == 'INVALID') {

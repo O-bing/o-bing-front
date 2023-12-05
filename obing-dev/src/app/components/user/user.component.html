@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="this.online">
     <form class="form" *ngIf="authUser" autocomplete="new-password" [formGroup]="postForm">
         <div class="columns">
             <div class="column userCard is-4 has-text-centered">
@@ -9,11 +9,11 @@
                     <figure *ngIf="!loadingImg" class="image is-1by1">
                         <img class="profileImg" src={{this.imgProfileURL}}>
                     </figure>
-                    <br/>
+                    <br />
                     <input class="button uploadPhotoButton" type="file" (change)="uploadPhoto($event)"
                         placeholder="Changer de photo de profil" name="photo" accept=".png,.JPEG,.jpg">
                     <button type="button" (click)="resetUserPhoto()">Reset user photo</button>
-                    <br/>
+                    <br />
                     <div class="box pseudoBox">
                         <strong>{{this.user.pseudo}}</strong>
                     </div>
@@ -25,8 +25,9 @@
                         <a *ngIf="authUser!.emailVerified" title="Your email is verified !">
                             <img class="emailImg" src="assets/icons/icon-mail.png">
                         </a>
-                        <button class="sendVerifEmailButton button is-fullwidth is-info" (click)="sendVerificationEmail()"
-                            *ngIf="!authUser!.emailVerified">Send new verification email</button>
+                        <button class="sendVerifEmailButton button is-fullwidth is-info"
+                            (click)="sendVerificationEmail()" *ngIf="!authUser!.emailVerified">Send new verification
+                            email</button>
                     </div>
                 </div>
             </div>
@@ -40,10 +41,12 @@
                             <h2 class="has-text-weight-bold">Statut</h2>
                             <div class="field">
                                 <div class="control">
-                                    <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.user.rank!)}}</h3>
+                                    <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.user.rank!)}}
+                                    </h3>
                                 </div>
                             </div>
-                            <textarea class="textarea" placeholder="Description" formControlName="Description"></textarea>
+                            <textarea class="textarea" placeholder="Description"
+                                formControlName="Description"></textarea>
                         </div>
                     </div>
                 </div>
@@ -54,7 +57,7 @@
                         </div>
                         <div class="box" *ngIf="!loading">
                             <h3 class="has-text-weight-bold">Pseudo</h3>
-                            <br/>
+                            <br />
                             <div class="field">
                                 <div class="control">
                                     <input autocomplete="new-password" class="input" type="email"
@@ -72,7 +75,7 @@
                     <div class="column">
                         <div class="box">
                             <h3 class="has-text-weight-bold">Mot de passe</h3>
-                            <br/>
+                            <br />
                             <div class="field">
                                 <div class="control">
                                     <input autocomplete="new-password" class="input" type="password"
@@ -90,14 +93,19 @@
                 </div>
                 <div class="endButtons">
 
-                    <button type="submit" (click)="submitForm()" class="submitButton button is-success">Enregistrer les modifications</button>
+                    <button type="submit" (click)="submitForm()" class="submitButton button is-success">Enregistrer les
+                        modifications</button>
 
                     <button class="unsubscribeButton button is-fullwidth is-danger" (click)="deleteAccount()">Se
                         désinscrire</button>
-        
+
                 </div>
             </div>
 
         </div>
     </form>
+</div>
+
+<div class="container" *ngIf="!this.online">
+    <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
 </div>

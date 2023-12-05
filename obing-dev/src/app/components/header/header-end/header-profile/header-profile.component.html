@@ -4,12 +4,12 @@
     </div>
 </div>
 <div class="box headerProfile" *ngIf="!loading">
-    <div class="info">
+    <div class="info" *ngIf="this.online">
         <p>{{userProfile.pseudo}}</p>
         <p>Rank : {{this.userService.getStringRank(userProfile.rank!)}}</p>
         <p>Mail : {{userProfile.mail}}</p>
     </div>
-    <div class="buttons">
+    <div class="buttons" *ngIf="this.online">
         <table class="buttonsTable">
             <th class="settingsCol">
                 <div class="settingsDiv" (mouseenter)="mouseAction('enter')" (mouseleave)="mouseAction('leave')">
@@ -36,5 +36,9 @@
                 </div>
             </th>
         </table>
+    </div>
+
+    <div class="box" *ngIf="!this.online">
+        <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
     </div>
 </div>

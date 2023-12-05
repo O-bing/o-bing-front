@@ -10,6 +10,7 @@ export class RandomBingoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // TODO : check if online, check local storage if not
   }
 
 }

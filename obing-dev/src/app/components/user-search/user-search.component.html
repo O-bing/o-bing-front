@@ -1,1 +1,7 @@
-<p>user-search works!</p>
+<div class="container" *ngIf="this.online">
+    <p>user-search works!</p>
+</div>
+
+<div class="container" *ngIf="!this.online">
+    <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
+</div>

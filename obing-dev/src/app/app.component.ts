@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
           this.checkAppVersion()
         }
       } else { // Offline mod
-        window.alert("You are currently offline. Try to use the application while being connect to internet, a newer version of the may exist")
+        window.alert("You are currently offline. Try to use the application while being connected to internet, a newer version may exist")
       }
     })
 
