@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const isPWA = this.isPWA()
     this.onlineStateSvc.checkNetworkStatus().then(state => {
-      console.log("online :", state)
       if (state) { // Online mod
         this.authService.getCurrentUser().subscribe(user => {
           if (user) {
