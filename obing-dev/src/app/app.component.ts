@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     const isPWA = this.isPWA()
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       console.log("online :", state)
       if (state) { // Online mod
         this.authService.getCurrentUser().subscribe(user => {
@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
           this.checkAppVersion()
         }
       } else { // Offline mod
+        this.loading = false
         window.alert("You are currently offline. Try to use the application while being connected to internet, a newer version may exist")
       }
     })

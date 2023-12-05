@@ -11,12 +11,14 @@ import { OnlineStateService } from 'src/app/@shared/services/online-state/online
 export class BingoSaveLogInComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<BingoSaveLogInComponent>, private ngZone: NgZone, public authService: AuthService, private onlineStateSvc: OnlineStateService) {
-    const state = this.onlineStateSvc.checkNetworkStatus()
-    if (state) {
-      console.log("You're currently online")
-    } else {
-      console.log("You're currently offline")
-    }
+    this.onlineStateSvc.checkNetworkStatus().then( state =>{
+      if (state) {
+        console.log("You're currently online")
+      } else {
+        console.log("You're currently offline")
+      }
+    })
+    
   }
 
   ngOnInit(): void {

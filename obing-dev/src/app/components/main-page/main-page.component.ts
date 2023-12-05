@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
-import { UserService } from 'src/app/@shared/services/user/user.service';
 
 @Component({
   selector: 'app-main-page',
@@ -12,7 +11,7 @@ export class MainPageComponent implements OnInit {
 
   currentUserConnected: boolean = false
 
-  online: boolean = true
+  online: boolean = false
 
   searchUserButton! : HTMLElement
   signUpButton! : HTMLElement
@@ -24,7 +23,7 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       if (this.online) {
         this.authService.getCurrentUser().subscribe(user => {

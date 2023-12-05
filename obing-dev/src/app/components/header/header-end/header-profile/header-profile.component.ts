@@ -26,7 +26,7 @@ export class HeaderProfileComponent implements OnInit {
 
   shown: boolean = false;
 
-  online: boolean = true
+  online: boolean = false
 
   constructor(
     private authService: AuthService,
@@ -37,7 +37,7 @@ export class HeaderProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.onlineStateSvc.checkNetworkStatus().subscribe(state => {
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       if (this.online) {
         this.authService.getCurrentUser().subscribe(result => {
