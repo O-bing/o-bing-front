@@ -18,7 +18,6 @@ export class OnlineStateService implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.networkStatusSubscribtion.unsubscribe();
   }
 
   checkNetworkStatus() : Observable<boolean>{
