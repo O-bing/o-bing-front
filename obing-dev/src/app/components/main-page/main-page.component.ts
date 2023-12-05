@@ -13,9 +13,9 @@ export class MainPageComponent implements OnInit {
 
   online: boolean = false
 
-  searchUserButton! : HTMLElement
-  signUpButton! : HTMLElement
-  logInButton! : HTMLElement
+  searchUserButton : HTMLElement | undefined
+  signUpButton : HTMLElement | undefined
+  logInButton : HTMLElement | undefined
 
   constructor(
     private authService: AuthService,
@@ -42,7 +42,7 @@ export class MainPageComponent implements OnInit {
     this.checkOfflineState()
   }
 
-  checkOfflineState() {
+  private checkOfflineState() {
 
     if (!this.online) {
       this.onOffButton(this.searchUserButton, 'rgb(93, 96, 96)', 'rgb(48, 47, 47)')
@@ -56,18 +56,22 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  private onOffButton(button: HTMLElement, backgroundColor:string, color:string) {
-    button.style.backgroundColor = backgroundColor;
-    button.style.color = color;
-    button.title = '';
-    button.title = 'This feature is disabled while offline';
-    button.setAttribute('disabled', 'true');
+  private onOffButton(button: HTMLElement | undefined, backgroundColor:string, color:string) {
+    if(button){
+      button.style.backgroundColor = backgroundColor;
+      button.style.color = color;
+      button.title = '';
+      button.title = 'This feature is disabled while offline';
+      button.setAttribute('disabled', 'true');
+    }
   }
 
-  private offOnButton(button: HTMLElement, backgroundColor:string, color:string) {
-    button.style.backgroundColor = backgroundColor;
-    button.style.color = color;
-    button.removeAttribute('disabled');
+  private offOnButton(button: HTMLElement | undefined, backgroundColor:string, color:string) {
+    if(button){
+      button.style.backgroundColor = backgroundColor;
+      button.style.color = color;
+      button.removeAttribute('disabled');
+    }
   }
 
 }
