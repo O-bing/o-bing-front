@@ -40,7 +40,7 @@ export class UserService {
         this.userCollection.doc(userId).delete().then(res => {
           user.delete()
         }
-        ).catch(error => console.log(error));
+        ).catch(error => {});
       }
     });
   }
