@@ -1,8 +1,8 @@
 <div class="header-main">
     <table class="header-compartimenter">
         <th class="header-start">
-            <a title="Don't have any support link yet" class="supportMe"  *ngIf="this.online">
-                Support <br/>
+            <a title="Don't have any support link yet" class="supportMe" *ngIf="this.online">
+                Support <br />
                 me
             </a>
         </th>
@@ -19,9 +19,10 @@
                 </div>
             </div>
             <div *ngIf="this.CurrentUser.isLoggedIn && !loading">
-                <div class="userBox" >
+                <div class="userBox">
                     <a (click)="displayProfileHeader()">
-                        <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.imgProfileURL}}" alt="profilePicture">
+                        <img *ngIf="this.CurrentUser.isLoggedIn" class="imgProfile is" src="{{this.imgProfileURL}}"
+                            alt="profilePicture">
                     </a>
                     <br />
                     <a (click)="displayProfileHeader()" *ngIf="this.CurrentUser.isLoggedIn" class="currentUser">
@@ -34,16 +35,17 @@
                     Not connected
                 </a>
             </div>
-            
+
         </th>
         <th class="header-end" *ngIf="!this.online">
-            <div class="offlineDiv" *ngIf="!this.CurrentUser.isLoggedIn">
+            <div class="offlineDiv">
                 <a class="offline">
                     Offline
                 </a>
             </div>
-            
+
         </th>
     </table>
-    <app-header-end (CloseClick)="displayHeaders()" [CurrentUser]="this.CurrentUser" [DisplayConnect]="this.displayConnect" [DisplayProfile]="this.displayProfile"></app-header-end>
+    <app-header-end (CloseClick)="displayHeaders()" [CurrentUser]="this.CurrentUser"
+        [DisplayConnect]="this.displayConnect" [DisplayProfile]="this.displayProfile"></app-header-end>
 </div>

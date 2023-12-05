@@ -15,7 +15,6 @@ export class OnlineStateService implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    this.checkNetworkStatus();
   }
 
   ngOnDestroy(): void {
