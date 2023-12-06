@@ -19,7 +19,6 @@
     "@angular/material": "^15.2.9",
     "@angular/platform-browser": "^16.2.7",
     "@angular/platform-browser-dynamic": "^16.2.7",
-    "@angular/pwa": "^16.2.4",
     "@angular/router": "^16.2.7",
     "@angular/service-worker": "^16.2.7",
     "bulma": "^0.9.4",
