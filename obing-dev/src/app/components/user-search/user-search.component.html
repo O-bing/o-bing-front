@@ -3,8 +3,11 @@
         <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
     </div>
     <ul class="userList" *ngIf="!loading">
-        <li *ngFor="let user of userList">
-            <app-user-card [user]="user"></app-user-card>
+        <li class="user" *ngFor="let user of userList">
+            <button class="accordion {{user.uid}}" (click)="accordionAction(user.uid!)">{{user.pseudo}}</button>
+            <div class="{{user.uid}} userCard">
+                <app-user-card [user]="user"></app-user-card>
+            </div>          
         </li>
     </ul>
 </div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
 @Component({
@@ -8,27 +9,32 @@ import { User } from 'src/app/class/user';
 })
 export class UserCardComponent {
 
-
   @Input() user!: User;
 
+  public imgProfileURL: string = '';
+
+  loading: boolean = true
+
+  loadingImg: boolean = true
+
+  display: boolean = false
+
+  constructor(
+    private userService: UserService
+  ) { }
+
   ngOnInit(): void {
-    let acc = document.getElementsByClassName("accordion");
-    let i;
-
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function () {
-        /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
-        //this.classList.toggle("active");
-
-        /* Toggle between hiding and showing the active panel */
-        let panel = document.querySelector('div.panel') as HTMLElement
-        if (panel.style.display === "block") {
-          panel.style.display = "none";
-        } else {
-          panel.style.display = "block";
-        }
-      });
+    if (this.user.imgProfileRef == 'imgProfileRef.png') {
+      this.userService.getStaticUserPhoto().subscribe(res => {
+        this.imgProfileURL = res
+        this.loadingImg = false
+      })
+    }
+    else {
+      this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
+        this.imgProfileURL = res
+        this.loadingImg = false
+      })
     }
   }
 

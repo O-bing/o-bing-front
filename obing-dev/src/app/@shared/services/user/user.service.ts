@@ -31,9 +31,8 @@ export class UserService {
 
   newUser(user: User, uid: string):Subscription{
     user.rank = UserRank.BingoNewbie;
+    user.uid = uid
     return this.getStaticUserPhoto().subscribe(res => {
-      user.imgProfileRef = guid.uuidv4() + '.png'
-      this.uploadUserPhoto(res, user.imgProfileRef);
       this.userCollection.doc(uid).set(user);
     })
   }

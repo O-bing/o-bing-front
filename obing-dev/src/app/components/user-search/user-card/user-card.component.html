@@ -1,8 +1,19 @@
-<div>
-            
-    <button class="accordion">{{user.pseudo}}</button>
+<div class="user">
     <div class="panel">
-        <p>{{user.description}}</p> 
+        <table>
+            <td>
+                <div class="imgDiv">
+                    <div class="spinner" *ngIf="loadingImg">
+                        <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
+                    </div>
+                    <figure *ngIf="!loadingImg" class="image">
+                        <img class="profileImg" src={{this.imgProfileURL}}>
+                    </figure>
+                </div>
+            </td>
+            <td>
+                <p class="userDesc">{{user.description}}</p>
+            </td>
+        </table>
     </div>
-
 </div>

@@ -69,7 +69,6 @@ export class SignUpComponent implements OnInit {
         imgProfileRef: 'imgProfileRef.png'
       }
       this.authService.SignUp(newUser, this.postForm.get('password')!.value)
-      this.userService.newUser(newUser,guid.uuidv4())
     }
     else {
       toast({
