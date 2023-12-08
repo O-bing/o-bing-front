@@ -25,6 +25,10 @@ export class UserService {
     return this.userCollection.doc<User>(uid).valueChanges();
   }
 
+  getUsers(): Observable<User[]> {
+    return this.userCollection.valueChanges()
+  }
+
   newUser(user: User, uid: string):Subscription{
     user.rank = UserRank.BingoNewbie;
     return this.getStaticUserPhoto().subscribe(res => {

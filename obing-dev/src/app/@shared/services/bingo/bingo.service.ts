@@ -38,4 +38,9 @@ export class BingoService {
     return this.bingoCollection.valueChanges()
   }
 
+  getUserBingos(userId:string):any{
+
+    return this.bingoCollection.ref.get()
+  }
+
 }

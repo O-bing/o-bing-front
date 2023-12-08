@@ -1,7 +1,14 @@
 <div class="container" *ngIf="this.online">
-    <p>user-search works!</p>
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+    <ul class="userList" *ngIf="!loading">
+        <li *ngFor="let user of userList">
+            <app-user-card [user]="user"></app-user-card>
+        </li>
+    </ul>
 </div>
 
-<div class="container" *ngIf="!this.online">
+<div class="container" *ngIf="!this.online && !this.loading">
     <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
 </div>
