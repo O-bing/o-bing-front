@@ -109,6 +109,22 @@ export class UserService {
     return rank
   }
 
+  addFriend(currentUserId:string, friendId:string){
+    this.getUser(currentUserId).subscribe(user=>{
+      if(user){
+        if(!user.friendsList){
+          user.friendsList = []
+        }
+        user.friendsList.push(friendId)
+        return this.userCollection.doc<User>(currentUserId).update({
+          friendsList:user?.friendsList
+        })
+      }else{
+        return false;
+      }
+    })
+  }
+
 
 
 }

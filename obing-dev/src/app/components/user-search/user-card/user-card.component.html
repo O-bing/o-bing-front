@@ -1,19 +1,11 @@
-<div class="user">
+<div class="container">
     <div class="panel">
-        <table>
-            <td>
-                <div class="imgDiv">
-                    <div class="spinner" *ngIf="loadingImg">
-                        <mat-progress-spinner mode="indeterminate" diameter="320"></mat-progress-spinner>
-                    </div>
-                    <figure *ngIf="!loadingImg" class="image">
-                        <img class="profileImg" src={{this.imgProfileURL}}>
-                    </figure>
-                </div>
-            </td>
-            <td>
-                <p class="userDesc">{{user.description}}</p>
-            </td>
-        </table>
+        <div class="imgDiv">
+            <img *ngIf="!loadingImg" class="profileImg" src={{this.imgProfileURL}}>
+        </div>
+        <div class="userDesc">
+            {{user.description}}
+        </div>
+        <button class="button is-success" (click)="addFriend(user.uid!)">Add friend</button>
     </div>
-</div>
+</div>  

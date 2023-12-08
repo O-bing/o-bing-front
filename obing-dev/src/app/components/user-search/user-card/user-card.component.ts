@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
@@ -20,7 +21,8 @@ export class UserCardComponent {
   display: boolean = false
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,18 @@ export class UserCardComponent {
         this.loadingImg = false
       })
     }
+  }
+
+  addFriend(userId:string):void{
+    this.authService.getCurrentUser().subscribe(user=>{
+      if(user){
+        if(user.uid != userId){
+          this.userService.addFriend(user.uid, userId)
+        } else {
+          window.alert("You can't add yourselves as a friend.")
+        }
+      }
+    })
   }
 
 }
