@@ -29,11 +29,10 @@ export class UserService {
     return this.userCollection.valueChanges()
   }
 
-  newUser(user: User, uid: string):Subscription{
+  newUser(user: User):Subscription{
     user.rank = UserRank.BingoNewbie;
-    user.uid = uid
     return this.getStaticUserPhoto().subscribe(res => {
-      this.userCollection.doc(uid).set(user);
+      this.userCollection.doc(user.uid).set(user);
     })
   }
 
@@ -109,22 +108,17 @@ export class UserService {
     return rank
   }
 
-  addFriend(currentUserId:string, friendId:string){
-    this.getUser(currentUserId).subscribe(user=>{
-      if(user){
-        if(!user.friendsList){
-          user.friendsList = []
-        }
-        user.friendsList.push(friendId)
-        return this.userCollection.doc<User>(currentUserId).update({
-          friendsList:user?.friendsList
-        })
-      }else{
-        return false;
-      }
+  addFriend(currentUserId:string, userList:string[]){
+    return this.userCollection.doc<User>(currentUserId).update({
+      friendsList:userList
     })
   }
 
+  removeFriend(currentUserId:string, userList:string[]){
+    return this.userCollection.doc<User>(currentUserId).update({
+      friendsList:userList
+    })
+  }
 
 
 }

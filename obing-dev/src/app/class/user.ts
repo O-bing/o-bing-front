@@ -1,5 +1,5 @@
 export interface User{
-    uid?:string,
+    uid:string,
     name?:string,
     title?:string,
     fullName?:string,

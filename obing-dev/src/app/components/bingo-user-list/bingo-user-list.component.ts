@@ -15,7 +15,7 @@ import { User } from 'src/app/class/user';
 })
 export class BingoUserListComponent implements OnInit {
 
-  currentUser: User = {};
+  currentUser: User = {uid:''};
 
   isLoggedIn: boolean = false;
 
@@ -50,7 +50,7 @@ export class BingoUserListComponent implements OnInit {
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
         this.userService.getUser(user.uid).subscribe(userObject => {
-          this.currentUser = {}
+          this.currentUser = {uid:''}
           this.currentUser.pseudo = userObject?.pseudo
           this.currentUser.uid = user.uid
           this.isLoggedIn = true

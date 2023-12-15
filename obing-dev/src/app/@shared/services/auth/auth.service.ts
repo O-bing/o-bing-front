@@ -57,7 +57,8 @@ export class AuthService {
       .then((newUser) => {
 
         if (newUser) {
-          this.userService.newUser(user, newUser.user!.uid);
+          user.uid = newUser.user!.uid
+          this.userService.newUser(user);
           newUser.user!.sendEmailVerification();
           window.alert("Inscription réussie, un mail de vérification vient de vous être envoyé (verifiez vos spams)");
           this.router.navigate(['/logIn'])

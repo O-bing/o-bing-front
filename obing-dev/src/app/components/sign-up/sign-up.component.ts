@@ -49,6 +49,11 @@ export class SignUpComponent implements OnInit {
   }
   
   signUp() {
+    
+    if(this.postForm.get('pseudo')!.value.length<=20){
+      window.alert("You pseudo can't exceed 20 characters")
+      return;
+    }
     this.submitted = true;
     if (this.postForm.get('email')!.status == 'INVALID') {
       toast({
@@ -64,6 +69,7 @@ export class SignUpComponent implements OnInit {
     let pwd1 = this.postForm.get('checkPassword')!.value;
     if (pwd === pwd1) {
       const newUser: User = {
+        uid:'',
         pseudo: this.postForm.get('pseudo')!.value,
         mail: this.postForm.get('email')!.value,
         imgProfileRef: 'imgProfileRef.png'

@@ -15,7 +15,7 @@ import { guid } from 'src/app/utils/guid';
 
 export class UserComponent implements OnInit {
 
-  public user: User = {};
+  public user: User = {uid: ''};
   public postForm: FormGroup;
   private imgToUpload: File | null = null;
   public loading: boolean = true;

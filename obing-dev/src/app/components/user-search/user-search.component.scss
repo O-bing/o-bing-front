@@ -6,7 +6,7 @@
         margin: 10px;
 
         box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
-        
+
         .accordion {
             font-weight: bold;
             background-color: rgb(77, 189, 223);
@@ -26,15 +26,21 @@
             transition: 0.4s;
             margin-bottom: 0%;
             height: 50px;
+            .icon-friend {
+                width: 20px;
+                height: 20px;
+                vertical-align: middle;
+            }
         }
-
 
         .accordion:hover {
             background-color: rgb(63, 160, 189);
             width: 100%;
+
+
         }
 
-        .userCard{
+        .userCard {
             display: none;
             overflow: hidden;
         }

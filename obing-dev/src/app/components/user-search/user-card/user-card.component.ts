@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
@@ -11,6 +11,12 @@ import { User } from 'src/app/class/user';
 export class UserCardComponent {
 
   @Input() user!: User;
+  
+  @Input() currentUser!: User;
+
+  @Output() addFriendEvent = new EventEmitter<string>();;
+
+  @Output() removeFriendEvent = new EventEmitter<string>();;
 
   public imgProfileURL: string = '';
 
@@ -20,12 +26,16 @@ export class UserCardComponent {
 
   display: boolean = false
 
+  alreadyFriend: boolean = true
+
   constructor(
-    private userService: UserService,
-    private authService: AuthService
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
+    if (!this.currentUser.friendsList!.includes(this.user.uid!)){
+      this.alreadyFriend = false
+    }
     if (this.user.imgProfileRef == 'imgProfileRef.png') {
       this.userService.getStaticUserPhoto().subscribe(res => {
         this.imgProfileURL = res
@@ -40,16 +50,12 @@ export class UserCardComponent {
     }
   }
 
-  addFriend(userId:string):void{
-    this.authService.getCurrentUser().subscribe(user=>{
-      if(user){
-        if(user.uid != userId){
-          this.userService.addFriend(user.uid, userId)
-        } else {
-          window.alert("You can't add yourselves as a friend.")
-        }
-      }
-    })
+  addFriend(friendId:string):void{
+    this.addFriendEvent.emit(friendId)
+  }
+
+  removeFriend(friendId:string):void{
+    this.removeFriendEvent.emit(friendId)
   }
 
 }

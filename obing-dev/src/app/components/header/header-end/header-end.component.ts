@@ -8,7 +8,7 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderEndComponent {
 
-  @Input() CurrentUser : User = {};
+  @Input() CurrentUser : User = {uid:''};
 
   @Input() DisplayProfile: boolean = false;
 

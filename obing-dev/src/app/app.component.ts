@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   loading: boolean = true;
 
-  currentUser: User = {};
+  currentUser: User = {uid:''};
 
   constructor(
     private authService: AuthService,
