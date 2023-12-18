@@ -25,15 +25,15 @@ export class UserCardComponent {
 
   display: boolean = false
 
-  alreadyFriend: boolean = true
+  alreadyFriend: boolean = false
 
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit(): void {
-    if (this.currentUser.friendsList && !this.currentUser.friendsList.includes(this.user.uid!)){
-      this.alreadyFriend = false
+    if (this.currentUser.friendsList && this.currentUser.friendsList.includes(this.user.uid!)){
+      this.alreadyFriend = true
     }
     if (this.user.imgProfileRef == 'imgProfileRef.png') {
       this.userService.getStaticUserPhoto().subscribe(res => {
