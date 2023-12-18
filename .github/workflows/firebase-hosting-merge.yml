@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Firestore package correction
-        run: node .github/workflows/version-update.js --currentVersion '${{ variables.FRONT_VERSION }}' --tokenVersion '${{ secrets.GET_VERSION_TOKEN }}'
+        run: node .github/workflows/version-update.js --currentVersion $FRONT_VERSION --tokenVersion '${{ secrets.GET_VERSION_TOKEN }}'
       - name: Build
         run: |
           cd obing-dev
