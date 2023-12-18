@@ -49,8 +49,7 @@ export class SignUpComponent implements OnInit {
   }
   
   signUp() {
-    
-    if(this.postForm.get('pseudo')!.value.length<=20){
+    if(this.postForm.get('pseudo')!.value.length>=20){
       window.alert("You pseudo can't exceed 20 characters")
       return;
     }

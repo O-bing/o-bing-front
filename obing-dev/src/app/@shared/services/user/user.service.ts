@@ -108,13 +108,7 @@ export class UserService {
     return rank
   }
 
-  addFriend(currentUserId:string, userList:string[]){
-    return this.userCollection.doc<User>(currentUserId).update({
-      friendsList:userList
-    })
-  }
-
-  removeFriend(currentUserId:string, userList:string[]){
+  updateFriendList(currentUserId:string, userList:string[]){
     return this.userCollection.doc<User>(currentUserId).update({
       friendsList:userList
     })

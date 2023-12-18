@@ -15,7 +15,7 @@
                     <button type="button" (click)="resetUserPhoto()">Reset user photo</button>
                     <br />
                     <div class="box pseudoBox">
-                        <strong>{{this.user.pseudo}}</strong>
+                        <strong>{{this.currentUser.pseudo}}</strong>
                     </div>
                     <div class="emailVerifiedDiv">
                         <a *ngIf="!authUser!.emailVerified" title="Your email is not verified">
@@ -41,7 +41,7 @@
                             <h2 class="has-text-weight-bold">Statut</h2>
                             <div class="field">
                                 <div class="control">
-                                    <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.user.rank!)}}
+                                    <h3 class="has-text-weight-bold">{{this.userService.getStringRank(this.currentUser.rank!)}}
                                     </h3>
                                 </div>
                             </div>
@@ -101,8 +101,10 @@
 
                 </div>
             </div>
-
         </div>
+        
+        <app-user-friends-list [currentUser]="this.currentUser"></app-user-friends-list>
+        
     </form>
 </div>
 

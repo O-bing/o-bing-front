@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
@@ -87,7 +86,7 @@ export class UserSearchComponent implements OnInit {
       
       if(!this.currentUser.friendsList.includes(friendId)){
         this.currentUser.friendsList.push(friendId)
-        this.userService.addFriend(this.currentUser.uid, this.currentUser.friendsList)
+        this.userService.updateFriendList(this.currentUser.uid, this.currentUser.friendsList)
       } else{
         window.alert("You already added this user.")
       }
@@ -100,7 +99,7 @@ export class UserSearchComponent implements OnInit {
   removeFriend(friendId:string):void{
     if(this.currentUser.friendsList && this.currentUser.friendsList.includes(friendId)){
       this.currentUser.friendsList.splice(this.currentUser.friendsList.indexOf(friendId),1)
-      this.userService.removeFriend(this.currentUser.uid, this.currentUser.friendsList)
+      this.userService.updateFriendList(this.currentUser.uid, this.currentUser.friendsList)
     }
   }
 

@@ -3,17 +3,15 @@ import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
 
 @Component({
-  selector: 'app-user-card',
-  templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.scss']
+  selector: 'app-friend-card',
+  templateUrl: './friend-card.component.html',
+  styleUrls: ['./friend-card.component.scss']
 })
-export class UserCardComponent {
+export class FriendCardComponent {
 
   @Input() user!: User;
   
   @Input() currentUser!: User;
-
-  @Output() addFriendEvent = new EventEmitter<string>();;
 
   @Output() removeFriendEvent = new EventEmitter<string>();;
 
@@ -25,16 +23,11 @@ export class UserCardComponent {
 
   display: boolean = false
 
-  alreadyFriend: boolean = true
-
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit(): void {
-    if (!this.currentUser.friendsList!.includes(this.user.uid!)){
-      this.alreadyFriend = false
-    }
     if (this.user.imgProfileRef == 'imgProfileRef.png') {
       this.userService.getStaticUserPhoto().subscribe(res => {
         this.imgProfileURL = res
@@ -48,11 +41,7 @@ export class UserCardComponent {
       })
     }
   }
-
-  addFriend(friendId:string):void{
-    this.addFriendEvent.emit(friendId)
-  }
-
+  
   removeFriend(friendId:string):void{
     this.removeFriendEvent.emit(friendId)
   }
