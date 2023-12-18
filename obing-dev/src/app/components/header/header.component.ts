@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AppService } from 'src/app/@shared/services/app/app.service';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
@@ -26,17 +27,25 @@ export class HeaderComponent {
 
   online: boolean = false
 
+  version: string = 'N/A'
+
   public authUser: firebase.default.User | undefined;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private onlineStateSvc: OnlineStateService
+    private onlineStateSvc: OnlineStateService,
+    private appService:AppService
   ) { }
 
   ngOnInit(): void {
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
+      this.appService.getCurrentVersion().subscribe(versionCollection=>{
+        versionCollection.forEach(version => {
+          this.version = version.versionId
+        });
+      })
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.authUser = user
