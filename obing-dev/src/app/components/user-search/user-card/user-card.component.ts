@@ -32,7 +32,7 @@ export class UserCardComponent {
   ) { }
 
   ngOnInit(): void {
-    if (!this.currentUser.friendsList!.includes(this.user.uid!)){
+    if (this.currentUser.friendsList && !this.currentUser.friendsList.includes(this.user.uid!)){
       this.alreadyFriend = false
     }
     if (this.user.imgProfileRef == 'imgProfileRef.png') {

@@ -17,7 +17,7 @@ export class UserSearchComponent implements OnInit {
 
   loading: boolean = true
 
-  currentUser: User = {uid:'', friendsList:[]}
+  currentUser: User = {uid:''}
 
   constructor(
     private onlineStateSvc: OnlineStateService,

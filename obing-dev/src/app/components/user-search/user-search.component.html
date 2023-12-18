@@ -4,7 +4,7 @@
     </div>
     <ul class="userList" *ngIf="!loading">
         <li class="user" *ngFor="let user of userList">
-            <button class="accordion {{user.uid}}" (click)="accordionAction(user.uid!)">{{user.pseudo}} <img class="icon-friend" src="assets/icons/icon-friend.png" *ngIf="this.currentUser.friendsList!.includes(user.uid)"/></button>
+            <button class="accordion {{user.uid}}" (click)="accordionAction(user.uid!)">{{user.pseudo}} <img class="icon-friend" src="assets/icons/icon-friend.png" *ngIf="this.currentUser.friendsList && this.currentUser.friendsList.includes(user.uid)"/></button>
             <div class="{{user.uid}} userCard">
                 <app-user-card *ngIf="this.currentUser" [user]="user" [currentUser]="this.currentUser" (addFriendEvent)="addFriend($event)" (removeFriendEvent)="removeFriend($event)"></app-user-card>
             </div>
