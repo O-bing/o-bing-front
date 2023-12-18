@@ -43,6 +43,9 @@ import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-con
 import { HeaderConnectComponent } from './components/header/header-end/header-connect/header-connect.component';
 import { TileDisplayComponent } from './components/bingo-card/tile-display/tile-display.component';
 import { HeaderEndComponent } from './components/header/header-end/header-end.component';
+import { UserCardComponent } from './components/user-search/user-card/user-card.component';
+import { UserFriendsListComponent } from './components/user/user-friends-list/user-friends-list.component';
+import { FriendCardComponent } from './components/user/user-friends-list/friend-card/friend-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +74,10 @@ import { HeaderEndComponent } from './components/header/header-end/header-end.co
     BingoSaveLogInComponent,
     HeaderConnectComponent,
     TileDisplayComponent,
-    HeaderEndComponent
+    HeaderEndComponent,
+    UserCardComponent,
+    UserFriendsListComponent,
+    FriendCardComponent
   ],
   imports: [
     BrowserModule,

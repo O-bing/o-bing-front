@@ -15,7 +15,7 @@ import { guid } from 'src/app/utils/guid';
 
 export class UserComponent implements OnInit {
 
-  public user: User = {};
+  public currentUser: User = {uid: '', friendsList:[]};
   public postForm: FormGroup;
   private imgToUpload: File | null = null;
   public loading: boolean = true;
@@ -49,23 +49,23 @@ export class UserComponent implements OnInit {
             this.authUser = user
             this.userService.getUser(user.uid).subscribe(userObject => {
               if (userObject) {
-                this.user = userObject
-                this.user.uid = user.uid
-                if (this.user.imgProfileRef == 'imgProfileRef.png') {
+                this.currentUser = userObject
+                this.currentUser.uid = user.uid
+                if (this.currentUser.imgProfileRef == 'imgProfileRef.png') {
                   this.userService.getStaticUserPhoto().subscribe(res => {
                     this.imgProfileURL = res
                     this.loadingImg = false
                   })
                 }
                 else {
-                  this.userService.getUserPhoto(this.user.imgProfileRef!).subscribe(res => {
+                  this.userService.getUserPhoto(this.currentUser.imgProfileRef!).subscribe(res => {
                     this.imgProfileURL = res
                     this.loadingImg = false
                   })
                 }
 
-                if (this.user.description != null) {
-                  this.postForm.get("Description")!.setValue(this.user.description);
+                if (this.currentUser.description != null) {
+                  this.postForm.get("Description")!.setValue(this.currentUser.description);
                 }
 
                 this.loading = false
@@ -88,21 +88,21 @@ export class UserComponent implements OnInit {
     if (this.imgToUpload) {
       action = true
       const ID = guid.uuidv4();
-      if (this.user.imgProfileRef != 'imgProfileRef.png') {
-        this.userService.deleteUserPhoto(this.user.imgProfileRef!);
+      if (this.currentUser.imgProfileRef != 'imgProfileRef.png') {
+        this.userService.deleteUserPhoto(this.currentUser.imgProfileRef!);
       }
       this.userService.uploadUserPhoto(this.imgToUpload, ID)
-      this.userService.updateImgProfileRef(this.user.uid!, ID);
-      this.user.imgProfileRef = ID
+      this.userService.updateImgProfileRef(this.currentUser.uid!, ID);
+      this.currentUser.imgProfileRef = ID
     }
     let pseudo1: string = this.postForm.get("Pseudo")!.value;
     let pseudo2: string = this.postForm.get("ConfirmerPseudo")!.value;
 
-    this.userService.updateUserDescription(this.user.uid!, this.postForm.get("Description")!.value)
+    this.userService.updateUserDescription(this.currentUser.uid!, this.postForm.get("Description")!.value)
 
     if (pseudo1 != null && pseudo1.length > 0 && pseudo2 != null && pseudo2.length > 0) {
       action = true
-      this.changePseudo(pseudo1, pseudo2, this.user.uid!);
+      this.changePseudo(pseudo1, pseudo2, this.currentUser.uid!);
     }
 
     let pwd1 = this.postForm.get("password")!.value;
@@ -142,10 +142,10 @@ export class UserComponent implements OnInit {
   }
 
   deleteAccount() {
-    if (this.user.imgProfileRef != 'imgProfileRef.png') {
-      this.userService.deleteUserPhoto(this.user.imgProfileRef!);
+    if (this.currentUser.imgProfileRef != 'imgProfileRef.png') {
+      this.userService.deleteUserPhoto(this.currentUser.imgProfileRef!);
     }
-    this.userService.deletUser(this.user.uid!)
+    this.userService.deletUser(this.currentUser.uid!)
     this.router.navigate(['/'])
   }
 
@@ -162,14 +162,14 @@ export class UserComponent implements OnInit {
   }
 
   resetUserPhoto() {
-    if (this.authUser && this.user.imgProfileRef != 'imgProfileRef.png') {
+    if (this.authUser && this.currentUser.imgProfileRef != 'imgProfileRef.png') {
       this.userService.getStaticUserPhoto().subscribe(res => {
         this.imgProfileURL = res
       })
 
       this.userService.updateImgProfileRef(this.authUser.uid, 'imgProfileRef.png')
-      this.userService.deleteUserPhoto(this.user.imgProfileRef!)
-      this.user.imgProfileRef = 'imgProfileRef.png'
+      this.userService.deleteUserPhoto(this.currentUser.imgProfileRef!)
+      this.currentUser.imgProfileRef = 'imgProfileRef.png'
       this.imgToUpload = null
     }
   }

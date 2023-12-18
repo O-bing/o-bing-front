@@ -12,7 +12,7 @@
             </a>
         </th>
 
-        <th class="header-end" *ngIf="this.online">
+        <th class="header-end" *ngIf="this.online && !this.loading">
             <div *ngIf="loading">
                 <div class="spinner">
                     <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>
@@ -37,7 +37,7 @@
             </div>
 
         </th>
-        <th class="header-end" *ngIf="!this.online">
+        <th class="header-end" *ngIf="!this.online && !this.loading">
             <div class="offlineDiv">
                 <a class="offline">
                     Offline

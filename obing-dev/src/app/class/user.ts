@@ -1,5 +1,5 @@
 export interface User{
-    uid?:string,
+    uid:string,
     name?:string,
     title?:string,
     fullName?:string,
@@ -15,7 +15,8 @@ export interface User{
     fame?:number,
     favouriteBingo?:Array<string>,
     gameList?:Array<string>,
-    isLoggedIn?:boolean
+    isLoggedIn?:boolean,
+    friendsList?:Array<string>
 }
 
 export enum UserRank {

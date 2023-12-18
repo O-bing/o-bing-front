@@ -12,6 +12,7 @@ import { User } from 'src/app/class/user';
 export class HeaderComponent {
 
   @Input() public CurrentUser: User = {
+    uid:'',
     isLoggedIn: false
   };
 
