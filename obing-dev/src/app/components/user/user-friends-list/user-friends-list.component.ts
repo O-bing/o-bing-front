@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
@@ -10,7 +11,7 @@ import { User } from 'src/app/class/user';
   templateUrl: './user-friends-list.component.html',
   styleUrls: ['./user-friends-list.component.scss']
 })
-export class UserFriendsListComponent {
+export class UserFriendsListComponent implements OnDestroy{
 
   @Input() currentUser: User = { uid: '', friendsList: [] }
 
@@ -19,6 +20,10 @@ export class UserFriendsListComponent {
   loading: boolean = true
 
   userList: User[] = []
+
+  userListId:string[] = []
+
+  private userSubscribtionList : Subscription[] = []
 
   constructor(
     private onlineStateSvc: OnlineStateService,
@@ -39,19 +44,19 @@ export class UserFriendsListComponent {
   refreshList(): void {
     this.loading = true
     this.userList = []
+    this.userListId = []
     if (this.currentUser.friendsList && this.currentUser.friendsList.length > 0) {
       this.currentUser.friendsList.forEach(userId => {
-        this.userService.getUser(userId).subscribe(user => {
-          if (user) {
+        const userSubscribtion = this.userService.getUser(userId).subscribe(user => {
+          if (user && !this.userListId.includes(user.uid)) {
+            this.userListId.push(user.uid)
             this.userList.push(user)
           }
         })
-        this.loading = false
+        this.userSubscribtionList.push(userSubscribtion)
       })
-    } else {
-      this.loading = false
     }
-
+    this.loading = false
   }
 
   accordionAction(userId: string): void {
@@ -76,6 +81,12 @@ export class UserFriendsListComponent {
       this.userService.updateFriendList(this.currentUser.uid, this.currentUser.friendsList)
       this.refreshList()
     }
+  }
+
+  ngOnDestroy() : void {
+    this.userSubscribtionList.forEach(userSubscribtion=>{
+      userSubscribtion.unsubscribe()
+    })
   }
 
 }
