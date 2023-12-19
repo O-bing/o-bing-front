@@ -76,7 +76,7 @@ fetch("https://api.github.com/orgs/O-bing/actions/variables/FRONT_VERSION", requ
 
 fs = require('fs')
 
-const versionFilePath = "../../obing-dev/src/app/utils/version.json"
+const versionFilePath = "obing-dev/src/app/utils/version.json"
 
 const versionData = {
     versionId:newVersion,
