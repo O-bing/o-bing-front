@@ -16,4 +16,4 @@ jobs:
           cache: 'npm'
           cache-dependency-path: obing-dev/package-lock.json
       - name: Update version
-        run: node .github/workflows/version-update.js --currentVersion $FRONT_VERSION --tokenVersion '${{ secrets.GET_VERSION_TOKEN }}'
+        run: node .github/workflows/version-update.js --currentVersion ${{ vars.FRONT_VERSION }} --tokenVersion '${{ secrets.GET_VERSION_TOKEN }}'
