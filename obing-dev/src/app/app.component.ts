@@ -4,6 +4,8 @@ import { User } from 'src/app/class/user';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
 import { AppService } from './@shared/services/app/app.service';
+import { type } from 'os';
+import { Version } from './class/version';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +19,11 @@ export class AppComponent implements OnInit {
 
   loading: boolean = true;
 
-  currentUser: User = {uid:''};
+  currentUser: User = { uid: '' };
+
+  isPWA: boolean = false
+
+  appVersion : Version = {versionId:'NAN', date:123456789}
 
   constructor(
     private authService: AuthService,
@@ -27,7 +33,16 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const isPWA = this.isPWA()
+    window.addEventListener('DOMContentLoaded', () => {
+      let displayMode = 'browser tab';
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        displayMode = 'standalone';
+        this.appVersion = this.appService.getCurrentVersion()
+        this.isPWA = true
+        this.checkAppVersion()
+      }      
+      console.log('DISPLAY_MODE_LAUNCH:', displayMode);
+    });
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       if (state) { // Online mod
         this.authService.getCurrentUser().subscribe(user => {
@@ -38,15 +53,12 @@ export class AppComponent implements OnInit {
               this.currentUser.isLoggedIn = true
               this.loading = false
             })
-    
+
           } else {
             this.loading = false
             this.currentUser.isLoggedIn = false
           }
         })
-        if (isPWA) {
-          this.checkAppVersion()
-        }
       } else { // Offline mod
         this.loading = false
         window.alert("You are currently offline. Try to use the application while being connected to internet, a newer version may exist")
@@ -55,29 +67,15 @@ export class AppComponent implements OnInit {
 
   }
 
-  private isPWA(): boolean {
-    let isPWA: boolean = false;
-    window.addEventListener('DOMContentLoaded', () => {
-      let displayMode = 'browser tab';
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        displayMode = 'standalone';
-        isPWA = true
-      }
-    });
-    return isPWA
-  }
-
   private async checkAppVersion() {
 
     // Get current deployed Firebase Hosting version
 
     const version = this.appService.getCurrentVersion()
     if (!localStorage.getItem("version")) {
-      console.log("set")
       localStorage.setItem("version", version.versionId)
       localStorage.setItem("versionDate", version.date.toString())
     } else {
-      console.log("set")
       let localVersion = localStorage.getItem("version")
       let localVersionDate = Number(localStorage.getItem("versionDate"))
       if (localVersion != version.versionId && localVersionDate < version.date) {
