@@ -11,7 +11,7 @@
                 O-Bing
             </a>
             <br/>
-            v {{this.version}}
+            <div *ngIf="this.isPWA">v {{this.version}}</div>
         </th>
 
         <th class="header-end" *ngIf="this.online && !this.loading">

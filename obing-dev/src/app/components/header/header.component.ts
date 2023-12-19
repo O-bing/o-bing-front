@@ -29,6 +29,8 @@ export class HeaderComponent {
 
   version: string = 'N/A'
 
+  isPWA:boolean = false
+
   public authUser: firebase.default.User | undefined;
 
   constructor(
@@ -39,9 +41,12 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
+    this.isPWA = this.checkPWA()
+    if (this.isPWA){
+      this.version = this.appService.getCurrentVersion().versionId
+    }
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
-      this.version = this.appService.getCurrentVersion().versionId
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.authUser = user
@@ -72,6 +77,18 @@ export class HeaderComponent {
       }
       )
     })
+  }
+
+  private checkPWA(): boolean {
+    let isPWA: boolean = false;
+    window.addEventListener('DOMContentLoaded', () => {
+      let displayMode = 'browser tab';
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        displayMode = 'standalone';
+        isPWA = true
+      }
+    });
+    return isPWA
   }
 
   displayHeaders() {

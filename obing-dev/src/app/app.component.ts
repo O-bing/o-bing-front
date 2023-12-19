@@ -73,9 +73,11 @@ export class AppComponent implements OnInit {
 
     const version = this.appService.getCurrentVersion()
     if (!localStorage.getItem("version")) {
+      console.log("set")
       localStorage.setItem("version", version.versionId)
       localStorage.setItem("versionDate", version.date.toString())
     } else {
+      console.log("set")
       let localVersion = localStorage.getItem("version")
       let localVersionDate = Number(localStorage.getItem("versionDate"))
       if (localVersion != version.versionId && localVersionDate < version.date) {
