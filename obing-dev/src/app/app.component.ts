@@ -71,18 +71,17 @@ export class AppComponent implements OnInit {
 
     // Get current deployed Firebase Hosting version
 
-    this.appService.getCurrentVersion().subscribe(version => {
-      if (!localStorage.getItem("version")) {
-        localStorage.setItem("version", version[0].versionId)
-        localStorage.setItem("versionDate", version[0].date.toString())
-      } else {
-        let localVersion = localStorage.getItem("version")
-        let localVersionDate = Number(localStorage.getItem("versionDate"))
-        if (localVersion != version[0].versionId && localVersionDate < version[0].date) {
-          window.alert("Update your local app version, a newer one exists !")
-        }
+    const version = this.appService.getCurrentVersion()
+    if (!localStorage.getItem("version")) {
+      localStorage.setItem("version", version.versionId)
+      localStorage.setItem("versionDate", version.date.toString())
+    } else {
+      let localVersion = localStorage.getItem("version")
+      let localVersionDate = Number(localStorage.getItem("versionDate"))
+      if (localVersion != version.versionId && localVersionDate < version.date) {
+        window.alert("Update your local app version, a newer one exists !")
       }
-    })
+    }
 
     // Get localstorage value
 

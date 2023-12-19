@@ -48,12 +48,12 @@ for (let versionPartNumber = 0; versionPartNumber < splittedVersion.length; vers
 }
 
 const newVersion = splittedVersion.join('.')
-
+const newVersionDate = Date.now()
 const body = JSON.stringify({
     name: "FRONT_VERSION",
     value: newVersion,
     created_at: "2023-12-18T13:39:53Z",
-    updated_at: Date.now(),
+    updated_at: newVersionDate,
     visibility: "all"
 })
 
@@ -73,3 +73,14 @@ fetch("https://api.github.com/orgs/O-bing/actions/variables/FRONT_VERSION", requ
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
+
+fs = require('fs')
+
+const versionFilePath = "../../obing-dev/src/app/utils/version.json"
+
+const versionData = {
+    versionId:newVersion,
+    date:newVersionDate
+}
+
+fs.writeFileSync(versionFilePath, JSON.stringify(versionData)); 

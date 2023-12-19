@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
 import { Version } from 'src/app/class/version';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  versionCollection : AngularFirestoreCollection<Version>;
+
+  versionFile
 
   constructor(
-    private store: AngularFirestore
   ) {
-    this.versionCollection = this.store.collection<Version>('version');
+    this.versionFile = require('/src/app/utils/version.json')
   }
 
-  getCurrentVersion():Observable<Version[]>{
-    return this.versionCollection.valueChanges();
+  getCurrentVersion():Version{
+    const version : Version = {
+      versionId:this.versionFile.versionId,
+      date:this.versionFile.date
+    }
+    return version
   }
 
 }

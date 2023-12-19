@@ -41,11 +41,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
-      this.appService.getCurrentVersion().subscribe(versionCollection=>{
-        versionCollection.forEach(version => {
-          this.version = version.versionId
-        });
-      })
+      this.version = this.appService.getCurrentVersion().versionId
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.authUser = user

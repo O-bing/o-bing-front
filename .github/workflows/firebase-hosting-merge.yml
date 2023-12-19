@@ -35,6 +35,8 @@ jobs:
           npm ci
       - name: Firestore package correction
         run: node .github/workflows/package-patcher.js
+      - name: Update version
+        run: node .github/workflows/version-update.js --currentVersion ${{ vars.FRONT_VERSION }} --tokenVersion '${{ secrets.GET_VERSION_TOKEN }}'
       - name: Build
         run: |
           cd obing-dev
