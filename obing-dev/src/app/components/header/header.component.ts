@@ -41,7 +41,6 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.AppVersion, this.IsPWA)
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       this.authService.getCurrentUser().subscribe(user => {
