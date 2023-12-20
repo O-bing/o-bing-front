@@ -7,5 +7,8 @@ import { Tile } from 'src/app/types/Tile';
   styleUrls: ['./tile-display.component.scss']
 })
 export class TileDisplayComponent {
-  @Input() tile : Tile = new Tile(-1);
+
+  @Input() Tile : Tile = new Tile(-1);
+
+
 }
