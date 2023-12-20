@@ -45,6 +45,7 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
                     if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
                       this.Bingo.creationDate = new Date(this.Bingo.creationDate)
                       this.Bingo.content = JSON.parse(this.Bingo.content)
+                      this.loading = false
                     }
                   }
                 })
@@ -58,6 +59,7 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
                 if (this.Bingo.creationDate && typeof this.Bingo.creationDate === 'number') {
                   this.Bingo.creationDate = new Date(this.Bingo.creationDate)
                   this.Bingo.content = JSON.parse(this.Bingo.content)
+                  this.loading = false
                 }
               }
             })
@@ -65,7 +67,6 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
         }
       })
     });
-    this.loading = false
   }
 
   ngAfterViewChecked(){
