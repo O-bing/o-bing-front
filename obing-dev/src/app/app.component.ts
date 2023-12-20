@@ -40,8 +40,7 @@ export class AppComponent implements OnInit {
         this.appVersion = this.appService.getCurrentVersion()
         this.isPWA = true
         this.checkAppVersion()
-      }      
-      console.log('DISPLAY_MODE_LAUNCH:', displayMode);
+      }
     });
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       if (state) { // Online mod
