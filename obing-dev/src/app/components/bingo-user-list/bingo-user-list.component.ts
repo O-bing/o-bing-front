@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
@@ -30,7 +31,9 @@ export class BingoUserListComponent implements OnInit {
     private bingoPrivateRefService: BingoPrivateRefService,
     private authService: AuthService,
     private userService: UserService,
-    private onlineStateSvc : OnlineStateService) {
+    private onlineStateSvc : OnlineStateService,
+    private bingoFileService:BingoFileService,
+    ) {
   }
 
   ngOnInit():void{
@@ -79,6 +82,9 @@ export class BingoUserListComponent implements OnInit {
       if (bingo) {
         this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
           this.bingoService.deleteBingo(uid).then(() => {
+            this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
+              this.bingoFileService.deleteBingoFile(url)
+            })
             this.refreshList()
           })
         })
