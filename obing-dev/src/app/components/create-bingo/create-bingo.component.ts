@@ -224,7 +224,9 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
             bingo.owner = user.uid
             bingo.content = json
             this.bingoService.createBingo(bingo, ID).then(() => {
-              this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+              if (this.privateChecked){
+                this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+              }
               this.saved = true
             }
             )

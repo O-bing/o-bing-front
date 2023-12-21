@@ -93,8 +93,7 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
                   this.loading = false
                 }
               } else {
-                this.router.navigate(['**'])
-              }
+                this.loading = false              }
             })
           }
         })

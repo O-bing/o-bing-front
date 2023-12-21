@@ -83,7 +83,8 @@ export class BingoUserListComponent implements OnInit {
         this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
           this.bingoService.deleteBingo(uid).then(() => {
             this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
-              this.bingoFileService.deleteBingoFile(url)
+              const deleteUlrl = url
+              this.bingoFileService.deleteBingoFile(deleteUlrl)
             })
             this.refreshList()
           })
