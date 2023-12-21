@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
@@ -7,6 +7,7 @@ import { Bingo } from 'src/app/class/bingo';
 import { BingoNotConnectedDialogComponent } from '../create-bingo/bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 
 @Component({
   selector: 'app-bingo-card',
@@ -37,10 +38,12 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private bingoService: BingoService,
+    private bingoFileService: BingoFileService,
     private bingoPrivateRefService: BingoPrivateRefService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -69,6 +72,8 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
                       this.Bingo.content = JSON.parse(this.Bingo.content)
                       this.loading = false
                     }
+                  } else {
+                    this.router.navigate(['**'])
                   }
                 })
               } else {  // private and user isn't the owner
@@ -87,6 +92,8 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
                   this.Bingo.content = JSON.parse(this.Bingo.content)
                   this.loading = false
                 }
+              } else {
+                this.router.navigate(['**'])
               }
             })
           }
@@ -132,9 +139,25 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
   }
 
 
-  localSave() {
+  localSave():void {
     const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent);
     console.log("Set up actions to allow user to directly download the updated Bingo, store it in localstorage")
+  }
+
+  deleteBingo(uid:string):void{
+    this.loading = true
+    this.bingoService.getBingo(uid).subscribe(bingo => {
+      if (bingo) {
+        this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
+          this.bingoService.deleteBingo(uid).then(() => {
+            this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
+              this.bingoFileService.deleteBingoFile(url)
+            })
+            this.router.navigate(['/bingoUserList'])
+          })
+        })
+      }
+    })
   }
 
 }

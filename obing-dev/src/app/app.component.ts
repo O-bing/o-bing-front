@@ -4,7 +4,6 @@ import { User } from 'src/app/class/user';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
 import { AppService } from './@shared/services/app/app.service';
-import { type } from 'os';
 import { Version } from './class/version';
 
 @Component({

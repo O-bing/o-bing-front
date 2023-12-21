@@ -33,7 +33,7 @@
                 </div>
                 <button class="button is-info" *ngIf="!editMod" (click)="editBingo()">Edit</button>
                 <button class="button is-success" *ngIf="editMod" (click)="updateBingo()">Save</button>
-                <button class="button is-danger">Delete</button>
+                <button class="button is-danger" (click)="deleteBingo(Bingo.uid)">Delete</button>
             </div>
         </div>
     </div>
