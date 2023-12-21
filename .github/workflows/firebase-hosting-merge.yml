@@ -49,5 +49,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_O_BING }}'
           channelId: live
           projectId: o-bing
-      - name: Update version
-        run: node .github/workflows/version-update.js --currentVersion ${{ vars.FRONT_VERSION }} --tokenVersion '${{ secrets.GET_VERSION_TOKEN }}'
