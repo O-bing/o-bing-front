@@ -22,7 +22,7 @@
                 </li>
             </ul>
             <app-bingo-list [Bingo]="Bingo" *ngIf="editMod"></app-bingo-list>
-            <div class="actionButtons">
+            <div class="actionButtons" *ngIf="canEdit">
                 <div class="select is-small" *ngIf="editMod">
                     <form [formGroup]="accessFormGroup">
                         <select formControlName="accessFormControl" class="selectContent">
