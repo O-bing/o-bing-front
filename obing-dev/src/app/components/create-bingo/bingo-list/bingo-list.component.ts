@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Bingo } from 'src/app/class/bingo';
 import { Tile } from 'src/app/types/Tile';
 
 @Component({
@@ -12,6 +13,8 @@ export class BingoListComponent implements OnInit {
 
   tileList: Array<Array<Tile>> = [[]];
 
+  @Input() Bingo?:Bingo
+
   @Output() tilesCountEvent = new EventEmitter<number>();
 
   @Output() tilesSaveEvent = new EventEmitter<Array<Array<Tile>>>();
@@ -20,6 +23,10 @@ export class BingoListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.Bingo){
+      this.tileList = this.Bingo.content
+    }
+    this.tileList.push()
     this.theAddTile()
     this.tilesSaveEvent.emit(this.tileList)
   }
@@ -46,7 +53,6 @@ export class BingoListComponent implements OnInit {
   }
 
   addOrModify(event:{tile:Tile, isBlank:boolean}) {
-
     let tile=event.tile
 
     if (tile.state == 'empty') {

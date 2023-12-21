@@ -26,10 +26,6 @@ export class BingoPrivateRefService {
     return this.refsCollection.doc<BingoPrivateRef>(refUid).valueChanges()
   }
 
-  updateBingoPrivateRef(bingoUid:string, isPrivate:boolean){
-    return this.refsCollection.doc(bingoUid).update({isPrivate});
-  }
-
   deleteBingoPrivateRef(bingoUid:string){
     return this.refsCollection.doc(bingoUid).delete()
   }

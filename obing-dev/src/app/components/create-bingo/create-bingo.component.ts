@@ -164,6 +164,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   saveBingo(): void {
     if (this.tilesList[this.tilesList.length - 1].length == 0) {
+      this.tilesList.pop()
     }
     if (!this.saved) {
       if (this.tilesList.length > 1) {
