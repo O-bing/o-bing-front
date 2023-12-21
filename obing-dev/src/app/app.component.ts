@@ -73,38 +73,14 @@ export class AppComponent implements OnInit {
     if (!localStorage.getItem("version")) {
       localStorage.setItem("version", version.versionId)
       localStorage.setItem("versionDate", version.date.toString())
+      localStorage.setItem("versionNotified", "0")
     } else {
       let localVersion = localStorage.getItem("version")
-      let localVersionDate = Number(localStorage.getItem("versionDate"))
-      if (localVersion != version.versionId && localVersionDate < version.date) {
+      let alreadyNotified = localStorage.getItem("versionNotified")
+      if (alreadyNotified != "1" && localVersion != version.versionId) {
         window.alert("Update your local app version, a newer one exists !")
+        localStorage.setItem("versionNotified", "1")
       }
     }
-
-    // Get localstorage value
-
-
-
-    // If not in localstorage, store it
-
-
-
-    // If in localstorage, compare it
-
-
-
-    // If equal, do nothing (up to date !)
-
-
-
-    // If not equal, ask user to redownload the app
-
-
-
-    // OPTIONAL : maybe display a visual element to tell the user he's using a legacy app
-
-
-
-
   }
 }
