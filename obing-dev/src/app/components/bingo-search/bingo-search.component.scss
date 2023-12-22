@@ -1,0 +1,86 @@
+.content {
+    min-width: 400px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(77, 189, 223);
+    border-radius: 10px;
+    padding: 15px;
+
+    .title {
+        text-align: center;
+    }
+
+    .searchInput{
+        width: 50%;
+        text-align: start;
+    }
+
+    .title-separator {
+        background-color: aqua;
+    }
+
+    .spinner {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .bingoList {
+        max-height: 600px;
+        overflow-y: scroll;
+        .bingo{
+            height: 60px;
+        }
+    }
+
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(77, 189, 223);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(109, 155, 169);
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(135, 192, 209);
+}
+
+.bingoButton {
+    margin: 10px;
+    padding-left: 20px;
+    width: 200px;
+    text-align: center;
+    background-color: rgb(169, 243, 235);
+    border-color: rgb(169, 243, 235);
+
+    .bingoName {
+        text-align: start;
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.icon-visibility {
+    display: inline-block;
+    margin-left: 30px;
+    height: 60px;
+    .icon-private {
+        margin-top:15px;
+        margin-bottom:15px;
+        width: 30px;
+        height: 30px;
+    }
+}

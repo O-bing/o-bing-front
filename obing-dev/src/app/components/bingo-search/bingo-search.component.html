@@ -1,1 +1,24 @@
-<p>bingo-search works!</p>
+<div class="content">
+    <h1 class="title">List of bingos</h1>
+    <input type="text" class="input searchInput" placeholder="Bingo name..." required>
+    <hr class="title-separator"/>
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+    <ul class="bingoList" *ngIf="!loading">
+        <li *ngFor="let bingo of bingoList" class="bingo">
+            <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button">
+                <p class="bingoName">{{bingo.displayName}}</p>
+            </button>
+            <div class="icon-visibility">
+                <img class="icon-private" src="assets/icons/icon-private.png" title="Private" *ngIf="bingo.isPrivate"/>
+                <img class="icon-private" src="assets/icons/icon-public.png" title="Public" *ngIf="!bingo.isPrivate"/>
+            </div>
+        </li>
+    </ul>
+    
+    <div class="title" *ngIf="bingoList.length == 0 && !this.loading">
+        <h2>There's no bingo created yet.</h2>
+    </div>
+
+</div>

@@ -5,8 +5,8 @@ export interface Game{
     creator?:string,
     creationDate?:number,
     usedBingoId?:string,
-    playersList:Array<string>,
-    tchat:Array<string>,
+    playersList:string[],
+    tchat:string[],
     state:GameStatus
 }
 

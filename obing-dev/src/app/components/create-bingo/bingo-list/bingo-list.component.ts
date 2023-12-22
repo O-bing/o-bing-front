@@ -11,13 +11,13 @@ export class BingoListComponent implements OnInit {
 
   tile: Tile = new Tile(-1);
 
-  tileList: Array<Array<Tile>> = [[]];
+  tileList: Tile[][] = [[]];
 
   @Input() Bingo?:Bingo
 
   @Output() tilesCountEvent = new EventEmitter<number>();
 
-  @Output() tilesSaveEvent = new EventEmitter<Array<Array<Tile>>>();
+  @Output() tilesSaveEvent = new EventEmitter<Tile[][]>();
 
   constructor() {
   }

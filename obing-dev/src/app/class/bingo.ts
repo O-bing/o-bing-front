@@ -7,5 +7,6 @@ export interface Bingo{
     idImgIllus?:string,
     numberPlayed:number,
     displayName?: string,
-    content?:any
+    content?:any,
+    isPrivate?:boolean
 }

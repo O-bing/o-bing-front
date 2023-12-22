@@ -5,6 +5,6 @@ export interface Comment{
     dateCreat?:number,
     title:string,
     content:string,
-    idDocPj?:Array<string>,
-    idImgPj?:Array<string>
+    idDocPj?:string[],
+    idImgPj?:string[]
 }

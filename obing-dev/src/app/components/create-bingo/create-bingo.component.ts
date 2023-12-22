@@ -22,7 +22,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   counter: number = 0;
 
-  tilesList: Array<Array<Tile>> = [[]];
+  tilesList: Tile[][] = [[]];
 
   columnsFormat: number = 5;
 
@@ -87,7 +87,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
     this.counter = tilesCount - 1
   }
 
-  setTilesList(tilesList: Array<Array<Tile>>): void {
+  setTilesList(tilesList: Tile[][]): void {
     this.tilesList = tilesList
   }
 
@@ -115,7 +115,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
       while (this.rowsFormat != this.tilesList.length) {
         if (this.rowsFormat > this.tilesList.length) {
           for (let i: number = 0; i < this.rowsFormat; i++) {
-            let placeHolderLine: Array<Tile> = []
+            let placeHolderLine: Tile[] = []
             for (let y: number = 1; y < this.columnsFormat + 1; y++) {
               const placeHolderTile = new Tile(this.counter, '')
               placeHolderTile.state = "filled"
@@ -202,7 +202,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  private openDialog(tiles: Array<Array<Tile>>) {
+  private openDialog(tiles: Tile[][]) {
 
     const dialogName = this.dialog.open(BingoTitleDialogComponent);
 
