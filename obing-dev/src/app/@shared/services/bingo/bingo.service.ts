@@ -26,8 +26,10 @@ export class BingoService {
     return this.bingoCollection.doc(uid).set(bingo);
   }
 
-  updateBingo(){
-
+  updateBingo(bingo:Bingo){
+    return this.bingoCollection.doc<Bingo>(bingo.uid).update({
+      content: JSON.stringify(bingo.content)
+    });
   }
 
   deleteBingo(postId:string):Promise<void>{
@@ -36,6 +38,11 @@ export class BingoService {
 
   getAllBingos():Observable<Bingo[]>{
     return this.bingoCollection.valueChanges()
+  }
+
+  getUserBingos(userId:string):any{
+
+    return this.bingoCollection.ref.get()
   }
 
 }

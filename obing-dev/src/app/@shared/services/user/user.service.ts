@@ -25,12 +25,14 @@ export class UserService {
     return this.userCollection.doc<User>(uid).valueChanges();
   }
 
-  newUser(user: User, uid: string):Subscription{
+  getUsers(): Observable<User[]> {
+    return this.userCollection.valueChanges()
+  }
+
+  newUser(user: User):Subscription{
     user.rank = UserRank.BingoNewbie;
     return this.getStaticUserPhoto().subscribe(res => {
-      user.imgProfileRef = guid.uuidv4() + '.png'
-      this.uploadUserPhoto(res, user.imgProfileRef);
-      this.userCollection.doc(uid).set(user);
+      this.userCollection.doc(user.uid).set(user);
     })
   }
 
@@ -106,6 +108,11 @@ export class UserService {
     return rank
   }
 
+  updateFriendList(currentUserId:string, userList:string[]){
+    return this.userCollection.doc<User>(currentUserId).update({
+      friendsList:userList
+    })
+  }
 
 
 }

@@ -12,7 +12,7 @@ import { User } from 'src/app/class/user';
 })
 export class HeaderProfileComponent implements OnInit {
 
-  @Input() userProfile: User = {};
+  @Input() userProfile: User = {uid:''};
 
   @Input() DisplayProfile: boolean = false;
 

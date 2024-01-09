@@ -1,0 +1,19 @@
+<div class="container" *ngIf="this.online">
+    <h1>Friends list : </h1>
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+    <ul class="userList" *ngIf="!loading && this.userList.length!=0">
+        <li class="user" *ngFor="let user of userList">
+            <button class="accordion {{user.uid}}" (click)="accordionAction(user.uid!)">{{user.pseudo}} <img class="icon-friend" src="assets/icons/icon-friend.png" *ngIf="this.currentUser.friendsList!.includes(user.uid)"/></button>
+            <div class="{{user.uid}} userCard">
+                <app-friend-card *ngIf="this.currentUser" [user]="user" [currentUser]="this.currentUser" (removeFriendEvent)="removeFriend($event)"></app-friend-card>
+            </div>
+        </li>
+    </ul>
+    <h2 *ngIf="this.userList.length==0">You have no friends (yet !)</h2>
+</div>
+
+<div class="container" *ngIf="!this.online && !this.loading">
+    <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
+</div>

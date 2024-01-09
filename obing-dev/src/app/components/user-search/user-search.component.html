@@ -1,7 +1,17 @@
 <div class="container" *ngIf="this.online">
-    <p>user-search works!</p>
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+    <ul class="userList" *ngIf="!loading">
+        <li class="user" *ngFor="let user of userList">
+            <button class="accordion {{user.uid}}" (click)="accordionAction(user.uid!)">{{user.pseudo}} <img class="icon-friend" src="assets/icons/icon-friend.png" *ngIf="this.currentUser.friendsList && this.currentUser.friendsList.includes(user.uid)"/></button>
+            <div class="{{user.uid}} userCard">
+                <app-user-card *ngIf="this.currentUser" [user]="user" [currentUser]="this.currentUser" (addFriendEvent)="addFriend($event)" (removeFriendEvent)="removeFriend($event)"></app-user-card>
+            </div>
+        </li>
+    </ul>
 </div>
 
-<div class="container" *ngIf="!this.online">
+<div class="container" *ngIf="!this.online && !this.loading">
     <p>You are currently offline. Try to use the application while being connected to internet, a newer version may exist</p>
 </div>

@@ -13,6 +13,8 @@ export class MainPageComponent implements OnInit {
 
   online: boolean = false
 
+  loading: boolean = true
+
   searchUserButton : HTMLElement | undefined
   signUpButton : HTMLElement | undefined
   logInButton : HTMLElement | undefined
@@ -30,7 +32,10 @@ export class MainPageComponent implements OnInit {
           if (user) {
             this.currentUserConnected = true
           }
+          this.loading = false
         })
+      } else {
+      this.loading = false
       }
     })
   }

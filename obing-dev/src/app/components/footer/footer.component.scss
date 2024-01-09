@@ -5,30 +5,41 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: white;
     background-color: rgb(16, 155, 197);
-    bottom:0;
+    bottom: 0;
     width: 100%;
 
     .footer-table {
-        text-align: left;
         width: 100%;
 
-        .footer-link {
-            font-size: large;
-            margin-right: 20px;
-            text-decoration: none;
-            color: rgb(28, 28, 98);
+        .footer-start {
+            text-align: start;
+            vertical-align: middle;
+            width: 30%;
+
+            .credits-link {
+                font-size: large;
+                margin-right: 20px;
+                text-decoration: none;
+                color: rgb(28, 28, 98);
+                vertical-align: middle;
+            }
+
+        }
+
+        .footer-middle {
+            width: 40%;
         }
 
         .footer-end {
-            text-align: right;
-            align-self: flex-start;
-        }
-    }
+            width: 30%;
+            vertical-align: middle;
+            text-align: end;
 
-    .creatorLink {
-        font-size: large;
-        margin-right: 15px;
-        text-decoration: none;
-        color: rgb(28, 28, 98);
+            .creator-link {
+                font-size: large;
+                text-decoration: none;
+                color: rgb(28, 28, 98);
+            }
+        }
     }
 }

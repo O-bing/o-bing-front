@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { AppService } from 'src/app/@shared/services/app/app.service';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { User } from 'src/app/class/user';
+import { Version } from 'src/app/class/version';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +14,13 @@ import { User } from 'src/app/class/user';
 export class HeaderComponent {
 
   @Input() public CurrentUser: User = {
+    uid: '',
     isLoggedIn: false
   };
+
+  @Input() AppVersion: Version = {versionId:'NAN', date:123456789}
+
+  @Input() IsPWA: boolean = false
 
   imgProfileURL: string = '';
 
@@ -67,6 +74,7 @@ export class HeaderComponent {
       )
     })
   }
+
 
   displayHeaders() {
     this.displayProfileHeader()

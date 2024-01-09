@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="panel">
+        <div class="imgDiv">
+            <img *ngIf="!loadingImg" class="profileImg" src={{this.imgProfileURL}}>
+        </div>
+        <div class="userDesc">
+            {{user.description}}
+        </div>
+        <button *ngIf="currentUser.uid != user.uid! && !alreadyFriend" class="button is-success" (click)="addFriend(user.uid!)">Add friend</button>
+        <button *ngIf="currentUser.uid == user.uid!" disabled class="button is-info">It's you</button>
+        <button *ngIf="alreadyFriend && currentUser.uid != user.uid!" class="button is-warning" (click)="removeFriend(user.uid!)">Remove friend</button>
+    </div>
+</div>  

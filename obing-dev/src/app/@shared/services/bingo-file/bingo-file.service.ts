@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask} from '@angular/fire/compat/storage';
+import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
@@ -21,6 +22,10 @@ export class BingoFileService {
   uploadBingoFile(json:string, ID:string):AngularFireUploadTask{
     const blob = new Blob([json as BlobPart], {type:"text/json"});
     return this.storage.upload("Bingos/"+ID+".json", blob);
+  }
+
+  deleteBingoFile(fileUrl:string):Observable<any>{
+    return this.storage.refFromURL(fileUrl).delete()
   }
 
 }

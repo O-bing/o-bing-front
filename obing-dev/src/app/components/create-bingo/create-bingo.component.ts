@@ -164,6 +164,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   saveBingo(): void {
     if (this.tilesList[this.tilesList.length - 1].length == 0) {
+      this.tilesList.pop()
     }
     if (!this.saved) {
       if (this.tilesList.length > 1) {
@@ -223,7 +224,9 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
             bingo.owner = user.uid
             bingo.content = json
             this.bingoService.createBingo(bingo, ID).then(() => {
-              this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+              if (this.privateChecked){
+                this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+              }
               this.saved = true
             }
             )

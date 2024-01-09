@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
+import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';
 import { Bingo } from 'src/app/class/bingo';
 import { User } from 'src/app/class/user';
@@ -14,7 +16,7 @@ import { User } from 'src/app/class/user';
 })
 export class BingoUserListComponent implements OnInit {
 
-  currentUser: User = {};
+  currentUser: User = {uid:''};
 
   isLoggedIn: boolean = false;
 
@@ -22,12 +24,28 @@ export class BingoUserListComponent implements OnInit {
 
   bingoUserList: Bingo[] = []
 
-  constructor(private bingoService: BingoService, private bingoPrivateRefService: BingoPrivateRefService, private authService: AuthService, private userService: UserService) {
+  online: boolean = false
+
+  constructor(
+    private bingoService: BingoService,
+    private bingoPrivateRefService: BingoPrivateRefService,
+    private authService: AuthService,
+    private userService: UserService,
+    private onlineStateSvc : OnlineStateService,
+    private bingoFileService:BingoFileService,
+    ) {
   }
 
   ngOnInit():void{
     // TODO : check if online, check local storage if not
-    this.refreshList()
+    this.onlineStateSvc.checkNetworkStatus().then(state => {
+      this.online = state
+      if(this.online){
+        this.refreshList()
+      } else{
+        this.loading = false
+      }
+    })
   }
 
   refreshList() {
@@ -35,7 +53,7 @@ export class BingoUserListComponent implements OnInit {
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
         this.userService.getUser(user.uid).subscribe(userObject => {
-          this.currentUser = {}
+          this.currentUser = {uid:''}
           this.currentUser.pseudo = userObject?.pseudo
           this.currentUser.uid = user.uid
           this.isLoggedIn = true
@@ -64,6 +82,10 @@ export class BingoUserListComponent implements OnInit {
       if (bingo) {
         this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
           this.bingoService.deleteBingo(uid).then(() => {
+            this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
+              const deleteUlrl = url
+              this.bingoFileService.deleteBingoFile(deleteUlrl)
+            })
             this.refreshList()
           })
         })
