@@ -1,6 +1,8 @@
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -16,7 +18,12 @@ describe('BingoNotConnectedDialogComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule
       ],
-      declarations: [ BingoNotConnectedDialogComponent ]
+      declarations: [ BingoNotConnectedDialogComponent ],
+      providers: [
+        {provide: MatDialog, useValue: {}},
+        {provide: MatDialogConfig, useValue: {}},
+        {provide: MatDialogRef, useValue: {}}
+      ]
     })
     .compileComponents();
   });

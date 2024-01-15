@@ -1,6 +1,7 @@
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -14,9 +15,12 @@ describe('CreateBingoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule
+        AngularFirestoreModule,
       ],
-      declarations: [ CreateBingoComponent ]
+      declarations: [ CreateBingoComponent ],
+      providers: [
+        {provide: MatDialog, useValue: {}}
+      ]
     })
     .compileComponents();
   });
