@@ -9,7 +9,7 @@ import { User } from 'src/app/class/user';
 })
 export class FriendCardComponent {
 
-  @Input() user!: User;
+  @Input() user: User = {uid:'', imgProfileRef:''};
   
   @Input() currentUser!: User;
 

@@ -9,9 +9,9 @@ import { User } from 'src/app/class/user';
 })
 export class UserCardComponent {
 
-  @Input() user!: User;
+  @Input() user: User = {uid:''};
   
-  @Input() currentUser!: User;
+  @Input() currentUser: User = {uid:'', friendsList:[]};
 
   @Output() addFriendEvent = new EventEmitter<string>();;
 
