@@ -3,7 +3,6 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { User, UserRank } from 'src/app/class/user';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { guid } from 'src/app/utils/guid';
 import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
