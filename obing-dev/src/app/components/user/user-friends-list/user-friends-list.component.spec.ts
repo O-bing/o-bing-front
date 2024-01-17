@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserFriendsListComponent } from './user-friends-list.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('UserFriendsListComponent', () => {
   let component: UserFriendsListComponent;
@@ -12,6 +13,7 @@ describe('UserFriendsListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule

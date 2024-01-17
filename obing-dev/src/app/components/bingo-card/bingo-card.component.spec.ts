@@ -2,7 +2,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -15,6 +16,7 @@ describe('BingoCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule        
@@ -42,4 +44,10 @@ describe('BingoCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should enable bingo edition', () => {
+    component.editBingo()
+    expect(component.editMod).toBe(true)
+  })
+
 });

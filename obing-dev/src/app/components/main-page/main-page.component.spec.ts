@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('MainPageComponent', () => {
   let component: MainPageComponent;
@@ -12,6 +13,7 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule

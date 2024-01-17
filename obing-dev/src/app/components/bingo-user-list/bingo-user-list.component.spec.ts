@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BingoUserListComponent } from './bingo-user-list.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('BingoUserListComponent', () => {
   let component: BingoUserListComponent;
@@ -12,6 +13,7 @@ describe('BingoUserListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule

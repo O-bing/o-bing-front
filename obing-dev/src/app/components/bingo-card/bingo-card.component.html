@@ -24,10 +24,10 @@
             <app-bingo-list [Bingo]="Bingo" *ngIf="editMod"></app-bingo-list>
             <div class="actionButtons" *ngIf="canEdit">
                 <div class="select is-small" *ngIf="editMod">
-                    <form [formGroup]="accessFormGroup">
+                    <form class="formGroup" [formGroup]="accessFormGroup">
                         <select formControlName="accessFormControl" class="selectContent">
-                            <option value="0">Public</option>
-                            <option value="1">Private</option>
+                            <option class="public" value="0">Public</option>
+                            <option class="private" value="1">Private</option>
                         </select>
                     </form>
                 </div>

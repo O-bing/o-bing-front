@@ -10,5 +10,4 @@ export class TileDisplayComponent {
 
   @Input() Tile : Tile = new Tile(-1);
 
-
 }
