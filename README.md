@@ -11,6 +11,10 @@ Font of the [O-bing](https://o-bing-pld.web.app/) project
 Run the following commands to install project's dependencies :
 
 ```
+npm install -g @angular/cli
+```
+
+```
 .\cd obing-dev\
 ```
 
