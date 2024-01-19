@@ -30,16 +30,20 @@
             
             <div class="element">
                 <div style="margin-right: 20px; margin-left: 18px;">
-                    <button *ngIf="!currentUserConnected" routerLink="/signUp" class="small button signUp is-info">
+                    <button *ngIf="!currentUserConnected && online" routerLink="/signUp" class="small button signUp is-info">
                         Sign up
                     </button>
 
-                    <button *ngIf="!currentUserConnected" routerLink="/logIn" class="small small-button button logIn is-primary"> 
+                    <button *ngIf="!currentUserConnected && online" routerLink="/logIn" class="small small-button button logIn is-primary"> 
                         Log in
                     </button>
                 </div>
                 <button *ngIf="currentUserConnected" routerLink="/bingoUserList" class="button bingoUserList large-button is-link">
                     My bingos
+                </button>
+
+                <button *ngIf="!online" routerLink="/localBingoList" class="button bingoUserList large-button is-link">
+                    Local bingos
                 </button>
             </div>
         </div>

@@ -26,7 +26,7 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.onlineStateSvc.checkNetworkStatus().then(state => {
-      this.online = state
+      this.online = false// state
       if (this.online) {
         this.authService.getCurrentUser().subscribe(user => {
           if (user) {

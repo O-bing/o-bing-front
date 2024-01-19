@@ -64,10 +64,7 @@ export class BingoNotConnectedDialogComponent implements OnInit {
     
     savedBingos.push(localBingo)
 
-    console.log(savedBingos)
-
     localStorage.setItem("bingos", `${JSON.stringify(savedBingos).toString()}`)
-    console.log(localStorage.getItem("bingos"))
   }
 
   logInAndSave() {
