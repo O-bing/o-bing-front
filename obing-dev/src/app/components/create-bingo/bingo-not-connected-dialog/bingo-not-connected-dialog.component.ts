@@ -3,6 +3,7 @@ import { BingoSaveLogInComponent } from './bingo-save-log-in/bingo-save-log-in.c
 import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
+import { Bingo } from 'src/app/class/bingo';
 
 @Component({
   selector: 'app-bingo-not-connected-dialog',
@@ -12,6 +13,10 @@ import { OnlineStateService } from 'src/app/@shared/services/online-state/online
 export class BingoNotConnectedDialogComponent implements OnInit {
 
   online:boolean=true
+
+  BingoId!: string;
+  BingoBody! : string
+  BingoData! : Bingo
 
   constructor(
     private dialogRef: MatDialogRef<BingoNotConnectedDialogComponent>,
@@ -41,11 +46,28 @@ export class BingoNotConnectedDialogComponent implements OnInit {
     button.setAttribute('disabled', 'true');
   }
 
-  localSave() {
-    console.log("Call future method to convert created bingo into pdf")
-    this.ngZone.run(() => {
-      this.dialogRef.close(true)
-    });
+  localSave(bingoData: Bingo, bingoId: string, bingoBody:string) {
+
+    if (!localStorage.getItem("bingos")) {
+
+      localStorage.setItem("bingos", '[]')
+
+    }
+
+    const savedBingos: Array<Object> = JSON.parse(localStorage.getItem("bingos")!)
+
+    const localBingo = {
+      bingoId: bingoId,
+      bingoData: bingoData,
+      bingoBody: JSON.parse(bingoBody)
+    }
+    
+    savedBingos.push(localBingo)
+
+    console.log(savedBingos)
+
+    localStorage.setItem("bingos", `${JSON.stringify(savedBingos).toString()}`)
+    console.log(localStorage.getItem("bingos"))
   }
 
   logInAndSave() {
