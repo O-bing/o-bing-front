@@ -12,7 +12,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 import { UserComponent } from './components/user/user.component';
 import { RandomBingoComponent } from './components/random-bingo/random-bingo.component';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
-import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
+import { BingoListComponent } from './components/bingo-list/bingo-list.component';
 import { BingoCardComponent } from './components/bingo-card/bingo-card.component';
 import { LocalBingoListComponent } from './components/local-bingo-list/local-bingo-list.component';
 import { BingoLocalCardComponent } from './components/bingo-local-card/bingo-local-card.component';
@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path:'bingoUserList',
-    component:BingoUserListComponent
+    component:BingoListComponent
   },
   {
     path:'localBingoList',
