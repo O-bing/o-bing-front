@@ -14,7 +14,7 @@
             <div *ngIf="this.IsPWA">v {{this.AppVersion.versionId}}</div>
         </th>
 
-        <th class="header-end" *ngIf="this.online && !this.loading">
+        <th class="header-end" *ngIf="this.online">
             <div *ngIf="loading">
                 <div class="spinner">
                     <mat-progress-spinner mode="indeterminate" diameter="60"></mat-progress-spinner>

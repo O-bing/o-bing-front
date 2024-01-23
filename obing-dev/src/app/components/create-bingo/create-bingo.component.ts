@@ -214,6 +214,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
         title: titleBingo,
         owner: "",
         creationDate: Date.now(),
+        updateDate: Date.now(),
         numberPlayed: 0
       }
 
