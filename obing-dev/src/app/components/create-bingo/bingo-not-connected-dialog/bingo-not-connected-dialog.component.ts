@@ -65,6 +65,10 @@ export class BingoNotConnectedDialogComponent implements OnInit {
     savedBingos.push(localBingo)
 
     localStorage.setItem("bingos", `${JSON.stringify(savedBingos).toString()}`)
+
+    this.ngZone.run(() => {
+      this.dialogRef.close(true)
+    });
   }
 
   logInAndSave() {

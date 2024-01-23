@@ -250,6 +250,11 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
     instance.BingoBody = bingoBody
     instance.BingoData = bingoData
     instance.BingoId = bingoId
+    dialogSave.afterClosed().subscribe((logged) => {
+      if(logged){
+        this.router.navigate(['/']);
+      }
+    })
   }
 
 }
