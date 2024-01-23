@@ -219,9 +219,9 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
       if (this.online) {
         this.authService.getCurrentUser().subscribe(user => {
-          if (!user) {
+          if (user) {
           this.bingoFileService.uploadBingoFile(json, ID);
-            bingo.owner = user!.uid
+            bingo.owner = user.uid
             bingo.content = json
             this.bingoService.createBingo(bingo, ID).then(() => {
               if (this.privateChecked){
