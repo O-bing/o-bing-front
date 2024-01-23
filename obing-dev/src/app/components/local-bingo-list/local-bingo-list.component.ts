@@ -9,7 +9,7 @@ import { LocalBingoObject } from 'src/app/class/localBingoObect';
 
 export class LocalBingoListComponent {
 
-  bingoUserList: LocalBingoObject[] = []
+  localBingoList: LocalBingoObject[] = []
 
   constructor() { }
 
@@ -30,17 +30,16 @@ export class LocalBingoListComponent {
       } else {
         bingoObject.bingoData.displayName = bingoObject.bingoData.title
       }
-      this.bingoUserList.push(bingoObject)
+      this.localBingoList.push(bingoObject)
     })
 
   }
 
-  refreshList() {
+  deleteBingo(bingoObject: LocalBingoObject) {
 
-  }
+    this.localBingoList.splice(this.localBingoList.indexOf(bingoObject),1)
 
-  deleteBingo(uid: string) {
-
+    localStorage.setItem("bingos", `${JSON.stringify(this.localBingoList).toString()}`)
   }
 
 }

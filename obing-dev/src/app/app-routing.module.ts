@@ -43,7 +43,7 @@ const routes: Routes = [
     component:RandomBingoComponent
   },
   {
-    path:'bingoUserList',
+    path:'bingoList',
     component:BingoListComponent
   },
   {

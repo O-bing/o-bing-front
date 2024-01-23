@@ -20,14 +20,6 @@
             </ul>
             <app-bingo-line [Bingo]="Bingo" *ngIf="editMod"></app-bingo-line>
             <div class="actionButtons">
-                <div class="select is-small" *ngIf="editMod">
-                    <form [formGroup]="accessFormGroup">
-                        <select formControlName="accessFormControl" class="selectContent">
-                            <option value="0">Public</option>
-                            <option value="1">Private</option>
-                        </select>
-                    </form>
-                </div>
                 <button class="button is-info" *ngIf="!editMod" (click)="editBingo()">Edit</button>
                 <button class="button is-success" *ngIf="editMod" (click)="updateBingo()">Save</button>
                 <button class="button is-danger" (click)="deleteBingo(Bingo.uid)">Delete</button>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Bingo } from 'src/app/class/bingo';
 import { LocalBingoObject } from 'src/app/class/localBingoObect';
 
@@ -25,17 +25,13 @@ export class BingoLocalCardComponent {
   
   editMod: boolean = false
 
-  accessFormGroup!: FormGroup
-
   constructor(
     private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     
-    this.accessFormGroup = new FormGroup({
-      accessFormControl: new FormControl("0", Validators.required)
-    })
     this.route.paramMap.subscribe(params => {
       this.bingoId = params.get('bingoId')!;
     })
@@ -67,16 +63,35 @@ export class BingoLocalCardComponent {
   }
 
   updateBingo(): void {
+
+    const savedBingos: LocalBingoObject[] = JSON.parse(localStorage.getItem("bingos")!)
     
-  }
+    this.Bingo.content[this.Bingo.content.length - 1].pop()
+    if (this.Bingo.content[this.Bingo.content.length - 1].length == 0) {
+      this.Bingo.content.pop()
+    }
 
+    for (let index = 0; index < savedBingos.length; index++) {
+      if (savedBingos[index].bingoId==this.bingoId){
+        savedBingos[index].bingoBody = this.Bingo.content
+        break
+      }      
+    }
+    
+    localStorage.setItem("bingos", `${JSON.stringify(savedBingos).toString()}`)
 
-  localSave():void {
-    console.log("Set up actions to allow user to directly download the updated Bingo, store it in localstorage")
+    this.editMod = false
   }
 
   deleteBingo(uid:string):void{
-    console.log(uid)
+
+    const savedBingos: LocalBingoObject[] = JSON.parse(localStorage.getItem("bingos")!)
+
+    savedBingos.splice(savedBingos.indexOf(this.bingoObject),1)
+
+    localStorage.setItem("bingos", `${JSON.stringify(savedBingos).toString()}`)
+
+    this.router.navigate(['/localBingoList'])
   }
 
 }
