@@ -209,7 +209,6 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
     dialogName.afterClosed().subscribe(titleBingo => {
       const json = JSON.stringify(tiles);
       const ID = guid.uuidv4();
-      this.bingoFileService.uploadBingoFile(json, ID);
       const bingo: Bingo = {
         uid: ID,
         title: titleBingo,
@@ -220,32 +219,42 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
       if (this.online) {
         this.authService.getCurrentUser().subscribe(user => {
-          if (user) {
-            bingo.owner = user.uid
+          if (!user) {
+          this.bingoFileService.uploadBingoFile(json, ID);
+            bingo.owner = user!.uid
             bingo.content = json
             this.bingoService.createBingo(bingo, ID).then(() => {
               if (this.privateChecked){
-                this.bingoPrivateRefService.addBingoPrivateRef(ID, user.uid, this.privateChecked);
+                this.bingoPrivateRefService.addBingoPrivateRef(ID, user!.uid, this.privateChecked);
               }
               this.saved = true
             }
             )
             this.router.navigate(['/']);
-          } else {
-            this.localSave()
+          }
+          else {
+            this.notConnectedSave(bingo, ID, json)
           }
         })
       } else {
-        this.localSave()
+        this.notConnectedSave(bingo, ID, json)
 
       }
     }
     );
   }
 
-  localSave() {
+  notConnectedSave(bingoData:Bingo, bingoId:string, bingoBody:string) {
     const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent);
-    console.log("Set up actions to allow user to directly download the new Bingo, store it in localstorage")
+    let instance = dialogSave.componentInstance;
+    instance.BingoBody = bingoBody
+    instance.BingoData = bingoData
+    instance.BingoId = bingoId
+    dialogSave.afterClosed().subscribe((logged) => {
+      if(logged){
+        this.router.navigate(['/']);
+      }
+    })
   }
 
 }

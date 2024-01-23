@@ -38,10 +38,18 @@
                         Log in
                     </button>
                 </div>
-                <button *ngIf="currentUserConnected" routerLink="/bingoUserList" class="button bingoUserList large-button is-link">
+                <button *ngIf="currentUserConnected" routerLink="/bingoList" class="button bingoList large-button is-link">
                     My bingos
                 </button>
             </div>
+            
+        </div>
+
+        <div>
+            
+            <button routerLink="/localBingoList" class="button localBingos large-button is-link">
+                Local bingos
+            </button>
         </div>
 
     </div>

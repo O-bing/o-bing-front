@@ -18,8 +18,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CreateBingoComponent } from './components/create-bingo/create-bingo.component';
 import { LoadBingoComponent } from './components/load-bingo/load-bingo.component';
 import { RandomBingoComponent } from './components/random-bingo/random-bingo.component';
-import { BingoListComponent } from './components/create-bingo/bingo-list/bingo-list.component';
-import { BingoTileComponent } from './components/create-bingo/bingo-list/bingo-tile/bingo-tile.component';
+import { BingoLineComponent } from './components/create-bingo/bingo-line/bingo-line.component';
+import { BingoTileComponent } from './components/create-bingo/bingo-line/bingo-tile/bingo-tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
@@ -34,18 +34,21 @@ import { environment } from '../environments/environment';
 import { AuthService } from './@shared/services/auth/auth.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { OnlineStateService } from './@shared/services/online-state/online-state.service';
-import { BingoUserListComponent } from './components/bingo-user-list/bingo-user-list.component';
+import { BingoListComponent } from './components/bingo-list/bingo-list.component';
 import { BingoCardComponent } from './components/bingo-card/bingo-card.component';
 import { BingoPlayComponent } from './components/bingo-play/bingo-play.component';
 import { HeaderProfileComponent } from './components/header/header-end/header-profile/header-profile.component';
 import { BingoNotConnectedDialogComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoSaveLogInComponent } from './components/create-bingo/bingo-not-connected-dialog/bingo-save-log-in/bingo-save-log-in.component';
 import { HeaderConnectComponent } from './components/header/header-end/header-connect/header-connect.component';
-import { TileDisplayComponent } from './components/bingo-card/tile-display/tile-display.component';
+import { TileDisplayComponent } from './components/tile-display/tile-display.component';
 import { HeaderEndComponent } from './components/header/header-end/header-end.component';
 import { UserCardComponent } from './components/user-search/user-card/user-card.component';
 import { UserFriendsListComponent } from './components/user/user-friends-list/user-friends-list.component';
 import { FriendCardComponent } from './components/user/user-friends-list/friend-card/friend-card.component';
+import { LocalBingoListComponent } from './components/local-bingo-list/local-bingo-list.component';
+import { BingoLocalCardComponent } from './components/bingo-local-card/bingo-local-card.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,11 +65,11 @@ import { FriendCardComponent } from './components/user/user-friends-list/friend-
     CreateBingoComponent,
     LoadBingoComponent,
     RandomBingoComponent,
-    BingoListComponent,
+    BingoLineComponent,
     BingoTileComponent,
     BingoTitleDialogComponent,
     ForgotPasswordComponent,
-    BingoUserListComponent,
+    BingoListComponent,
     BingoCardComponent,
     BingoPlayComponent,
     HeaderProfileComponent,
@@ -77,7 +80,9 @@ import { FriendCardComponent } from './components/user/user-friends-list/friend-
     HeaderEndComponent,
     UserCardComponent,
     UserFriendsListComponent,
-    FriendCardComponent
+    FriendCardComponent,
+    LocalBingoListComponent,
+    BingoLocalCardComponent
   ],
   imports: [
     BrowserModule,

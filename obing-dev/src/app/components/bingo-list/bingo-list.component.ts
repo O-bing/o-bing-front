@@ -10,11 +10,11 @@ import { User } from 'src/app/class/user';
 
 @Component({
   selector: 'app-bingo-user',
-  templateUrl: './bingo-user-list.component.html',
-  styleUrls: ['./bingo-user-list.component.scss'],
+  templateUrl: './bingo-list.component.html',
+  styleUrls: ['./bingo-list.component.scss'],
   standalone: false
 })
-export class BingoUserListComponent implements OnInit {
+export class BingoListComponent implements OnInit {
 
   currentUser: User = {uid:''};
 

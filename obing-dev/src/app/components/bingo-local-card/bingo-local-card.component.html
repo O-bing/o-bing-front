@@ -1,9 +1,6 @@
 <div class="body" id="bodyCard">
-    <div class="spinner" *ngIf="loading">
-        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
-    </div>
 
-    <div class="hasAccess" *ngIf="Bingo.uid != '' && !loading">
+    <div class="hasAccess" *ngIf="Bingo.uid != ''">
         <p>{{Bingo.uid}}</p>
 
         <p>{{Bingo.owner}}</p>
@@ -13,7 +10,7 @@
         <p>Will allow to display a playable bingo overview for bingo</p>
         <div class="bingo" id="bingo">
             <ul class="lineList" *ngIf="!editMod">
-                <li *ngFor="let line of Bingo.content">
+                <li *ngFor="let line of bingoObject.bingoBody">
                     <ul>
                         <li class="line">
                             <app-tile-display *ngFor="let tile of line" [Tile]="tile"></app-tile-display>
@@ -22,32 +19,12 @@
                 </li>
             </ul>
             <app-bingo-line [Bingo]="Bingo" *ngIf="editMod"></app-bingo-line>
-            <div class="actionButtons" *ngIf="canEdit">
-                <div class="select is-small" *ngIf="editMod">
-                    <form [formGroup]="accessFormGroup">
-                        <select formControlName="accessFormControl" class="selectContent">
-                            <option value="0">Public</option>
-                            <option value="1">Private</option>
-                        </select>
-                    </form>
-                </div>
+            <div class="actionButtons">
                 <button class="button is-info" *ngIf="!editMod" (click)="editBingo()">Edit</button>
                 <button class="button is-success" *ngIf="editMod" (click)="updateBingo()">Save</button>
                 <button class="button is-danger" (click)="deleteBingo(Bingo.uid)">Delete</button>
             </div>
         </div>
     </div>
-    <div class="noAccess" *ngIf="Bingo.uid == '' && !loading">
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <p>This bingo is private</p>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-    </div>
-
-
+    
 </div>

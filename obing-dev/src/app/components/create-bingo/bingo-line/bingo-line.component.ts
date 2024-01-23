@@ -3,11 +3,11 @@ import { Bingo } from 'src/app/class/bingo';
 import { Tile } from 'src/app/types/Tile';
 
 @Component({
-  selector: 'app-bingo-list',
-  templateUrl: './bingo-list.component.html',
-  styleUrls: ['./bingo-list.component.scss']
+  selector: 'app-bingo-line',
+  templateUrl: './bingo-line.component.html',
+  styleUrls: ['./bingo-line.component.scss']
 })
-export class BingoListComponent implements OnInit {
+export class BingoLineComponent implements OnInit {
 
   tile: Tile = new Tile(-1);
 
