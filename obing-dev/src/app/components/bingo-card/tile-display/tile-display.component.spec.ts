@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TileDisplayComponent } from './tile-display.component';
 import { Tile } from 'src/app/types/Tile';
 
-fdescribe('TileDisplayComponent', () => {
+describe('TileDisplayComponent', () => {
   let component: TileDisplayComponent;
   let fixture: ComponentFixture<TileDisplayComponent>;
 
