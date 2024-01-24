@@ -114,5 +114,11 @@ export class UserService {
     })
   }
 
+  updateUserBingoList(userId: string, bingoList: string[]){
+    return this.userCollection.doc<User>(userId).update({
+      listBingo:bingoList
+    })
+  }
+
 
 }

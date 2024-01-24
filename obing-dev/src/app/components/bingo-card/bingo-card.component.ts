@@ -8,6 +8,8 @@ import { BingoNotConnectedDialogComponent } from '../create-bingo/bingo-not-conn
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
+import { User } from 'src/app/class/user';
 
 @Component({
   selector: 'app-bingo-card',
@@ -41,6 +43,7 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
     private bingoFileService: BingoFileService,
     private bingoPrivateRefService: BingoPrivateRefService,
     private authService: AuthService,
+    private userService:UserService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router
@@ -149,10 +152,17 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
       if (bingo) {
         this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
           this.bingoService.deleteBingo(uid).then(() => {
+            this.userService.getUser(bingo.owner!).subscribe(userData=>{
+              if(userData && userData.listBingo)
+              {
+                userData.listBingo.splice(userData.listBingo.indexOf(bingo!.uid),1)
+                this.userService.updateUserBingoList(bingo.owner!, userData.listBingo)
+              }
+            })
             this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
               this.bingoFileService.deleteBingoFile(url)
             })
-            this.router.navigate(['/bingoUserList'])
+            this.router.navigate(['/bingoList'])
           })
         })
       }

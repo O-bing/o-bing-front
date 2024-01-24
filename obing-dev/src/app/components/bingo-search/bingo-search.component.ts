@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
 
 @Component({
   selector: 'app-bingo-search',
@@ -15,6 +16,7 @@ export class BingoSearchComponent implements OnInit {
   constructor(
     private onlineStateSvc: OnlineStateService,
     private authService: AuthService,
+    private userService: UserService,
     private bingoService : BingoService
     ) { }
 
@@ -23,11 +25,19 @@ export class BingoSearchComponent implements OnInit {
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       if (this.online){
-        this.authService.getCurrentUser().subscribe(user=>{
-          if(user){
-            this.bingoService.getUserBingos(user.uid)
-          }
+        this.bingoService.getAllBingos().subscribe(bingos=>{
+          
         })
+        /*this.authService.getCurrentUser().subscribe(user=>{
+          if(user){
+            this.userService.getUser(user.uid).subscribe(userData=>{
+              if(userData && userData.listBingo)
+              userData.listBingo.forEach(bingo=>{
+                this.bingoService.get
+              })
+            })
+          }
+        })*/
       }
     })
   }

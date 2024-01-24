@@ -26,6 +26,10 @@ export class BingoListComponent implements OnInit {
 
   online: boolean = false
 
+  connected:boolean = false
+
+  currentUserData: User = {uid:''}
+
   constructor(
     private bingoService: BingoService,
     private bingoPrivateRefService: BingoPrivateRefService,
@@ -42,6 +46,16 @@ export class BingoListComponent implements OnInit {
       this.online = state
       if(this.online){
         this.refreshList()
+        this.authService.getCurrentUser().subscribe(user => {
+          if (user) {
+            this.connected = true
+            this.userService.getUser(user.uid).subscribe(currentUserData=>{
+              if(currentUserData){
+                this.currentUser = currentUserData
+              }
+            })
+          }
+        })
       } else{
         this.loading = false
       }
@@ -81,13 +95,17 @@ export class BingoListComponent implements OnInit {
     this.bingoService.getBingo(uid).subscribe(bingo => {
       if (bingo) {
         this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
-          this.bingoService.deleteBingo(uid).then(() => {
-            this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
-              const deleteUlrl = url
-              this.bingoFileService.deleteBingoFile(deleteUlrl)
+          if(this.currentUserData.listBingo){
+            this.currentUserData.listBingo.splice(this.currentUserData.listBingo.indexOf(bingo!.uid),1)
+            this.userService.updateUserBingoList(bingo.owner!, this.currentUserData.listBingo).then(()=>{
+              this.bingoService.deleteBingo(uid).then(() => {
+                this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
+                  this.bingoFileService.deleteBingoFile(url)
+                })
+                this.refreshList()
+              })
             })
-            this.refreshList()
-          })
+          }
         })
       }
     })

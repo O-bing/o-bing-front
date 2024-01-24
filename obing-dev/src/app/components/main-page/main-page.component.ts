@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
+import { BingoService } from 'src/app/@shared/services/bingo/bingo.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private bingoService: BingoService,
     private onlineStateSvc: OnlineStateService
   ) { }
 
@@ -31,6 +33,7 @@ export class MainPageComponent implements OnInit {
         this.authService.getCurrentUser().subscribe(user => {
           if (user) {
             this.currentUserConnected = true
+            //this.bingoService.syncBingos(user.uid, [''])
           }
           this.loading = false
         })

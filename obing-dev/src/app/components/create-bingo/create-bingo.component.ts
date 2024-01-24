@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { BingoNotConnectedDialogComponent } from './bingo-not-connected-dialog/bingo-not-connected-dialog.component';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
+import { UserService } from 'src/app/@shared/services/user/user.service';
+import { User } from 'src/app/class/user';
 @Component({
   selector: 'app-create-bingo',
   templateUrl: './create-bingo.component.html',
@@ -38,12 +40,15 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   online: boolean = false
 
+  currentUser : User = {uid:''}
+
   constructor(
     private dialog: MatDialog,
     private bingoPrivateRefService: BingoPrivateRefService,
     private bingoFileService: BingoFileService,
     private bingoService: BingoService,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private onlineStateSvc: OnlineStateService
   ) { }
@@ -54,6 +59,11 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.connected = true
+          this.userService.getUser(user.uid).subscribe(currentUserData=>{
+            if(currentUserData){
+              this.currentUser = currentUserData
+            }
+          })
         }
       })
     })
@@ -225,6 +235,11 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
             bingo.owner = user.uid
             bingo.content = json
             this.bingoService.createBingo(bingo, ID).then(() => {
+              if(!this.currentUser.listBingo){
+                this.currentUser.listBingo = []
+              }
+              this.currentUser.listBingo.push(bingo.uid)
+              this.userService.updateUserBingoList(bingo.owner!, this.currentUser.listBingo)
               if (this.privateChecked){
                 this.bingoPrivateRefService.addBingoPrivateRef(ID, user!.uid, this.privateChecked);
               }

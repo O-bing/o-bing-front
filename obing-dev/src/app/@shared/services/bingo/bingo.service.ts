@@ -4,6 +4,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Bingo } from 'src/app/class/bingo';
 import { Observable } from 'rxjs';
 import { LocalBingoObject } from 'src/app/class/localBingoObect';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,22 +43,17 @@ export class BingoService {
     return this.bingoCollection.valueChanges()
   }
 
-  getUserBingos(userId:string):any{
+  syncBingos(userId:string, userListBingo: string[]):any{
+    const localBingos: LocalBingoObject[] = JSON.parse(localStorage.getItem("bingos")!)
 
-    // TODO : Implements for user card to display it's bingos (instead of foreach with a break)
+    console.log(userId)
 
-    return this.bingoCollection.ref.get()
+    console.log(userListBingo)
+
+    console.log(localBingos)
+
+    return;
+  }
 
   }
 
-  syncBingos(userId:string):any{
-
-    // TODO : call getUserBingos and check with local ones to compare the updateDate field to check if sync is needed
-
-    const savedBingos: LocalBingoObject[] = JSON.parse(localStorage.getItem("bingos")!)
-
-    //this.getUserBingos
-
-  }
-
-}
