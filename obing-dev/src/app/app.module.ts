@@ -46,8 +46,8 @@ import { HeaderEndComponent } from './components/header/header-end/header-end.co
 import { UserCardComponent } from './components/user-search/user-card/user-card.component';
 import { UserFriendsListComponent } from './components/user/user-friends-list/user-friends-list.component';
 import { FriendCardComponent } from './components/user/user-friends-list/friend-card/friend-card.component';
-import { LocalBingoListComponent } from './components/local-bingo-list/local-bingo-list.component';
 import { BingoLocalCardComponent } from './components/bingo-local-card/bingo-local-card.component';
+import { SyncComponent } from './components/sync/sync.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,6 @@ import { BingoLocalCardComponent } from './components/bingo-local-card/bingo-loc
     BingoTileComponent,
     BingoTitleDialogComponent,
     ForgotPasswordComponent,
-    BingoListComponent,
     BingoCardComponent,
     BingoPlayComponent,
     HeaderProfileComponent,
@@ -81,10 +80,11 @@ import { BingoLocalCardComponent } from './components/bingo-local-card/bingo-loc
     UserCardComponent,
     UserFriendsListComponent,
     FriendCardComponent,
-    LocalBingoListComponent,
     BingoLocalCardComponent
   ],
   imports: [
+    BingoListComponent,
+    SyncComponent,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

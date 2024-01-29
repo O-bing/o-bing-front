@@ -43,17 +43,5 @@ export class BingoService {
     return this.bingoCollection.valueChanges()
   }
 
-  syncBingos(userId:string, userListBingo: string[]):any{
-    const localBingos: LocalBingoObject[] = JSON.parse(localStorage.getItem("bingos")!)
-
-    console.log(userId)
-
-    console.log(userListBingo)
-
-    console.log(localBingos)
-
-    return;
-  }
-
   }
 

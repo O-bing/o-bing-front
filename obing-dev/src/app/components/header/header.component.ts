@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { AppService } from 'src/app/@shared/services/app/app.service';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { OnlineStateService } from 'src/app/@shared/services/online-state/online-state.service';
 import { UserService } from 'src/app/@shared/services/user/user.service';

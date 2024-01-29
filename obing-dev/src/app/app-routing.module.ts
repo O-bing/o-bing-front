@@ -14,8 +14,8 @@ import { RandomBingoComponent } from './components/random-bingo/random-bingo.com
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
 import { BingoListComponent } from './components/bingo-list/bingo-list.component';
 import { BingoCardComponent } from './components/bingo-card/bingo-card.component';
-import { LocalBingoListComponent } from './components/local-bingo-list/local-bingo-list.component';
 import { BingoLocalCardComponent } from './components/bingo-local-card/bingo-local-card.component';
+import { SyncComponent } from './components/sync/sync.component';
 
 const routes: Routes = [
   {
@@ -47,16 +47,16 @@ const routes: Routes = [
     component:BingoListComponent
   },
   {
-    path:'localBingoList',
-    component:LocalBingoListComponent
-  },
-  {
     path:'bingoCard/:bingoId',
     component:BingoCardComponent
   },
   {
     path:'bingoLocalCard/:bingoId',
     component:BingoLocalCardComponent
+  },
+  {
+    path:'sync',
+    component:SyncComponent
   },
   {
     path:'user/:userId',

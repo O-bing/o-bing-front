@@ -12,6 +12,11 @@
 
     .element{
         display: inline-block;
+        
+        .connectionButtons{
+            margin-right: 20px;
+            margin-left: 18px;
+        }
     }
 
     .button{
@@ -38,10 +43,6 @@
         font-weight: bold;
         margin: 7px;
         margin-top: 40px;
-    }
-
-    .localBingos{
-        background-color: #c68e28;
     }
 
 }

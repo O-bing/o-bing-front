@@ -26,15 +26,9 @@
             </button>
             
             <div class="element">
-                <div style="margin-right: 20px; margin-left: 18px;">
-                    <button *ngIf="!currentUserConnected" routerLink="/signUp" class="small button signUp is-info">
-                        Sign up
-                    </button>
-
-                    <button *ngIf="!currentUserConnected" routerLink="/logIn" class="small small-button button logIn is-primary"> 
-                        Log in
-                    </button>
-                </div>
+                <button *ngIf="!currentUserConnected" routerLink="/bingoList" class="button bingoList large-button is-link">
+                    Bingos
+                </button>
                 <button *ngIf="currentUserConnected" routerLink="/bingoList" class="button bingoList large-button is-link">
                     My bingos
                 </button>
@@ -42,11 +36,18 @@
             
         </div>
 
-        <div>
+        <div *ngIf="!currentUserConnected">
             
-            <button routerLink="/localBingoList" class="button localBingos large-button is-link">
-                Local bingos
-            </button>
+            <div class="connectionButtons" *ngIf="!currentUserConnected">
+                <button routerLink="/signUp" class="small button signUp is-info">
+                    Sign up
+                </button>
+
+                <button routerLink="/logIn" class="small small-button button logIn is-primary"> 
+                    Log in
+                </button>
+            </div>
+            
         </div>
 
     </div>

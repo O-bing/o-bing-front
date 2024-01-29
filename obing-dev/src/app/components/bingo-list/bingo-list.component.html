@@ -5,17 +5,31 @@
         <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
     </div>
     <ul class="bingoList" *ngIf="!loading">
-        <li *ngFor="let bingo of bingoUserList">
-            <button title="{{bingo.title}}" [routerLink]="['/bingoCard', bingo.uid]" class="bingoButton button">
-                <p class="bingoName">{{bingo.displayName}}</p>
+        <li *ngFor="let bingoObject of bingoList">
+
+            
+            <button title="{{bingoObject.bingoData.title}}" *ngIf="bingoObject.local" [routerLink]="['/bingoLocalCard', bingoObject.bingoData.uid]" class="bingoButton button">
+                <p class="bingoName">{{bingoObject.bingoData.displayName}}</p>
+                <mat-icon title="Bingo is only available in local" class="cloudIcon" fontIcon="computer"></mat-icon>
             </button>
-            <button class="deleteButton button" (click)="deleteBingo(bingo.uid)">
-                <img class="trashImg" src="assets/icons/icon-trash.png" title="Your email is verified !">
+            
+            <button title="{{bingoObject.bingoData.title}}" *ngIf="online && !bingoObject.local" [routerLink]="['/bingoCard', bingoObject.bingoData.uid]" class="bingoButton button">
+                <p class="bingoName">{{bingoObject.bingoData.displayName}}</p>
+                <mat-icon title="Bingo is only available in the cloud"class="cloudIcon" fontIcon="cloud_queue"></mat-icon>
+            </button>
+
+
+            <button class="deleteButton button" *ngIf="online && !bingoObject.local" (click)="deleteBingo(bingoObject.bingoData.uid)">
+                <img class="trashImg" src="assets/icons/icon-trash.png" title="Delete bingo">
+            </button>
+
+            <button class="deleteButton button" *ngIf="bingoObject.local" (click)="deleteLocalBingo(bingoObject)">
+                <img class="trashImg" src="assets/icons/icon-trash.png" title="Delete bingo">
             </button>
         </li>
     </ul>
     
-    <div class="title" *ngIf="bingoUserList.length == 0 && !this.loading">
+    <div class="title" *ngIf="bingoList.length == 0 && !this.loading">
         <h2>You haven't created any Bingo yet.</h2>
         <button routerLink="/newBingo" class="button is-success">
             Create one !

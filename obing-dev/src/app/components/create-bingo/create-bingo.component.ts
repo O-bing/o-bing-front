@@ -40,7 +40,7 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
 
   online: boolean = false
 
-  currentUser : User = {uid:''}
+  currentUser: User = { uid: '' }
 
   constructor(
     private dialog: MatDialog,
@@ -59,8 +59,8 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.connected = true
-          this.userService.getUser(user.uid).subscribe(currentUserData=>{
-            if(currentUserData){
+          this.userService.getUser(user.uid).subscribe(currentUserData => {
+            if (currentUserData) {
               this.currentUser = currentUserData
             }
           })
@@ -217,57 +217,59 @@ export class CreateBingoComponent implements OnInit, AfterViewChecked {
     const dialogName = this.dialog.open(BingoTitleDialogComponent);
 
     dialogName.afterClosed().subscribe(titleBingo => {
-      const json = JSON.stringify(tiles);
-      const ID = guid.uuidv4();
-      const bingo: Bingo = {
-        uid: ID,
-        title: titleBingo,
-        owner: "",
-        creationDate: Date.now(),
-        updateDate: Date.now(),
-        numberPlayed: 0
-      }
+      if (titleBingo) {
+        const json = JSON.stringify(tiles);
+        const ID = guid.uuidv4();
+        const bingo: Bingo = {
+          uid: ID,
+          title: titleBingo,
+          owner: "",
+          creationDate: Date.now(),
+          updateDate: Date.now(),
+          numberPlayed: 0
+        }
 
-      if (this.online) {
-        this.authService.getCurrentUser().subscribe(user => {
-          if (user) {
-          this.bingoFileService.uploadBingoFile(json, ID);
-            bingo.owner = user.uid
-            bingo.content = json
-            this.bingoService.createBingo(bingo, ID).then(() => {
-              if(!this.currentUser.listBingo){
-                this.currentUser.listBingo = []
+        if (titleBingo && this.online) {
+          this.authService.getCurrentUser().subscribe(user => {
+            if (user) {
+              this.bingoFileService.uploadBingoFile(json, ID);
+              bingo.owner = user.uid
+              bingo.content = json
+              this.bingoService.createBingo(bingo, ID).then(() => {
+                if (!this.currentUser.listBingo) {
+                  this.currentUser.listBingo = []
+                }
+                this.currentUser.listBingo.push(bingo.uid)
+                this.userService.updateUserBingoList(bingo.owner!, this.currentUser.listBingo)
+                if (this.privateChecked) {
+                  this.bingoPrivateRefService.addBingoPrivateRef(ID, user!.uid, this.privateChecked);
+                }
+                this.saved = true
               }
-              this.currentUser.listBingo.push(bingo.uid)
-              this.userService.updateUserBingoList(bingo.owner!, this.currentUser.listBingo)
-              if (this.privateChecked){
-                this.bingoPrivateRefService.addBingoPrivateRef(ID, user!.uid, this.privateChecked);
-              }
-              this.saved = true
+              )
+              this.router.navigate(['/']);
             }
-            )
-            this.router.navigate(['/']);
-          }
-          else {
-            this.notConnectedSave(bingo, ID, json)
-          }
-        })
-      } else {
-        this.notConnectedSave(bingo, ID, json)
+            else {
+              this.notConnectedSave(bingo, ID, json)
+            }
+          })
+        } else {
+          this.notConnectedSave(bingo, ID, json)
 
+        }
       }
     }
     );
   }
 
-  notConnectedSave(bingoData:Bingo, bingoId:string, bingoBody:string) {
+  notConnectedSave(bingoData: Bingo, bingoId: string, bingoBody: string) {
     const dialogSave = this.dialog.open(BingoNotConnectedDialogComponent);
     let instance = dialogSave.componentInstance;
     instance.BingoBody = bingoBody
     instance.BingoData = bingoData
     instance.BingoId = bingoId
     dialogSave.afterClosed().subscribe((logged) => {
-      if(logged){
+      if (logged) {
         this.router.navigate(['/']);
       }
     })

@@ -1,0 +1,17 @@
+<div class="content">
+
+    <div class="spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate" diameter="400"></mat-progress-spinner>
+    </div>
+
+    <div *ngIf="!loading">
+        
+    </div>
+
+    <!--
+    <div *ngIf="!loading" class="syncDiv" (mouseenter)="mouseAction('enter')" (mouseleave)="mouseAction('leave')">
+         <img #syncImg class="syncImg" (click)="this.syncBingos()" src="assets/buttons/sync.png">
+     </div>
+    -->
+
+ </div>

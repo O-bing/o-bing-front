@@ -4,5 +4,6 @@ import { Bingo } from "./bingo";
 export interface LocalBingoObject {
     bingoId: string,
     bingoData: Bingo,
-    bingoBody: Array<Array<Tile>>
+    bingoBody: Array<Array<Tile>>,
+    local: boolean
   }
