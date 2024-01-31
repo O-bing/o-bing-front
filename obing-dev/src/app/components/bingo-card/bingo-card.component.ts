@@ -75,8 +75,6 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
                       this.Bingo.content = JSON.parse(this.Bingo.content)
                       this.loading = false
                     }
-                  } else {
-                    this.router.navigate(['**'])
                   }
                 })
               } else {  // private and user isn't the owner

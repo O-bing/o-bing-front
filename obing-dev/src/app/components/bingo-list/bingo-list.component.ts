@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/@shared/services/auth/auth.service';
 import { BingoFileService } from 'src/app/@shared/services/bingo-file/bingo-file.service';
 import { BingoPrivateRefService } from 'src/app/@shared/services/bingo/bingo-private-ref/bingo-private-ref.service';
@@ -40,6 +41,10 @@ export class BingoListComponent implements OnInit {
 
   connected: boolean = false
 
+  currentUserSubscribtion!: Subscription
+
+  currentUserDataSubscribtion!: Subscription
+
   constructor(
     private bingoService: BingoService,
     private bingoPrivateRefService: BingoPrivateRefService,
@@ -56,10 +61,10 @@ export class BingoListComponent implements OnInit {
       this.online = state
       if (this.online) {
         this.refreshList()
-        this.authService.getCurrentUser().subscribe(user => {
+        this.currentUserSubscribtion = this.authService.getCurrentUser().subscribe(user => {
           if (user) {
             this.connected = true
-            this.userService.getUser(user.uid).subscribe(currentUserData => {
+            this.currentUserDataSubscribtion = this.userService.getUser(user.uid).subscribe(currentUserData => {
               if (currentUserData) {
                 this.currentUser = currentUserData
               }
@@ -73,7 +78,14 @@ export class BingoListComponent implements OnInit {
   }
 
   refreshList() {
+
     this.loading = true
+
+    if(this.currentUserSubscribtion && this.currentUserDataSubscribtion){
+      this.currentUserSubscribtion.unsubscribe()
+      this.currentUserDataSubscribtion.unsubscribe()
+    }
+
     if (!localStorage.getItem("bingos")) {
 
       localStorage.setItem("bingos", '[]')
@@ -83,7 +95,6 @@ export class BingoListComponent implements OnInit {
     const savedBingos: LocalBingoObject[] = JSON.parse(localStorage.getItem("bingos")!)
 
     this.localBingoList = []
-    console.log(this.localBingoList)
     savedBingos.forEach(bingoObject => {
       if (bingoObject) {
         if (bingoObject.bingoData.title!.length > 15) {
@@ -150,24 +161,22 @@ export class BingoListComponent implements OnInit {
   }
 
   deleteBingo(uid: string) {
+    
     this.loading = true
     this.bingoService.getBingo(uid).subscribe(bingo => {
       if (bingo) {
-        this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid).then(() => {
-          console.log("bp1", this.currentUser.listBingo)
-          if (this.currentUser.listBingo) {
-            console.log("bp2")
-            this.currentUser.listBingo.splice(this.currentUser.listBingo.indexOf(bingo!.uid), 1)
-            this.userService.updateUserBingoList(bingo.owner!, this.currentUser.listBingo).then(() => {
-              this.bingoService.deleteBingo(uid).then(() => {
-                this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url => {
-                  this.bingoFileService.deleteBingoFile(url)
-                })
-                this.refreshList()
-              })
-            })
-          }
-        })
+        this.bingoPrivateRefService.deleteBingoPrivateRef(bingo.uid)
+        if (this.currentUser.listBingo) {
+          this.currentUser.listBingo.splice(this.currentUser.listBingo.indexOf(bingo!.uid), 1)
+          this.userService.updateUserBingoList(bingo.owner!, this.currentUser.listBingo)
+          this.bingoService.deleteBingo(uid)
+          this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url => {
+            if(url){
+              this.bingoFileService.deleteBingoFile(url).subscribe()
+            }
+          })
+        }
+
       }
     })
   }
