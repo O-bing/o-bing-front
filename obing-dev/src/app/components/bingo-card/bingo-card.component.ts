@@ -158,7 +158,7 @@ export class BingoCardComponent implements OnInit, AfterViewChecked {
               }
             })
             this.bingoFileService.getBingoFileUrl(bingo.uid).subscribe(url=>{
-              this.bingoFileService.deleteBingoFile(url)
+              this.bingoFileService.deleteBingoFile(url).subscribe()
             })
             this.router.navigate(['/bingoList'])
           })

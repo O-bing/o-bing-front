@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
@@ -25,7 +25,8 @@ import { User } from 'src/app/class/user';
     RouterLink
   ]
 })
-export class BingoListComponent implements OnInit {
+
+export class BingoListComponent implements OnInit, OnDestroy {
 
   currentUser: User = { uid: '' };
 
@@ -52,8 +53,7 @@ export class BingoListComponent implements OnInit {
     private userService: UserService,
     private onlineStateSvc: OnlineStateService,
     private bingoFileService: BingoFileService
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     // TODO : check if online, check local storage if not
@@ -180,5 +180,12 @@ export class BingoListComponent implements OnInit {
       }
     })
   }
+
+  
+  ngOnDestroy(): void {
+    this.currentUserSubscribtion.unsubscribe()
+    this.currentUserDataSubscribtion.unsubscribe()
+  }
+
 
 }

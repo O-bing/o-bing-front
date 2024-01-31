@@ -28,6 +28,8 @@ export class HeaderProfileComponent implements OnInit {
 
   online: boolean = false
 
+  currentUser!: firebase.default.User
+
   constructor(
     private authService: AuthService,
     public userService: UserService,
@@ -40,17 +42,19 @@ export class HeaderProfileComponent implements OnInit {
     this.onlineStateSvc.checkNetworkStatus().then(state => {
       this.online = state
       if (this.online) {
-        this.authService.getCurrentUser().subscribe(result => {
-          this.userProfile.emailVerified = result?.emailVerified
-          this.loading = false
-          this.shown = true
+        this.authService.getCurrentUser().subscribe(user => {
+          if(user){
+            this.currentUser=user
+            this.userProfile.emailVerified = this.currentUser.emailVerified
+            this.loading = false
+            this.shown = true
+          }
         })
       } else {
         this.loading = false
       }
     })
   }
-
 
   @HostListener('document:click', ['$event.target'])
   clickInOut(target: any) {
